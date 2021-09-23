@@ -1,0 +1,27 @@
+﻿<Window x:Class="Week02.Screen02"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Week02"
+        mc:Ignorable="d"
+        Title="Screen02" Height="200" Width="600">
+    <Grid Background="LightCyan">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Text 001" FontSize="20" TextAlignment="Center" Background="LightGreen" Grid.Row="0" Grid.Column="0" Margin="5, 5, 5, 5"/>
+        <TextBlock Text="Text 002" FontSize="20" TextAlignment="Center" Background="LightCoral" Grid.Row="0" Grid.Column="1" Margin="5, 5, 5, 5"/>
+        <TextBlock Text="Text 003" FontSize="20" TextAlignment="Center" Background="LightYellow" Grid.Row="0" Grid.Column="2" Margin="5, 5, 5, 5"/>
+        <TextBlock Text="Text 004" FontSize="20" TextAlignment="Center" Background="LightSeaGreen" Grid.Row="1" Grid.Column="0" Margin="5, 5, 5, 5"/>
+        <TextBlock Text="Text 005 (this is a very long text section)" FontSize="18" 
+                   TextAlignment="Center" Background="Orange" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5, 5, 5, 5"/>
+
+    </Grid>
+</Window>

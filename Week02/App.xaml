@@ -1,0 +1,9 @@
+﻿<Application x:Class="Week02.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Week02"
+             StartupUri="Screen01.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

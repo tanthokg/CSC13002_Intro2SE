@@ -1,0 +1,26 @@
+﻿<Window x:Class="Week02.Screen01"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Week02"
+        mc:Ignorable="d"
+        Title="Screen01" Height="400" Width="800">
+    <StackPanel Background="AliceBlue" Orientation="Horizontal">
+        <TextBlock Text="Text 01" FontSize="24" TextAlignment="Center" Width="100" Background="Red" Margin="10, 10, 10, 10"/>
+        <TextBlock Text="Text 02" FontSize="24" TextAlignment="Center" Width="100" Background="Blue" Margin="10, 10, 10, 10"/>
+        <TextBlock Text="Text 03" FontSize="24" TextAlignment="Center" Width="100" Background="Yellow" Margin="10, 10, 10, 10"/>
+        <StackPanel>
+            <TextBlock Text="Text 04" FontSize="24" Height="80"  Background="Green" Margin="10, 10, 10, 5"/>
+            <TextBlock Text="Text 05" FontSize="24" Height="80" Background="LightPink" Margin="10, 5, 10, 5"/>
+            <TextBlock Text="Text 06" FontSize="24" Height="80" Background="MediumPurple" Margin="10, 5, 10, 10"/>
+        </StackPanel>
+        <DockPanel LastChildFill="True" Margin="10, 10, 10, 10" Width="300">
+            <TextBlock Text="Text 07" TextAlignment="Center" FontSize="24" Height="80" Background="Cyan" DockPanel.Dock="Top"/>
+            <TextBlock Text="Text 08" TextAlignment="Center" FontSize="24" Width="100" Background="LightBlue" DockPanel.Dock="Left"/>
+            <TextBlock Text="Text 09" TextAlignment="Center" FontSize="24" Height="80" Background="Coral" DockPanel.Dock="Bottom"/>
+            <TextBlock Text="Text 10" FontSize="24" Background="LightYellow" DockPanel.Dock="Right"/>
+            <TextBlock Text="Text 11" TextAlignment="Center" FontSize="24" Background="MediumPurple"/>
+        </DockPanel>
+    </StackPanel>
+</Window>
