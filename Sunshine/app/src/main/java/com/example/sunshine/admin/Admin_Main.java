@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sunshine.R;
 import com.example.sunshine.user.fragment_home;
-import com.example.sunshine.user.fragment_library;
 import com.example.sunshine.user.fragment_settings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,8 +27,11 @@ public class Admin_Main extends AppCompatActivity {
         nav.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             switch (item.getItemId()) {
-                case R.id.home_admin:
-                    fragment = new fragment_home();
+                case R.id.permission:
+                    fragment = new fragment_permission();
+                    break;
+                case R.id.report:
+                    fragment = new fragment_report();
                     break;
                 case R.id.settings_admin:
                     fragment = new fragment_settings();
@@ -46,6 +48,6 @@ public class Admin_Main extends AppCompatActivity {
             return true;
         });
 
-        nav.setSelectedItemId(R.id.home_admin);
+        nav.setSelectedItemId(R.id.permission);
     }
 }

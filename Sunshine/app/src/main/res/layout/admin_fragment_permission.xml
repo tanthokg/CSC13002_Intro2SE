@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragment_home_admin"
+        android:id="@+id/fragment_permission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Admin Home"
+        android:text="Admin Permission"
         android:textSize="20dp"
         android:layout_gravity="center"
         />
