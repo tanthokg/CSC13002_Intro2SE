@@ -17,17 +17,18 @@ import android.widget.Toast;
 
 import com.example.sunshine.admin.Admin_Main;
 import com.example.sunshine.user.User_Main;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-    TextView forgetPassword;
-    TextView signUp;
-    EditText userName;
-    EditText password;
+    TextView forgetPassword, signUp;
+    EditText userName, password;
     Button logIn;
-    String adminName = "admin";
-    String adminPassword = "sunshine123";
-    String user = " ";
-    String pass = " ";
+    String adminName = "admin", adminPassword = "sunshine123";
 
     String forgetPasswordText = "Forgot password";
     SpannableString forgetPasswordSpan;
@@ -37,37 +38,47 @@ public class MainActivity extends AppCompatActivity {
     SpannableString signUpSpan;
     ClickableSpan clickableSignUp;
 
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        auth = FirebaseAuth.getInstance();
+
         logIn = (Button) findViewById(R.id.loginButton);
         userName = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.password);
-        Intent intent = getIntent();
-        user = intent.getStringExtra("username");
-        pass = intent.getStringExtra("password");
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userName.getText().length() != 0 && password.getText().length() != 0)
+                String username = userName.getText().toString();
+                String pass = password.getText().toString();
+                if(username.length() != 0 && pass.length() != 0)
                 {
-                    if (userName.getText().toString().equals(adminName) && password.getText().toString().equals(adminPassword)) {
-                        Toast.makeText(MainActivity.this, "Success Log In", Toast.LENGTH_SHORT).show();
-                        adminLogIn();
-                    } else if(userName.getText().toString().equals(user) && password.getText().toString().equals(pass)) {
-                        Toast.makeText(MainActivity.this, "Success Log In", Toast.LENGTH_SHORT).show();
-                        userLogIn();
-                    }
-                    else
-                        Toast.makeText(MainActivity.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
+                    auth.signInWithEmailAndPassword(username + "@gmail.com", pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        if (username.equals(adminName))
+                                            adminLogIn();
+                                        else
+                                            userLogIn();
+                                    }
+                                    else {
+                                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                            });
+
                 }
-                else if (userName.getText().length() == 0)
+                else if (username.length() == 0)
                     Toast.makeText(MainActivity.this, "Please write your username", Toast.LENGTH_SHORT).show();
-                else if (password.getText().length() == 0)
+                else if (pass.length() == 0)
                     Toast.makeText(MainActivity.this, "Please write your password", Toast.LENGTH_SHORT).show();
             }
         });
@@ -106,6 +117,18 @@ public class MainActivity extends AppCompatActivity {
 
         signUp.setText(signUpSpan);
         signUp.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            if (user.getEmail().equals("admin@gmail.com"))
+                adminLogIn();
+            else
+                userLogIn();
+        }
     }
 
     public void signUp()

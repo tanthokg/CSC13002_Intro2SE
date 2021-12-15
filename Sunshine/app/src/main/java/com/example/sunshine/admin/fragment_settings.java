@@ -14,10 +14,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sunshine.MainActivity;
 import com.example.sunshine.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class fragment_settings extends Fragment {
     Button logOutUser;
-
+    private FirebaseAuth auth;
     public fragment_settings()
     { }
 
@@ -25,6 +26,7 @@ public class fragment_settings extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment_settings =  inflater.inflate(R.layout.admin_fragment_settings, container, false);
+        auth = FirebaseAuth.getInstance();
         return fragment_settings;
     }
 
@@ -41,6 +43,7 @@ public class fragment_settings extends Fragment {
         logOutUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                auth.signOut();
                 logIn();
             }
         });
