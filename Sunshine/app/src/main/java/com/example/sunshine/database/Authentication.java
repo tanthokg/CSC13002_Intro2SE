@@ -10,11 +10,20 @@ public class Authentication {
 
     public Authentication() {}
 
+    public Authentication(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public Authentication(String username, String password, List<String> questions, List<String> answers) {
         this.username = username;
         this.password = password;
         this.questions = questions;
         this.answers = answers;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUsername() {

@@ -2,7 +2,7 @@ package com.example.sunshine.database;
 
 public class Post {
     private int id;
-    private int author;
+    private String author;
     private String content;
     private String postTime;
     private int upvote;
@@ -12,7 +12,7 @@ public class Post {
 
     public Post() {}
 
-    public Post(int id, int author, String content, String postTime, int upvote, int downvote, int status, int commentCount) {
+    public Post(int id, String author, String content, String postTime, int upvote, int downvote, int status, int commentCount) {
         this.id = id;
         this.author = author;
         this.content = content;
@@ -27,7 +27,7 @@ public class Post {
         return id;
     }
 
-    public int getAuthor() {
+    public String getAuthor() {
         return author;
     }
 

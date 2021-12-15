@@ -3,7 +3,6 @@ package com.example.sunshine.database;
 import java.util.List;
 
 public class User {
-    private int id;
     private String username;
     private String fullname;
     private boolean type;
@@ -13,18 +12,28 @@ public class User {
 
     public User() {}
 
-    public User(int id, String username, String fullname, boolean type, String birthday, boolean gender, List<Integer> readLater) {
-        this.id = id;
+    public User(String username) {
         this.username = username;
-        this.fullname = fullname;
-        this.type = type;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.readLater = readLater;
     }
 
-    public int getId() {
-        return id;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public void setReadLater(List<Integer> readLater) {
+        this.readLater = readLater;
     }
 
     public String getUsername() {

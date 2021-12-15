@@ -1,20 +1,20 @@
 package com.example.sunshine.database;
 
 public class Comment {
-    private int authorID;
+    private String authorName;
     private String content;
     private String postTime;
 
     public Comment() {}
 
-    public Comment(int authorID, String content, String postTime) {
-        this.authorID = authorID;
+    public Comment(String authorName, String content, String postTime) {
+        this.authorName = authorName;
         this.content = content;
         this.postTime = postTime;
     }
 
-    public int getAuthorID() {
-        return authorID;
+    public String getAuthorName() {
+        return authorName;
     }
 
     public String getContent() {
