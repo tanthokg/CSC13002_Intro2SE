@@ -16,6 +16,8 @@
             android:exported="false"/>
         <activity android:name=".admin.Admin_Main"
             android:exported="false"/>
+        <activity android:name=".user.create_post"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
