@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summary"
+        android:textSize="20sp"
+        android:text="Summary"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_baseline_sticky_note_2_24"
+        android:drawablePadding="5dp"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:id="@+id/title"
+            android:text="Title:"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:id="@+id/titlebox"
+            android:hint="Enter title here"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:id="@+id/author"
+            android:text="Author:"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:id="@+id/authorbox"
+            android:hint="Enter author here"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:id="@+id/status"
+            android:text="Status:"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:spinnerMode="dropdown"
+            android:dropDownWidth="match_parent"
+            android:id="@+id/status_options">
+            <requestFocus />
+        </Spinner>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:textSize="20sp"
+        android:text="Description"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_baseline_sticky_note_2_24"
+        android:drawablePadding="5dp"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+            android:id="@+id/descriptionbox"
+            android:hint="Enter description and your opinions..."
+            android:textSize="20sp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/btn_background"
+        android:text="Create Post"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:id="@+id/create_post"
+        app:strokeColor="@color/black"
+        android:textColor="@color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="5dp"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:id="@+id/cancel_post"
+        app:strokeColor="@color/black"
+        android:textColor="@color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+</LinearLayout>
