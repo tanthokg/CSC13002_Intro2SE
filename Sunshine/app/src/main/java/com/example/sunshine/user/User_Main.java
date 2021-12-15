@@ -1,9 +1,7 @@
 package com.example.sunshine.user;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -31,8 +29,11 @@ public class User_Main extends AppCompatActivity {
                 case R.id.home:
                     fragment = new fragment_home();
                     break;
-                case R.id.library:
-                    fragment = new fragment_library();
+                case R.id.categories:
+                    fragment = new fragment_categories();
+                    break;
+                case R.id.notifications:
+                    fragment = new fragment_notifications();
                     break;
                 case R.id.settings:
                     fragment = new fragment_settings();

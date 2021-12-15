@@ -1,21 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/fragment_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textSize="20dp"
-        android:layout_gravity="center"
-        />
-    <com.google.android.material.button.MaterialButton
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="LOG OUT"
-        android:fontFamily="monospace"
-        android:id="@+id/logOutUser"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/myaccount"
+            android:layout_marginBottom="5dp"
+            android:text="MY ACCOUNT"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_profile"
+            android:text="Edit Profile"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_person_pin_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/read_later"
+            android:text="Read Later"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_library_books_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/options"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="OPTIONS"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/general"
+            android:text="General"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_settings_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifications_setting"
+            android:text="@string/notifications"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_edit_notifications_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shine4u"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="SHINE4U"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/give_feedback"
+            android:text="Give Feedback"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_edit_note_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fag"
+            android:text="FAQ"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_question_answer_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:text="@string/logout"
+            android:textSize="16sp"
+            android:fontFamily="monospace"
+            android:id="@+id/logOutUser"
+            app:strokeColor="@color/red"
+            android:textColor="@color/red"
+            app:icon="@drawable/ic_baseline_logout_24"
+            app:iconGravity="textStart"
+            app:iconTint="@color/red"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+    </LinearLayout>
 </FrameLayout>

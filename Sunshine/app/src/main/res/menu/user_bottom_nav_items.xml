@@ -4,17 +4,22 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home"
+        android:title="@string/home"
         />
 
     <item
-        android:id="@+id/library"
+        android:id="@+id/categories"
         android:icon="@drawable/ic_baseline_local_library_24"
-        android:title="Library"
+        android:title="@string/categories"
+        />
+    <item
+        android:id="@+id/notifications"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="@string/notifications"
         />
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Settings"
+        android:title="@string/settings"
         />
 </menu>
