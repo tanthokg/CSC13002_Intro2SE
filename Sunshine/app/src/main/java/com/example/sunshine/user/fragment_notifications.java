@@ -159,7 +159,7 @@ public class fragment_notifications extends Fragment {
         int promoted = 3;
         List<String> firstUserNames = new ArrayList<>();
 
-        Notification firstOld = new Notification(3, firstUserNames, "",0,"");
+        Notification firstOld = new Notification(promoted, firstUserNames, "",0,"3 days ago");
 
         list.add(firstOld);
 

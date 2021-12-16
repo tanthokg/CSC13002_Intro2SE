@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import android.text.Html;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>{
 
@@ -43,8 +45,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             return;
 
         holder.notificationImage.setImageResource(notification.getResourceID());
-        holder.notificationTextView.setText(notification.toString());
+        holder.notificationTextView.setText(Html.fromHtml(notification.toString()));
         holder.timeTextView.setText(notification.getTime());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "You clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -66,6 +75,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             notificationImage = itemView.findViewById(R.id.notification_img);
             notificationTextView = itemView.findViewById(R.id.notification_tv);
             timeTextView = itemView.findViewById(R.id.time_tv);
+
         }
     }
 }

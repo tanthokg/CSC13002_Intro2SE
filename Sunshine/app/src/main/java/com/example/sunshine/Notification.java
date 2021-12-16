@@ -1,6 +1,7 @@
 package com.example.sunshine;
 
 import java.util.List;
+import android.text.Html;
 
 public class Notification {
 
@@ -79,10 +80,10 @@ public class Notification {
 
     private String getNoti()
     {
-        String upvoteNoti = "has upvoted your review of ";
-        String downvoteNoti = "has downvoted your review of ";
-        String commentNoti = " has commented on your review of ";
-        String promoted = "You have been promoted to reviewer and is now " +
+        String upvoteNoti = "has upvoted your <strong>review</strong> of ";
+        String downvoteNoti = "has downvoted your <strong>review</strong> of ";
+        String commentNoti = " has commented on your <strong>review</strong> of ";
+        String promoted = "You have been promoted to <strong>reviewer</strong> and is now " +
                         "able to create your own review post";
 
         if (type == 0)
@@ -103,6 +104,9 @@ public class Notification {
             return getNoti();
         else
         {
+            StringBuilder stylePostName = new StringBuilder();
+            stylePostName.append("<strong>").append(postName).append("</strong>");
+
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < userName.size(); i++)
@@ -111,8 +115,9 @@ public class Notification {
                 result.append(", ");
             }
 
+
             result.append("and ").append(interactionCount).append(" more ");
-            result.append(getNoti()).append(postName).append(".");
+            result.append(getNoti()).append(stylePostName).append(".");
 
             return result.toString();
         }
