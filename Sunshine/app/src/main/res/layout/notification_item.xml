@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/notification_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/comment">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/notification_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/notification_img"
+            android:layout_alignParentTop="true"
+            android:text="user11, user22 and 98 more has commented on your review of Something."
+            android:textColor="@color/black">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/notification_tv"
+            android:text="3 hours ago"
+            android:layout_toEndOf="@id/notification_img"
+            android:layout_marginStart="10dp">
+
+        </TextView>
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
