@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     TextView forgetPassword, signUp;
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signUp()
     {
-        Intent intent = new Intent(this, SignUp.class );
+        Intent intent = new Intent(this, SignUpActivity.class );
         startActivity(intent);
     }
 

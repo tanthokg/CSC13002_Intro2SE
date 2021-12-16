@@ -4,121 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp">
+    tools:context=".SignUpActivity">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/my_toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginBottom="70dp"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:elevation="4dp"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/backArrowImage"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_toLeftOf="@+id/my_toolbar"-->
-<!--            android:clickable="true"-->
-<!--            android:src="@drawable/ic_baseline_arrow_back_24" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:text="@string/app_name"-->
-<!--            android:textSize="25sp"-->
-<!--            />-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
-
-    <ImageView
-        android:id="@+id/sunshineImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:gravity="center"
-        android:src="@drawable/sunshine"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sunshineImage"
-        android:id="@+id/helloText"
-        android:text="Let's Get Started!"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:fontFamily="monospace"
-        android:layout_centerHorizontal="true"/>
-
-    <EditText
+    <!--    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/userName"
-        android:layout_below="@+id/helloText"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:hint="Username"
-        android:fontFamily="monospace"
-        android:background="#30ffffff"
-        android:textSize="20sp"
-        android:drawableStart="@drawable/ic_baseline_person_24"
-        android:drawablePadding="20dp">
-        <requestFocus/>
-    </EditText>
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="70dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-    <EditText
+        <ImageView
+            android:id="@+id/backArrowImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@+id/my_toolbar"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="@string/app_name"
+            android:textSize="25sp"
+            />
+    </androidx.appcompat.widget.Toolbar>-->
+
+    <FrameLayout
+        android:id="@+id/signUpFragmentHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/password"
-        android:layout_below="@+id/userName"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:hint="Password"
-        android:fontFamily="monospace"
-        android:background="#30ffffff"
-        android:textSize="20sp"
-        android:drawableStart="@drawable/ic_baseline_privacy_tip_24"
-        android:drawablePadding="20dp"
-        android:inputType="textPassword">
-
-    </EditText>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/confirmPassword"
-        android:layout_below="@+id/password"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:hint="Confirm password"
-        android:fontFamily="monospace"
-        android:background="#30ffffff"
-        android:textSize="20sp"
-        android:drawableStart="@drawable/ic_baseline_privacy_tip_24"
-        android:drawablePadding="20dp"
-        android:inputType="textPassword"
-        >
-
-    </EditText>
-
-    <!-- list of security questions -->
-
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/confirmPassword"
-        android:layout_centerHorizontal="true"
-        android:text="SIGN UP"
-        android:fontFamily="monospace"
-        android:id="@+id/signUp"/>
-
-
-
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
