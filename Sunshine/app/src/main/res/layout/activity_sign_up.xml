@@ -35,8 +35,8 @@
 
     <ImageView
         android:id="@+id/sunshineImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:gravity="center"
         android:src="@drawable/sunshine"
         android:layout_centerHorizontal="true"
