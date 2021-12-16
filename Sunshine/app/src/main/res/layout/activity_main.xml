@@ -17,7 +17,7 @@
         android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sunshineImage"
@@ -38,7 +38,7 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
+        android:layout_below="@+id/userName"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         android:background="@drawable/custom_edittext"
@@ -62,8 +62,8 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
         android:text="LOG IN"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/forgetPassword"

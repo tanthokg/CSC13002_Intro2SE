@@ -52,7 +52,7 @@ public class SignUpStepOne extends Fragment implements FragmentCallbacks {
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
-        userName = (EditText) view.findViewById(R.id.username);
+        userName = (EditText) view.findViewById(R.id.userName);
         password = (EditText) view.findViewById(R.id.password);
         confirmPassword = (EditText) view.findViewById(R.id.confirmPassword);
         signUp = (Button) view.findViewById(R.id.signUp);
