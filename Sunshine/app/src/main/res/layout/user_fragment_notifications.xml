@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:text="New"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:fontFamily="sans-serif-medium"
 
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="10dp">
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -33,11 +33,11 @@
         android:layout_height="wrap_content"
         android:text="Recently"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:fontFamily="sans-serif-medium"
 
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="5dp">
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -45,18 +45,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Old"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:fontFamily="sans-serif-medium"
 
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="5dp">
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView

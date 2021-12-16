@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="10dp">
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="false"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@+id/notification_img"
             android:layout_alignParentTop="true"
             android:text="user11, user22 and 98 more has commented on your review of Something."
@@ -38,7 +38,7 @@
             android:layout_below="@id/notification_tv"
             android:text="3 hours ago"
             android:layout_toEndOf="@id/notification_img"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             >
 
         </TextView>
