@@ -1,5 +1,6 @@
 package com.example.sunshine.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,16 +9,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
+import com.example.sunshine.MainActivity;
 import com.example.sunshine.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class User_Main extends AppCompatActivity {
     FragmentManager fragmentManager;
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_main);
+
+        auth = FirebaseAuth.getInstance();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -53,4 +61,13 @@ public class User_Main extends AppCompatActivity {
         nav.setSelectedItemId(R.id.home);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 }
