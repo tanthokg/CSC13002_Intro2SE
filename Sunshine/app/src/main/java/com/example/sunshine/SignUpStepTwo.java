@@ -26,6 +26,12 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
         answer2 = view.findViewById(R.id.answer2);
         answer3 = view.findViewById(R.id.answer3);
         signUpBtn = view.findViewById(R.id.signUpBtn);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
         return view;
     }
 
