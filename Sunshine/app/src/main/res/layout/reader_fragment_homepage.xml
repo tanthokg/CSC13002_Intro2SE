@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<TextView
+    android:id="@+id/topNav"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:background="@color/design_default_color_primary"
+    android:text="SHINE4U"
+    android:padding="10dp"
+    ></TextView>
+    <FrameLayout
+        android:id="@+id/readerHomepage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topNav"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_marginBottom="-2dp">
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="SEARCH"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:drawableEnd="@drawable/ic_baseline_search_24"
+                android:drawablePadding="8dp"
+                android:elevation="3dp"
+                android:ems="10"
+                android:hint="Search for"
+                android:padding="8dp"
+                android:textColorHint="#8d8d8d"
+                android:textStyle="italic"
+                />
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="RECOMMENDED FOR YOU"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    />
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcmScrollView">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg1" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Harry Potter"
+                                android:textColor="@color/black"
+                                android:gravity="center"
+                                />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg2" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Divergent"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg3" />
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="City of Bones"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg4" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="The Host"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg5" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="1984"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:layout_marginTop="30dp"
+                android:text="NEW AND TRENDING"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/newScrollView">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg6" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Les Misérables"
+                                android:textColor="@color/black"
+                                android:gravity="center"
+                                />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg7" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Rebecca"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg8" />
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Twilight"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg9" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Hamlet"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@drawable/bookimg10" />
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:textSize="15sp"
+                                android:text="Legend"
+                                android:textColor="@color/black"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+
+
+            </LinearLayout>
+
+
+
+    </FrameLayout>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple_500"
+        app:itemBackground="?selectableItemBackgroundBorderless"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/user_bottom_nav_items" />
+</RelativeLayout>

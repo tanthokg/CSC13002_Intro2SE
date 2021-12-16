@@ -22,15 +22,15 @@ public class fragment_home extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_fragment_home, container, false);
+        return inflater.inflate(R.layout.reviewer_fragment_homepage, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button test = (Button) view.findViewById(R.id.test);
-        test.setOnClickListener(new View.OnClickListener() {
+        Button createPost = (Button) view.findViewById(R.id.btnCreatePost);
+        createPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), create_post.class);
