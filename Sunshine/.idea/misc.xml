@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_permission.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_report.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/notification_item.xml" value="0.3233404710920771" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_create_post_review.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_categories.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_notifications.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.27025641025641023" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/admin_fragment_home.xml" value="0.25" />
@@ -27,7 +35,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
