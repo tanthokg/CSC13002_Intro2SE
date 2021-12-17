@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:textSize="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:textStyle="bold"
-            />
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_margin="20dp"
             app:startIconDrawable="@drawable/ic_baseline_search_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -40,18 +31,18 @@
             android:id="@+id/books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Books"
-            android:textSize="20dp"
+            android:text="@string/books"
+            android:textSize="20sp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textStyle="bold"
             />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20sp"
-            android:layout_marginLeft="20sp">
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,18 +53,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/adventure"
-                    android:text="Adventures"
+                    android:text="@string/adventures"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/comics"
-                    android:text="Comics"
-                    android:layout_marginLeft="10sp"
+                    android:text="@string/comics"
+                    android:layout_marginStart="10dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,18 +80,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/history"
-                    android:text="History"
+                    android:text="@string/history"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/horror"
-                    android:text="Horror"
-                    android:layout_marginLeft="10sp"
+                    android:text="@string/horror"
+                    android:layout_marginStart="10dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,18 +106,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/poetry"
-                    android:text="Poetry"
+                    android:text="@string/poetry"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/romance"
-                    android:text="Romance"
-                    android:layout_marginLeft="10sp"
+                    android:text="@string/romance"
+                    android:layout_marginStart="10dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -130,18 +127,18 @@
             android:id="@+id/stories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stories"
-            android:textSize="20dp"
+            android:text="@string/stories"
+            android:textSize="20sp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textStyle="bold"
             />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20sp"
-            android:layout_marginLeft="20sp">
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,18 +149,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/detective"
-                    android:text="Detective"
+                    android:text="@string/detective"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/science_fiction"
-                    android:text="Science Fiction"
-                    android:layout_marginLeft="10sp"
+                    android:text="@string/science_fiction"
+                    android:layout_marginStart="10dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -177,18 +176,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/religion"
-                    android:text="Religion"
+                    android:text="@string/religion"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/autobiographies"
-                    android:text="Autobiographies"
-                    android:layout_marginLeft="10sp"
+                    android:text="@string/autobiographies"
+                    android:layout_marginStart="10dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -201,18 +202,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/fanfiction"
-                    android:text="Fanfiction"
+                    android:text="@string/fanfiction"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/literary"
-                    android:text="Literary Fiction"
-                    android:layout_marginLeft="10sp"
+                    android:text="@string/literary_fiction"
+                    android:layout_marginStart="10dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="15dp"/>
+                    android:paddingBottom="15dp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
