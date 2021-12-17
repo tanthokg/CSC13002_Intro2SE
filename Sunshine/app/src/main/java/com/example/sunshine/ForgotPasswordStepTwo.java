@@ -22,6 +22,12 @@ public class ForgotPasswordStepTwo extends Fragment implements FragmentCallbacks
         newPassword = view.findViewById(R.id.password);
         confirmNewPassword = view.findViewById(R.id.confirmPassword);
         confirmBtn = view.findViewById(R.id.confirmNewPasswordBtn);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
         return view;
     }
 
