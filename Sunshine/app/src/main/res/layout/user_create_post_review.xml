@@ -12,22 +12,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/summary"
         android:textSize="20sp"
-        android:text="Summary"
+        android:text="@string/summary"
         android:textColor="@color/black"
-        android:drawableLeft="@drawable/ic_baseline_sticky_note_2_24"
         android:drawablePadding="5dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        app:drawableStartCompat="@drawable/ic_baseline_sticky_note_2_24" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp">>
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/title"
-            android:text="Title:"
+            android:text="@string/title"
             android:textSize="20sp"
             android:textColor="@color/black"/>
         <EditText
@@ -35,19 +35,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:id="@+id/titlebox"
-            android:hint="Enter title here"/>
+            android:hint="@string/enter_title"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp">>
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/author"
-            android:text="Author:"
+            android:text="@string/author"
             android:textSize="20sp"
             android:textColor="@color/black"/>
         <EditText
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:id="@+id/authorbox"
-            android:hint="Enter author here"/>
+            android:hint="@string/enter_author"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/status"
-            android:text="Status:"
+            android:text="@string/status"
             android:textSize="20sp"
             android:textColor="@color/black"/>
         <Spinner
@@ -86,11 +86,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/description"
         android:textSize="20sp"
-        android:text="Description"
+        android:text="@string/description"
         android:textColor="@color/black"
-        android:drawableLeft="@drawable/ic_baseline_sticky_note_2_24"
         android:drawablePadding="5dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:drawableLeftCompat="@drawable/ic_baseline_sticky_note_2_24" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -104,7 +104,7 @@
             android:maxLines="10"
             android:scrollbars="vertical"
             android:id="@+id/descriptionbox"
-            android:hint="Enter description and your opinions..."
+            android:hint="@string/enter_description"
             android:textSize="20sp"
             />
 
@@ -116,7 +116,7 @@
         android:layout_gravity="bottom"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/btn_background"
-        android:text="Create Post"
+        android:text="@string/create_post"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginTop="5dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
