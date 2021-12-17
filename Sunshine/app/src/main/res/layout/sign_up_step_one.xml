@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/sunshineImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:src="@drawable/sunshine"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/helloText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sunshineImage"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="monospace"
+        android:text="Let's Get Started!"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/helloText"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/custom_username"
+        android:drawablePadding="20dp"
+        android:fontFamily="monospace"
+        android:hint="Username"
+        android:padding="20dp"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/custom_password"
+        android:drawablePadding="20dp"
+        android:fontFamily="monospace"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/custom_password"
+        android:drawablePadding="20dp"
+        android:fontFamily="monospace"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        android:textSize="20sp" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirmPassword"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="monospace"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:text="NEXT"
+        android:textSize="20sp" />
+
+</RelativeLayout>

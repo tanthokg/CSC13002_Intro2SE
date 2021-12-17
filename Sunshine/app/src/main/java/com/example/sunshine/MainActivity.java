@@ -1,6 +1,7 @@
 package com.example.sunshine;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,13 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     TextView forgetPassword, signUp;
-    EditText userName, password;
-    Button logIn;
-    String adminName = "admin", adminPassword = "sunshine123";
+    EditText loginUsername, loginPassword;
+    Button logInBtn;
+    String adminUsername = "admin", adminPassword = "sunshine123";
 
     String forgetPasswordText = "Forgot password";
     SpannableString forgetPasswordSpan;
@@ -47,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        logIn = (Button) findViewById(R.id.loginButton);
-        userName = (EditText) findViewById(R.id.userName);
-        password = (EditText) findViewById(R.id.password);
+        logInBtn = (Button) findViewById(R.id.loginButton);
+        loginUsername = (EditText) findViewById(R.id.username);
+        loginPassword = (EditText) findViewById(R.id.password);
 
-        logIn.setOnClickListener(new View.OnClickListener() {
+        logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = userName.getText().toString();
-                String pass = password.getText().toString();
+                String username = loginUsername.getText().toString();
+                String pass = loginPassword.getText().toString();
                 if(username.length() != 0 && pass.length() != 0)
                 {
                     auth.signInWithEmailAndPassword(username + "@gmail.com", pass)
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        if (username.equals(adminName))
+                                        if (username.equals(adminUsername))
                                             adminLogIn();
                                         else
                                             userLogIn();
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         clickableForgetPassword = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Toast.makeText(MainActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
+                forgotPassword();
             }
 
         };
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signUp()
     {
-        Intent intent = new Intent(this, SignUp.class );
+        Intent intent = new Intent(this, SignUpActivity.class );
         startActivity(intent);
     }
 
@@ -147,5 +147,23 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, Admin_Main.class );
         startActivity(intent);
+    }
+
+    private void forgotPassword() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.forgot_password_username, null, false);
+        EditText forgotPasswordUsername = view.findViewById(R.id.username);
+        Button nextBtn = view.findViewById(R.id.findUsernameBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+        dialog.setView(view);
+        dialog.create().show();
+
+        Toast.makeText(MainActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
     }
 }
