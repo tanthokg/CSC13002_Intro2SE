@@ -69,7 +69,7 @@
                                 android:src="@drawable/bookimg1" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/harry_potter"
                                 android:textColor="@color/black"
@@ -92,7 +92,7 @@
                                 android:src="@drawable/bookimg2" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="Divergent"
                                 android:textColor="@color/black"
@@ -117,7 +117,7 @@
 
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/city_of_bones"
                                 android:textColor="@color/black"
@@ -140,7 +140,7 @@
                                 android:src="@drawable/bookimg4" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/the_host"
                                 android:textColor="@color/black"
@@ -163,7 +163,7 @@
                                 android:src="@drawable/bookimg05" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/_1984"
                                 android:textColor="@color/black"
@@ -207,7 +207,7 @@
                                 android:src="@drawable/bookimg6" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/les_mis_rables"
                                 android:textColor="@color/black"
@@ -230,7 +230,7 @@
                                 android:src="@drawable/bookimg7" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/rebecca"
                                 android:textColor="@color/black"
@@ -255,7 +255,7 @@
 
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/twilight"
                                 android:textColor="@color/black"
@@ -278,7 +278,7 @@
                                 android:src="@drawable/bookimg09" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/hamlet"
                                 android:textColor="@color/black"
@@ -301,7 +301,7 @@
                                 android:src="@drawable/bookimg10" />
                             <TextView
                                 android:layout_width="100dp"
-                                android:layout_height="30dp"
+                                android:layout_height="wrap_content"
                                 android:textSize="15sp"
                                 android:text="@string/legend"
                                 android:textColor="@color/black"
