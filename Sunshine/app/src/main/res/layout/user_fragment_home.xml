@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <FrameLayout
         android:id="@+id/readerHomepage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_above="@+id/bottomNavigationView"
-        android:layout_marginBottom="-2dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/searchLayout"
@@ -25,14 +21,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingVertical="15dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="SEARCH"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/searchBar"
                 android:layout_width="match_parent"
@@ -41,37 +30,34 @@
                 android:drawablePadding="8dp"
                 android:elevation="3dp"
                 android:ems="10"
-                android:hint="Search for"
+                android:hint="@string/search_for"
                 android:padding="8dp"
                 android:textColorHint="#8d8d8d"
                 android:textStyle="italic"
-                />
-
-
-
+                android:autofillHints="BookName" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="RECOMMENDED FOR YOU"
-                android:textColor="@color/black"
+                android:text="@string/recommended_for_you"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="5dp"
-                />
+                android:layout_marginBottom="5dp" />
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rcmScrollView">
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -85,17 +71,16 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="Harry Potter"
+                                android:text="@string/harry_potter"
                                 android:textColor="@color/black"
-                                android:gravity="center"
-                                />
+                                android:gravity="center" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -118,7 +103,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -134,7 +119,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="City of Bones"
+                                android:text="@string/city_of_bones"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -143,7 +128,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -157,7 +142,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="The Host"
+                                android:text="@string/the_host"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -166,7 +151,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -180,7 +165,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="1984"
+                                android:text="@string/_1984"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -193,8 +178,8 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:layout_marginTop="30dp"
-                android:text="NEW AND TRENDING"
-                android:textColor="@color/black"
+                android:text="@string/new_and_trending"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="5dp"/>
@@ -203,14 +188,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/newScrollView">
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -224,17 +209,16 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="Les Misérables"
+                                android:text="@string/les_mis_rables"
                                 android:textColor="@color/black"
-                                android:gravity="center"
-                                />
+                                android:gravity="center" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -248,7 +232,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="Rebecca"
+                                android:text="@string/rebecca"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -257,7 +241,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -273,7 +257,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="Twilight"
+                                android:text="@string/twilight"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -282,7 +266,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -296,7 +280,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="Hamlet"
+                                android:text="@string/hamlet"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -305,7 +289,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginEnd="15dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -319,7 +303,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:textSize="15sp"
-                                android:text="Legend"
+                                android:text="@string/legend"
                                 android:textColor="@color/black"
                                 android:gravity="center" />
                         </LinearLayout>
@@ -331,21 +315,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnCreatePost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:visibility="visible"
-            android:src="@drawable/ic_baseline_add_24"
-            app:backgroundTint="?attr/colorOnPrimary"
-            app:fabSize="auto">
-
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+            android:layout_height="match_parent">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnCreatePost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="visible"
+                app:backgroundTint="?attr/colorOnPrimary"
+                app:fabSize="auto">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
         </RelativeLayout>
     </FrameLayout>
 </LinearLayout>

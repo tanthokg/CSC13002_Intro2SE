@@ -8,4 +8,16 @@
     <string name="permission">Permission</string>
     <string name="report">Report</string>
     <string name="search">Search</string>
+    <string name="search_for">Search for</string>
+    <string name="recommended_for_you">RECOMMENDED FOR YOU</string>
+    <string name="new_and_trending">NEW AND TRENDING</string>
+    <string name="legend">Legend</string>
+    <string name="city_of_bones">City of Bones</string>
+    <string name="harry_potter">Harry Potter</string>
+    <string name="the_host">The Host</string>
+    <string name="_1984">1984</string>
+    <string name="les_mis_rables">Les Misérables</string>
+    <string name="rebecca">Rebecca</string>
+    <string name="twilight">Twilight</string>
+    <string name="hamlet">Hamlet</string>
 </resources>
