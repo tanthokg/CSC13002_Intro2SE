@@ -25,6 +25,14 @@
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/forgot_password_username.xml" value="0.22592592592592592" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/sign_up_step_one.xml" value="0.25416666666666665" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/sign_up_step_two.xml" value="0.25416666666666665" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_permission.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_report.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/notification_item.xml" value="0.3233404710920771" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_create_post_review.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_categories.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_notifications.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.27025641025641023" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/admin_fragment_home.xml" value="0.25" />
@@ -35,6 +43,7 @@
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/user_main.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/menu/admin_bottom_nav_items.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/menu/user_bottom_nav_items.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_permission.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_report.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_settings.xml" value="0.1381340579710145" />
@@ -42,13 +51,13 @@
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_create_post_review.xml" value="0.33665835411471323" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_categories.xml" value="0.264" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_home.xml" value="0.213768115942029" />
-        <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.34615384615384615" />
+        <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.33707865168539325" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/menu/admin_bottom_nav_items.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/menu/user_bottom_nav_items.xml" value="0.234375" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

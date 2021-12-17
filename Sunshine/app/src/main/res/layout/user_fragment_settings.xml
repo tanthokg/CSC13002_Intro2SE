@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/myaccount"
             android:layout_marginBottom="5dp"
-            android:text="MY ACCOUNT"
+            android:text="@string/account"
             android:textStyle="bold"
             android:textSize="16sp"/>
 
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_profile"
-            android:text="Edit Profile"
+            android:text="@string/edit_profile"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/read_later"
-            android:text="Read Later"
+            android:text="@string/read_later"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -58,7 +58,7 @@
             android:id="@+id/options"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            android:text="OPTIONS"
+            android:text="@string/options"
             android:textStyle="bold"
             android:textSize="16sp"/>
 
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/general"
-            android:text="General"
+            android:text="@string/general"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -98,7 +98,7 @@
             android:id="@+id/shine4u"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            android:text="SHINE4U"
+            android:text="@string/app_name"
             android:textStyle="bold"
             android:textSize="16sp"/>
 
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/give_feedback"
-            android:text="Give Feedback"
+            android:text="@string/give_feedback"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -121,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fag"
-            android:text="FAQ"
+            android:text="@string/faq"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textSize="16sp"
