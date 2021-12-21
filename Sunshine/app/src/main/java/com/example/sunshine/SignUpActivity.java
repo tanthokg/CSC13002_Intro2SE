@@ -15,27 +15,11 @@ public class SignUpActivity extends AppCompatActivity implements MainCallbacks {
         setContentView(R.layout.activity_sign_up);
 
         signUpStepOne = new SignUpStepOne(this);
-        signUpStepTwo = new SignUpStepTwo();
+        signUpStepTwo = new SignUpStepTwo(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.signUpFragmentHolder, signUpStepOne).commit();
-
-        /*firebaseAuth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
-
-        userName = (EditText) findViewById(R.id.userName);
-        password = (EditText) findViewById(R.id.password);
-        confirmPassword = (EditText) findViewById(R.id.confirmPassword);
-        signUp = (Button) findViewById(R.id.signUp);
-
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signUpStepOne();
-            }
-        });*/
-
     }
 
     @Override
@@ -49,11 +33,13 @@ public class SignUpActivity extends AppCompatActivity implements MainCallbacks {
 
 
     @Override
-    public void fromFragmentToMain(String sender, String request) {
-        if (sender.equals("SIGN-UP"))
-            if (request.equals("STEP-TWO"))
+    public void fromFragmentToMain(String sender, String request, Object value) {
+        if (sender.equals("SIGN-UP")) {
+            if (request.equals("STEP-TWO")) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.signUpFragmentHolder, signUpStepTwo)
                         .addToBackStack("STEP-TWO").commit();
-
+                signUpStepTwo.fromMainToFragment(value);
+            }
+        }
     }
 }

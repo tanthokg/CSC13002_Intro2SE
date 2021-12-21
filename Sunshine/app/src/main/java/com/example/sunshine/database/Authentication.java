@@ -1,5 +1,7 @@
 package com.example.sunshine.database;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.List;
 
 public class Authentication {
@@ -26,6 +28,14 @@ public class Authentication {
         this.password = password;
     }
 
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -41,4 +51,6 @@ public class Authentication {
     public List<String> getAnswers() {
         return answers;
     }
+
+    //TODO: hash passs
 }

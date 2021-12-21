@@ -27,6 +27,8 @@ public class create_post extends AppCompatActivity {
         status_options = (Spinner) findViewById(R.id.status_options);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         status_options.setAdapter(adapter);
+
+        //TODO: push database into firebase
     }
 
     @Override
