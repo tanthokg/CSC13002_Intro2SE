@@ -38,4 +38,5 @@ public class fragment_home extends Fragment {
             }
         });
     }
+    //TODO: code adapter to display review post
 }

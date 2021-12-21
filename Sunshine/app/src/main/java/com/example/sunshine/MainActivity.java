@@ -17,12 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sunshine.admin.Admin_Main;
+import com.example.sunshine.database.Authentication;
 import com.example.sunshine.user.User_Main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
     TextView forgetPassword, signUp;
@@ -72,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 }
-
                             });
-
                 }
                 else if (username.length() == 0)
                     Toast.makeText(MainActivity.this, "Please write your username", Toast.LENGTH_SHORT).show();
@@ -126,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
         if (user != null) {
             if (user.getEmail().equals("admin@gmail.com"))
                 adminLogIn();
+            else if (user.getEmail().equals(getString(R.string.gmail)))
+                auth.signOut();
             else
                 userLogIn();
         }
@@ -141,12 +146,14 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, User_Main.class );
         startActivity(intent);
+        finish();
     }
 
     public void adminLogIn()
     {
         Intent intent = new Intent(this, Admin_Main.class );
         startActivity(intent);
+        finish();
     }
 
     private void forgotPassword() {
@@ -157,13 +164,50 @@ public class MainActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
+                //TODO: check username is existed, right or wrong
+                String username = forgotPasswordUsername.getText().toString();
+                if (checkExistedUser(username)) {
+                    Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                else
+                    Toast.makeText(MainActivity.this, "Username is not existed, please check the username or sign up!", Toast.LENGTH_SHORT).show();
             }
         });
         dialog.setView(view);
         dialog.create().show();
 
         Toast.makeText(MainActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean checkExistedUser(String username) {
+        final String[] user = {""};
+        auth.signInWithEmailAndPassword(getString(R.string.gmail), getString(R.string.pass))
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseFirestore database = FirebaseFirestore.getInstance();
+                            database.collection("Authentication").whereEqualTo("username", username)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    Authentication temp = document.toObject(Authentication.class);
+                                                    user[0] = temp.getUsername();
+                                                }
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+        auth.signOut();
+        if (user[0] == null)
+            return false;
+        return true;
     }
 }

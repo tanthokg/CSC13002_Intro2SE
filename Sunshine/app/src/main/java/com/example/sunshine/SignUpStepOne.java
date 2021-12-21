@@ -28,10 +28,8 @@ public class SignUpStepOne extends Fragment implements FragmentCallbacks {
     private EditText userName;
     private EditText password;
     private EditText confirmPassword;
-    private Button signUp;
+    private Button btnNext;
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore database;
     private Context context;
 
     public SignUpStepOne(Context context) {
@@ -41,23 +39,19 @@ public class SignUpStepOne extends Fragment implements FragmentCallbacks {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firebaseAuth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_step_one, container,false);
-        firebaseAuth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
 
         userName = (EditText) view.findViewById(R.id.username);
         password = (EditText) view.findViewById(R.id.password);
         confirmPassword = (EditText) view.findViewById(R.id.confirmPassword);
-        signUp = (Button) view.findViewById(R.id.signUp);
+        btnNext = (Button) view.findViewById(R.id.signUp);
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signUpStepOne();
@@ -67,42 +61,6 @@ public class SignUpStepOne extends Fragment implements FragmentCallbacks {
         return view;
     }
 
-    // Username, password and confirm password validation
-    // TODO: ask for security question
-    public void signIn() {
-        Intent intent = new Intent(context, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void signUp(Authentication authUser) {
-        //if (!checkExistedUser(authUser.getUsername())) {
-        firebaseAuth.createUserWithEmailAndPassword(authUser.getUsername() + "@gmail.com", authUser.getPassword())
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        authUser.setPassword("");
-                        database.collection("Authentication")
-                                .add(authUser)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(@NonNull DocumentReference documentReference) {
-                                        User user = new User(authUser.getUsername());
-                                        database.collection("User")
-                                                .add(user);
-                                    }
-                                });
-                        signIn();
-                    } else {
-                        Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        //}
-        //else
-        //Toast.makeText(getApplicationContext(), "User has existed", Toast.LENGTH_LONG).show();
-    }
-
     private void signUpStepOne() {
         if (!confirmPassword.getText().toString().equals(password.getText().toString()))
             Toast.makeText(context, "Re-typed password is not match!", Toast.LENGTH_SHORT).show();
@@ -110,13 +68,12 @@ public class SignUpStepOne extends Fragment implements FragmentCallbacks {
             String username = userName.getText().toString();
             String pass = password.getText().toString();
             Authentication authUser = new Authentication(username, pass);
-            ((SignUpActivity)context).fromFragmentToMain("SIGN-UP", "STEP-TWO");
-            //signUp(authUser);
+            ((SignUpActivity)context).fromFragmentToMain("SIGN-UP", "STEP-TWO", authUser);
         }
     }
 
     @Override
-    public void fromMainToFragment() {
+    public void fromMainToFragment(Object request) {
 
     }
 }
