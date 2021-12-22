@@ -65,7 +65,6 @@ public class ForgotPasswordStepOne extends Fragment implements FragmentCallbacks
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Check answer
                 if (checkAnswer())
                     ((ForgotPasswordActivity) context).fromFragmentToMain("FORGOT", "STEP-TWO", (Authentication) user);
                 else
@@ -88,29 +87,36 @@ public class ForgotPasswordStepOne extends Fragment implements FragmentCallbacks
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Query query = database.collection("Authentication")
-                                .whereEqualTo("username", username);
-                        query.get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                user = new Authentication();
-                                                user = document.toObject(Authentication.class);
-                                                questions = user.getQuestions();
-                                                answers = user.getAnswers();
+                        if (task.isSuccessful()) {
+                            Query query = database.collection("Authentication")
+                                    .whereEqualTo("username", username);
+                            query.get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                // TODO: create a dialog to loading...
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    user = new Authentication();
+                                                    user = document.toObject(Authentication.class);
+                                                    questions = user.getQuestions();
+                                                    answers = user.getAnswers();
 
-                                                question1.setText(questions.get(0));
-                                                question2.setText(questions.get(1));
-                                                question3.setText(questions.get(2));
+                                                    question1.setText(questions.get(0));
+                                                    question2.setText(questions.get(1));
+                                                    question3.setText(questions.get(2));
+                                                }
+                                                auth.signOut();
                                             }
+                                            else
+                                                auth.signOut();
                                         }
-                                    }
-                                });
+                                    });
+                        }
+                        else
+                            auth.signOut();
                     }
                 });
-        auth.signOut();
     }
 
     private boolean checkAnswer() {

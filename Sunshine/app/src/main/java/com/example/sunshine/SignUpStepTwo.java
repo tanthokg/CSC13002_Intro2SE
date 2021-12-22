@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
     private EditText question1, answer1, question2, answer2, question3, answer3;
@@ -85,12 +86,12 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
     }
 
     private void signUp(Authentication authUser) {
-        firebaseAuth.createUserWithEmailAndPassword(authUser.getUsername() + "@gmail.com", authUser.getPassword())
+        firebaseAuth.createUserWithEmailAndPassword(authUser.getUsername() + "@gmail.com", Authentication.hashPass(authUser.getPassword()))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            authUser.setPassword(authUser.getPassword());
+                            authUser.setPassword(Authentication.hashPass(authUser.getPassword()));
                             database.collection("Authentication")
                                     .add(authUser)
                                     .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -100,20 +101,21 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
                                                 User user = new User(authUser.getUsername());
                                                 database.collection("User")
                                                         .add(user);
-                                                Toast.makeText(context, "Successfully add user to database.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Successfully sign up.", Toast.LENGTH_SHORT).show();
+                                                firebaseAuth.signOut();
+                                                signIn();
                                             }
+                                            else
+                                                firebaseAuth.signOut();
                                         }
                                     });
-                            firebaseAuth.signOut();
-                            Toast.makeText(context, "Successfully sign up.", Toast.LENGTH_SHORT).show();
-                            signIn();
+                            //Toast.makeText(context, "Successfully sign up.", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-        firebaseAuth.signOut();
     }
 
     private void signIn() {
