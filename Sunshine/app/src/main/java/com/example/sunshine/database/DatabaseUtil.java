@@ -39,6 +39,7 @@ public class DatabaseUtil {
                             }
                         }
                     });
+            authentication.signOut();
             return true;
         }
         return false;

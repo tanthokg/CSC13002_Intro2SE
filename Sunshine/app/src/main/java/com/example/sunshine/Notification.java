@@ -80,6 +80,7 @@ public class Notification {
 
     private String getNoti()
     {
+        //TODO: get Notification when users upvote, downvote, and comment
         String upvoteNoti = "has upvoted your <strong>review</strong> of ";
         String downvoteNoti = "has downvoted your <strong>review</strong> of ";
         String commentNoti = " has commented on your <strong>review</strong> of ";

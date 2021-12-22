@@ -166,5 +166,5 @@ public class fragment_notifications extends Fragment {
         return list;
     }
 
-
+    //TODO: update notification
 }

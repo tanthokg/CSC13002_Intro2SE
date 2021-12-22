@@ -17,12 +17,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sunshine.admin.Admin_Main;
+import com.example.sunshine.database.Authentication;
 import com.example.sunshine.user.User_Main;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
     TextView forgetPassword, signUp;
@@ -58,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 String pass = loginPassword.getText().toString();
                 if(username.length() != 0 && pass.length() != 0)
                 {
-                    auth.signInWithEmailAndPassword(username + "@gmail.com", pass)
+                    auth.signInWithEmailAndPassword(username + "@gmail.com", Authentication.hashPass(pass))
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -72,9 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 }
-
                             });
-
                 }
                 else if (username.length() == 0)
                     Toast.makeText(MainActivity.this, "Please write your username", Toast.LENGTH_SHORT).show();
@@ -126,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         if (user != null) {
             if (user.getEmail().equals("admin@gmail.com"))
                 adminLogIn();
+            else if (user.getEmail().equals(getString(R.string.gmail)))
+                auth.signOut();
             else
                 userLogIn();
         }
@@ -141,12 +148,14 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, User_Main.class );
         startActivity(intent);
+        finish();
     }
 
     public void adminLogIn()
     {
         Intent intent = new Intent(this, Admin_Main.class );
         startActivity(intent);
+        finish();
     }
 
     private void forgotPassword() {
@@ -157,13 +166,51 @@ public class MainActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
+                String username = forgotPasswordUsername.getText().toString();
+                checkExistedUser(username);
             }
         });
         dialog.setView(view);
         dialog.create().show();
 
         Toast.makeText(MainActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkExistedUser(String username) {
+        auth.signInWithEmailAndPassword(getString(R.string.gmail), getString(R.string.pass))
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseFirestore database = FirebaseFirestore.getInstance();
+                            database.collection("Authentication").whereEqualTo("username", username)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                if (task.getResult().size() != 0) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        auth.signOut();
+                                                        changeToForgotPasswordActivity(username);
+                                                    }
+                                                }
+                                                else
+                                                    Toast.makeText(MainActivity.this, "Username is not existed, please check the username or sign up!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void changeToForgotPasswordActivity(String username) {
+        Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 }
