@@ -54,7 +54,11 @@ public class ForgotPasswordStepTwo extends Fragment implements FragmentCallbacks
             @Override
             public void onClick(View view) {
                 String newPass = newPassword.getText().toString();
-                updatePassword(newPass);
+                String newConfirmPass = confirmNewPassword.getText().toString();
+               if (! newConfirmPass.equals(newPass))
+                    Toast.makeText(context, "Re-typed password is not match!", Toast.LENGTH_SHORT).show();
+                else
+                { updatePassword(newPass); }
             }
         });
         return view;
