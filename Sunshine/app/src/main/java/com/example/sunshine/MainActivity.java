@@ -20,6 +20,8 @@ import com.example.sunshine.admin.Admin_Main;
 import com.example.sunshine.database.Authentication;
 import com.example.sunshine.user.User_Main;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 String pass = loginPassword.getText().toString();
                 if(username.length() != 0 && pass.length() != 0)
                 {
-                    auth.signInWithEmailAndPassword(username + "@gmail.com", pass)
+                    auth.signInWithEmailAndPassword(username + "@gmail.com", Authentication.hashPass(pass))
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -164,15 +166,8 @@ public class MainActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: check username is existed, right or wrong
                 String username = forgotPasswordUsername.getText().toString();
-                if (checkExistedUser(username)) {
-                    Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                }
-                else
-                    Toast.makeText(MainActivity.this, "Username is not existed, please check the username or sign up!", Toast.LENGTH_SHORT).show();
+                checkExistedUser(username);
             }
         });
         dialog.setView(view);
@@ -181,8 +176,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
     }
 
-    private boolean checkExistedUser(String username) {
-        final String[] user = {""};
+    private void checkExistedUser(String username) {
         auth.signInWithEmailAndPassword(getString(R.string.gmail), getString(R.string.pass))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -195,19 +189,28 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    Authentication temp = document.toObject(Authentication.class);
-                                                    user[0] = temp.getUsername();
+                                                if (task.getResult().size() != 0) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        auth.signOut();
+                                                        changeToForgotPasswordActivity(username);
+                                                    }
                                                 }
+                                                else
+                                                    Toast.makeText(MainActivity.this, "Username is not existed, please check the username or sign up!", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
                         }
+                        else {
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-        auth.signOut();
-        if (user[0] == null)
-            return false;
-        return true;
+    }
+
+    private void changeToForgotPasswordActivity(String username) {
+        Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 }
