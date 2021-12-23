@@ -1,13 +1,15 @@
 package com.example.sunshine.database;
 
+import com.google.firebase.Timestamp;
+
 public class Comment {
     private String authorName;
     private String content;
-    private String postTime;
+    private Timestamp postTime;
 
     public Comment() {}
 
-    public Comment(String authorName, String content, String postTime) {
+    public Comment(String authorName, String content, Timestamp postTime) {
         this.authorName = authorName;
         this.content = content;
         this.postTime = postTime;
@@ -21,7 +23,7 @@ public class Comment {
         return content;
     }
 
-    public String getPostTime() {
+    public Timestamp getPostTime() {
         return postTime;
     }
 }
