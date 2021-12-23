@@ -79,7 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             }
         }
-
+        holder.txtStatus.setText(postList.get(position).getStatus());
         holder.txtTime.setText(/*postList.get(position).getPostTime().toDate().toString()*/ time);
         holder.txtTitle.setText(postList.get(position).getBookName());
         holder.txtContent.setText(postList.get(position).getContent());
