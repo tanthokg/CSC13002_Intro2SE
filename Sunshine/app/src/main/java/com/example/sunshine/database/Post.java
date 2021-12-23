@@ -1,10 +1,12 @@
 package com.example.sunshine.database;
 
+import com.google.firebase.Timestamp;
+
 public class Post {
-    private int id;
     private String author;
+    private String bookName;
     private String content;
-    private String postTime;
+    private Timestamp postTime;
     private int upvote;
     private int downvote;
     private int status;
@@ -12,9 +14,9 @@ public class Post {
 
     public Post() {}
 
-    public Post(int id, String author, String content, String postTime, int upvote, int downvote, int status, int commentCount) {
-        this.id = id;
+    public Post(String author, String bookName, String content, Timestamp postTime, int upvote, int downvote, int status, int commentCount) {
         this.author = author;
+        this.bookName = bookName;
         this.content = content;
         this.postTime = postTime;
         this.upvote = upvote;
@@ -23,19 +25,19 @@ public class Post {
         this.commentCount = commentCount;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getAuthor() {
         return author;
+    }
+
+    public String getBookName() {
+        return bookName;
     }
 
     public String getContent() {
         return content;
     }
 
-    public String getPostTime() {
+    public Timestamp getPostTime() {
         return postTime;
     }
 
