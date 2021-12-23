@@ -122,8 +122,13 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
 
     private boolean validateFirstAnswer() {
         String input = answer1.getText().toString().trim();
+        String question = question1.getText().toString().trim();
         if (input.isEmpty()) {
             answer1.setError("This field must not be empty");
+            return false;
+        }
+        else if (input.equals(question)) {
+            answer1.setError("Do not repeat the question");
             return false;
         }
         else {
@@ -134,8 +139,13 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
 
     private boolean validateSecondAnswer() {
         String input = answer2.getText().toString().trim();
+        String question = question2.getText().toString().trim();
         if (input.isEmpty()) {
             answer2.setError("This field must not be empty");
+            return false;
+        }
+        else if (input.equals(question)) {
+            answer2.setError("Do not repeat the question");
             return false;
         }
         else {
@@ -146,8 +156,13 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
 
     private boolean validateThirdAnswer() {
         String input = answer3.getText().toString().trim();
+        String question = question3.getText().toString().trim();
         if (input.isEmpty()) {
             answer3.setError("This field must not be empty");
+            return false;
+        }
+        else if (input.equals(question)) {
+            answer3.setError("Do not repeat the question");
             return false;
         }
         else {
