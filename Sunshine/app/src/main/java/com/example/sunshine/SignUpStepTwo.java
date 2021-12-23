@@ -62,22 +62,98 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!validateFirstQuestion() | !validateSecondQuestion() | !validateThirdQuestion() |
+                    !validateFirstAnswer() | !validateSecondAnswer() | ! validateThirdAnswer()) {
+                    return;
+                }
+
                 ArrayList<String> questions = new ArrayList<>();
-                questions.add(question1.getText().toString());
-                questions.add(question2.getText().toString());
-                questions.add(question3.getText().toString());
+                questions.add(question1.getText().toString().trim());
+                questions.add(question2.getText().toString().trim());
+                questions.add(question3.getText().toString().trim());
                 authUser.setQuestions(questions);
 
                 ArrayList<String> answers = new ArrayList<>();
-                answers.add(answer1.getText().toString());
-                answers.add(answer2.getText().toString());
-                answers.add(answer3.getText().toString());
+                answers.add(answer1.getText().toString().trim());
+                answers.add(answer2.getText().toString().trim());
+                answers.add(answer3.getText().toString().trim());
                 authUser.setAnswers(answers);
 
                 signUp(authUser);
             }
         });
         return view;
+    }
+
+    private boolean validateFirstQuestion() {
+        String input = question1.getText().toString().trim();
+        if (input.isEmpty()) {
+            question1.setError("This field must not be empty");
+            return false;
+        }
+        else {
+            question1.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateSecondQuestion() {
+        String input = question2.getText().toString().trim();
+        if (input.isEmpty()) {
+            question2.setError("This field must not be empty");
+            return false;
+        }
+        else {
+            question2.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateThirdQuestion() {
+        String input = question3.getText().toString().trim();
+        if (input.isEmpty()) {
+            question3.setError("This field must not be empty");
+            return false;
+        } else {
+            question3.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateFirstAnswer() {
+        String input = answer1.getText().toString().trim();
+        if (input.isEmpty()) {
+            answer1.setError("This field must not be empty");
+            return false;
+        }
+        else {
+            answer1.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateSecondAnswer() {
+        String input = answer2.getText().toString().trim();
+        if (input.isEmpty()) {
+            answer2.setError("This field must not be empty");
+            return false;
+        }
+        else {
+            answer2.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateThirdAnswer() {
+        String input = answer3.getText().toString().trim();
+        if (input.isEmpty()) {
+            answer3.setError("This field must not be empty");
+            return false;
+        }
+        else {
+            answer3.setError(null);
+            return true;
+        }
     }
 
     @Override
