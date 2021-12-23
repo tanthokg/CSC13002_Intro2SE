@@ -93,10 +93,15 @@ public class SignUpStepOne extends Fragment implements FragmentCallbacks {
             userName.setError("This field must not be empty");
             return false;
         }
+        else if (Character.isDigit(input.charAt(0))) {
+            userName.setError("Username must not begin with a number");
+            return false;
+        }
         else if (input.length() < 8) {
             userName.setError("Username must contain at least 8 characters");
             return false;
-        } else {
+        }
+        else {
             userName.setError(null);
             return true;
         }
