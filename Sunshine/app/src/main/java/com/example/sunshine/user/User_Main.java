@@ -35,7 +35,7 @@ public class User_Main extends AppCompatActivity {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.home:
-                    fragment = new fragment_home();
+                    fragment = new/* fragment_home(this)*/PostFragment(this);
                     break;
                 case R.id.categories:
                     fragment = new fragment_categories();

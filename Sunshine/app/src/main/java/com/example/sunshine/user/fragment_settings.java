@@ -39,6 +39,15 @@ public class fragment_settings extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // delete this
+        Button edit_profile = view.findViewById(R.id.edit_profile);
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), create_post.class));
+            }
+        });
+
         logOutAdmin = (Button) view.findViewById(R.id.logOutUser);
         logOutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
