@@ -79,8 +79,8 @@ public class User_Main extends AppCompatActivity implements MainCallbacks {
             if (request.equals("SHOW-COMMENT")) {
                 Post post = (Post) value;
                 CommentFragment fragment = new CommentFragment(post);
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentHolder, fragment)
-                        .addToBackStack("COMMENT").commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("COMMENT")
+                        .replace(R.id.mainFragmentHolder, fragment).commit();
             }
         }
     }
