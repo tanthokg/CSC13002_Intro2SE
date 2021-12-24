@@ -3,20 +3,20 @@ package com.example.sunshine.database;
 import com.google.firebase.Timestamp;
 
 public class Comment {
-    private String authorName;
+    private String username;
     private String content;
     private Timestamp postTime;
 
     public Comment() {}
 
-    public Comment(String authorName, String content, Timestamp postTime) {
-        this.authorName = authorName;
+    public Comment(String username, String content, Timestamp postTime) {
+        this.username = username;
         this.content = content;
         this.postTime = postTime;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getUsername() {
+        return username;
     }
 
     public String getContent() {

@@ -45,7 +45,7 @@ public class PostFragment extends Fragment {
         listenDataChanged();
 
         postRecView = postFragment.findViewById(R.id.postRecView);
-        adapter = new PostAdapter(postList);
+        adapter = new PostAdapter(context, postList);
         postRecView.setAdapter(adapter);
         postRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         return postFragment;

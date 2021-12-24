@@ -1,5 +1,6 @@
 package com.example.sunshine.user;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,20 +18,19 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-
-    List<Post> postList;
+    private Context context;
+    List<Post> posts;
     long differenceSeconds, differenceMinutes, differenceHours, differenceDays, differenceYears;
 
-    public PostAdapter(List<Post> postList) {
-        this.postList = postList;
+    public PostAdapter(Context context, List<Post> posts) {
+        this.context = context;
+        this.posts = posts;
         this.differenceSeconds = 0;
         this.differenceMinutes = 0;
         this.differenceHours = 0;
@@ -47,10 +47,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //TODO: the avatar of the user and the author of the book
-        holder.txtUsername.setText(postList.get(position).getAuthor());
+        // TODO: show user avatar and book author
+        holder.txtUsername.setText(posts.get(position).getAuthor());
 
-        Timestamp postDate = postList.get(position).getPostTime();
+        Timestamp postDate = posts.get(position).getPostTime();
         SimpleDateFormat sfd;
         //long differenceSeconds = 0, differenceMinutes = 0, differenceHours = 0, differenceDays = 0, differenceYears = 0;
         differenceBetweenDate(postDate);
@@ -79,13 +79,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             }
         }
-        holder.txtStatus.setText(postList.get(position).getStatus());
-        holder.txtTime.setText(/*postList.get(position).getPostTime().toDate().toString()*/ time);
-        holder.txtTitle.setText(postList.get(position).getBookName());
-        holder.txtContent.setText(postList.get(position).getContent());
-        holder.btnUpvote.setText(String.valueOf(postList.get(position).getUpvote()));
-        holder.btnDownvote.setText(String.valueOf(postList.get(position).getDownvote()));
-        holder.btnComment.setText(String.valueOf(postList.get(position).getCommentCount()));
+        holder.txtStatus.setText(posts.get(position).getStatus());
+        holder.txtTime.setText(time);
+        holder.txtTitle.setText(posts.get(position).getBookName());
+        holder.txtContent.setText(posts.get(position).getContent());
+        holder.btnUpvote.setText(String.valueOf(posts.get(position).getUpvote()));
+        holder.btnDownvote.setText(String.valueOf(posts.get(position).getDownvote()));
+        holder.btnComment.setText(String.valueOf(posts.get(position).getCommentCount()));
 
         holder.btnUpvote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +104,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((User_Main)context).fromFragmentToMain("POST", "SHOW-COMMENT",
+                        posts.get(holder.getAdapterPosition()));
             }
         });
 
@@ -118,11 +119,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return postList.size();
+        return posts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imgAvatar;
         TextView txtUsername, txtTime, txtTitle, txtAuthor, txtStatus, txtContent;
         ImageButton btnReport;
@@ -159,7 +159,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             differenceMinutes = Math.abs(TimeUnit.MILLISECONDS.toMinutes(differenceTime) % 60);
             differenceHours = Math.abs(TimeUnit.MILLISECONDS.toHours(differenceTime) % 24);
             differenceDays = Math.abs(TimeUnit.MILLISECONDS.toDays(differenceTime) % 365);
-            differenceYears = TimeUnit.MILLISECONDS.toDays(differenceTime) / 365l;
+            differenceYears = TimeUnit.MILLISECONDS.toDays(differenceTime) / 365L;
         }
         catch (Exception e) {
             Log.v("Error when get the difference date", e.getMessage());

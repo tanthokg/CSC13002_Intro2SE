@@ -10,12 +10,14 @@ import androidx.fragment.app.FragmentManager;
 
 
 import com.example.sunshine.MainActivity;
+import com.example.sunshine.MainCallbacks;
 import com.example.sunshine.R;
+import com.example.sunshine.database.Post;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class User_Main extends AppCompatActivity {
+public class User_Main extends AppCompatActivity implements MainCallbacks {
     FragmentManager fragmentManager;
 
     private FirebaseAuth auth;
@@ -53,7 +55,7 @@ public class User_Main extends AppCompatActivity {
             if (fragment != null)
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.userMain, fragment)
+                        .replace(R.id.mainFragmentHolder, fragment)
                         .commit();
             return true;
         });
@@ -68,6 +70,18 @@ public class User_Main extends AppCompatActivity {
         if (currentUser == null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void fromFragmentToMain(String sender, String request, Object value) {
+        if (sender.equals("POST")) {
+            if (request.equals("SHOW-COMMENT")) {
+                Post post = (Post) value;
+                CommentFragment fragment = new CommentFragment(post);
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentHolder, fragment)
+                        .addToBackStack("COMMENT").commit();
+            }
         }
     }
 }
