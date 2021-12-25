@@ -1,5 +1,7 @@
 package com.example.sunshine.user;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +22,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sunshine.R;
 import com.example.sunshine.database.Comment;
 import com.example.sunshine.database.Post;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +56,9 @@ public class CommentFragment extends Fragment {
 
     private EditText addCommentEditText;
     private RecyclerView commentRecView;
+    private CommentAdapter adapter;
+
+    private FirebaseFirestore db;
 
     private long differenceSeconds, differenceMinutes, differenceHours, differenceDays, differenceYears;
 
@@ -48,6 +66,7 @@ public class CommentFragment extends Fragment {
         this.context = context;
         this.post = post;
         this.comments = new ArrayList<Comment>();
+        this.db = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -84,11 +103,11 @@ public class CommentFragment extends Fragment {
         btnDownvote.setText(String.valueOf(post.getDownvote()));
         btnComment.setText(String.valueOf(post.getCommentCount()));
 
-        comments = fetchComments();
-
-        CommentAdapter adapter = new CommentAdapter(context, comments);
+        adapter = new CommentAdapter(context, comments);
+        fetchComments(post);
         commentRecView.setAdapter(adapter);
         commentRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+
 
         return view;
     }
@@ -146,11 +165,43 @@ public class CommentFragment extends Fragment {
         return time;
     }
 
-    private ArrayList<Comment> fetchComments() {
+    private String fetchPostID(Post post) {
+        ArrayList<String> ids = new ArrayList<>();
+
+        return ids.get(0);
+    }
+
+    private void fetchComments(Post post) {
         ArrayList<Comment> result = new ArrayList<Comment>();
 
+        CollectionReference ref = db.collection("Post");
+        Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
 
-
-        return result;
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                        db.collection("Post").document(document.getId()).collection("Comment")
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                for (DocumentChange doc : value.getDocumentChanges()) {
+                                    if (doc.getType() == DocumentChange.Type.ADDED) {
+                                        Comment comment = doc.getDocument().toObject(Comment.class);
+                                        comments.add(comment);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+                else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 }
