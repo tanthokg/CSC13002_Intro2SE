@@ -1,11 +1,12 @@
 package com.example.sunshine.user;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,28 +14,40 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sunshine.R;
+import com.example.sunshine.database.Comment;
 import com.example.sunshine.database.Post;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class CommentFragment extends Fragment {
+    private Context context;
     private Post post;
-    ImageView imgAvatar;
-    TextView txtUsername, txtTime, txtTitle, txtAuthor, txtStatus, txtContent;
-    ImageButton btnReport;
-    MaterialButton btnUpvote, btnDownvote, btnComment, btnSave;
+    private ArrayList<Comment> comments;
 
-    long differenceSeconds, differenceMinutes, differenceHours, differenceDays, differenceYears;
+    private ImageView imgAvatar;
+    private TextView txtUsername, txtTime, txtTitle, txtAuthor, txtStatus, txtContent;
+    private ImageButton btnReport;
+    private MaterialButton btnUpvote, btnDownvote, btnComment, btnSave;
 
-    public CommentFragment (Post post) {
+    private EditText addCommentEditText;
+    private RecyclerView commentRecView;
+
+    private long differenceSeconds, differenceMinutes, differenceHours, differenceDays, differenceYears;
+
+    public CommentFragment (Context context, Post post) {
+        this.context = context;
         this.post = post;
+        this.comments = new ArrayList<Comment>();
     }
 
     @Override
@@ -46,6 +59,7 @@ public class CommentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_comment, container, false);
+
         imgAvatar = view.findViewById(R.id.imgAvatar);
         txtUsername = view.findViewById(R.id.txtUsername);
         txtTime = view.findViewById(R.id.txtTime);
@@ -58,6 +72,8 @@ public class CommentFragment extends Fragment {
         btnDownvote = view.findViewById(R.id.btnDownvote);
         btnComment = view.findViewById(R.id.btnComment);
         btnSave = view.findViewById(R.id.btnSave);
+        addCommentEditText = view.findViewById(R.id.addCommentEditText);
+        commentRecView = view.findViewById(R.id.commentRecView);
 
         txtUsername.setText(post.getAuthor());
         txtStatus.setText(post.getStatus());
@@ -67,6 +83,12 @@ public class CommentFragment extends Fragment {
         btnUpvote.setText(String.valueOf(post.getUpvote()));
         btnDownvote.setText(String.valueOf(post.getDownvote()));
         btnComment.setText(String.valueOf(post.getCommentCount()));
+
+        comments = fetchComments();
+
+        CommentAdapter adapter = new CommentAdapter(context, comments);
+        commentRecView.setAdapter(adapter);
+        commentRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
         return view;
     }
@@ -93,19 +115,18 @@ public class CommentFragment extends Fragment {
     }
 
     private String getTime(Timestamp postTime) {
-        Timestamp postDate = post.getPostTime();
         SimpleDateFormat sfd;
 
-        differenceBetweenDate(postDate);
+        differenceBetweenDate(postTime);
         String time = "";
         if (differenceYears > 0) {
             sfd = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
-            time = sfd.format(postDate.toDate());
+            time = sfd.format(postTime.toDate());
         }
         else {
             if (differenceDays > 6) {
                 sfd = new SimpleDateFormat("MMM d", Locale.getDefault());
-                time = sfd.format(postDate.toDate());
+                time = sfd.format(postTime.toDate());
             } else {
                 if (differenceDays > 0) {
                     time = differenceDays + "d ago";
@@ -123,5 +144,13 @@ public class CommentFragment extends Fragment {
             }
         }
         return time;
+    }
+
+    private ArrayList<Comment> fetchComments() {
+        ArrayList<Comment> result = new ArrayList<Comment>();
+
+
+
+        return result;
     }
 }

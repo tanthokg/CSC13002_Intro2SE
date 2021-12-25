@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sunshine.MainActivity;
+import com.example.sunshine.LoginActivity;
 import com.example.sunshine.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,7 +30,7 @@ public class fragment_settings extends Fragment {
     }
 
     private void logIn() {
-        Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
+        Intent intent = new Intent(getActivity().getBaseContext(), LoginActivity.class);
         getActivity().startActivity(intent);
     }
 

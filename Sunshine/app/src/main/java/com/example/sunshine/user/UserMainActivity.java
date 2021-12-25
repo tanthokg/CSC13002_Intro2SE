@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
-import com.example.sunshine.MainActivity;
+import com.example.sunshine.LoginActivity;
 import com.example.sunshine.MainCallbacks;
 import com.example.sunshine.R;
 import com.example.sunshine.database.Post;
@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class User_Main extends AppCompatActivity implements MainCallbacks {
+public class UserMainActivity extends AppCompatActivity implements MainCallbacks {
     FragmentManager fragmentManager;
 
     private FirebaseAuth auth;
@@ -35,32 +35,23 @@ public class User_Main extends AppCompatActivity implements MainCallbacks {
 
         nav.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
-            switch (item.getItemId()) {
-                case R.id.home:
-                    fragment = new/* fragment_home(this)*/PostFragment(this);
-                    break;
-                case R.id.categories:
-                    fragment = new fragment_categories();
-                    break;
-                case R.id.notifications:
-                    fragment = new fragment_notifications();
-                    break;
-                case R.id.settings:
-                    fragment = new fragment_settings();
-                    break;
-            }
+            int id = item.getItemId();
 
-            // Use addToBackStack to return the previous fragment when the Back button is pressed
-            // Checking null was just a precaution
+            if (R.id.homepage == id)
+                fragment = new PostFragment(this);
+            else if (R.id.categories == id)
+                fragment = new CategoriesFragment();
+            else if (R.id.notifications == id)
+                fragment = new NotificationsFragment();
+            else if (R.id.settings == id)
+                fragment = new SettingsFragment();
+
             if (fragment != null)
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.mainFragmentHolder, fragment)
-                        .commit();
+                fragmentManager.beginTransaction().replace(R.id.mainFragmentHolder, fragment).commit();
             return true;
         });
 
-        nav.setSelectedItemId(R.id.home);
+        nav.setSelectedItemId(R.id.homepage);
     }
 
     @Override
@@ -68,7 +59,7 @@ public class User_Main extends AppCompatActivity implements MainCallbacks {
         super.onStart();
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser == null) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
     }
@@ -78,7 +69,7 @@ public class User_Main extends AppCompatActivity implements MainCallbacks {
         if (sender.equals("POST")) {
             if (request.equals("SHOW-COMMENT")) {
                 Post post = (Post) value;
-                CommentFragment fragment = new CommentFragment(post);
+                CommentFragment fragment = new CommentFragment(this, post);
                 getSupportFragmentManager().beginTransaction().addToBackStack("COMMENT")
                         .replace(R.id.mainFragmentHolder, fragment).commit();
             }
