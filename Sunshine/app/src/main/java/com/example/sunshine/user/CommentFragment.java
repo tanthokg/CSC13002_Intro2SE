@@ -165,15 +165,7 @@ public class CommentFragment extends Fragment {
         return time;
     }
 
-    private String fetchPostID(Post post) {
-        ArrayList<String> ids = new ArrayList<>();
-
-        return ids.get(0);
-    }
-
     private void fetchComments(Post post) {
-        ArrayList<Comment> result = new ArrayList<Comment>();
-
         CollectionReference ref = db.collection("Post");
         Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
 
