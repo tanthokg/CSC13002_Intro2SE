@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,7 +93,7 @@ public class create_post extends AppCompatActivity {
     private void createPost(Post post) {
         database.collection("Post").add(post);
         Toast.makeText(getBaseContext(), "Successfully Post.", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, User_Main.class));
+        startActivity(new Intent(this, UserMainActivity.class));
     }
 
 }

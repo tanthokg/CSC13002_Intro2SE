@@ -104,7 +104,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((User_Main)context).fromFragmentToMain("POST", "SHOW-COMMENT",
+                ((UserMainActivity)context).fromFragmentToMain("POST", "SHOW-COMMENT",
                         posts.get(holder.getAdapterPosition()));
             }
         });

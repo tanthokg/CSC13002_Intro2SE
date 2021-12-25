@@ -17,8 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.example.sunshine.database.Authentication;
 import com.example.sunshine.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +24,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
     private EditText question1, answer1, question2, answer2, question3, answer3;
@@ -210,7 +206,7 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
     }
 
     private void signIn() {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         startActivity(intent);
     }
 }

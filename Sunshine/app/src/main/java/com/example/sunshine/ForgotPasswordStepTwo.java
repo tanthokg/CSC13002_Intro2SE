@@ -133,7 +133,7 @@ public class ForgotPasswordStepTwo extends Fragment implements FragmentCallbacks
     }
 
     private void logIn(){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         startActivity(intent);
     }
 }

@@ -8,10 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.sunshine.MainActivity;
+import com.example.sunshine.LoginActivity;
 import com.example.sunshine.R;
-import com.example.sunshine.user.fragment_home;
-import com.example.sunshine.user.fragment_settings;
+import com.example.sunshine.user.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +40,7 @@ public class Admin_Main extends AppCompatActivity {
                     fragment = new fragment_report();
                     break;
                 case R.id.settings_admin:
-                    fragment = new fragment_settings();
+                    fragment = new SettingsFragment();
                     break;
             }
 
@@ -63,7 +62,7 @@ public class Admin_Main extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser == null) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
     }
