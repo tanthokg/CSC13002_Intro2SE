@@ -49,38 +49,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // TODO: show user avatar and book author
         holder.txtUsername.setText(posts.get(position).getAuthor());
-
-        Timestamp postDate = posts.get(position).getPostTime();
-        SimpleDateFormat sfd;
-        //long differenceSeconds = 0, differenceMinutes = 0, differenceHours = 0, differenceDays = 0, differenceYears = 0;
-        differenceBetweenDate(postDate);
-        String time = "";
-        if (differenceYears > 0) {
-            sfd = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
-            time = sfd.format(postDate.toDate());
-        }
-        else {
-            if (differenceDays > 6) {
-                sfd = new SimpleDateFormat("MMM d", Locale.getDefault());
-                time = sfd.format(postDate.toDate());
-            } else {
-                if (differenceDays > 0) {
-                    time = differenceDays + "d ago";
-                }
-                else {
-                    if (differenceHours > 0)
-                        time = differenceHours + "h ago";
-                    else {
-                        if (differenceMinutes > 0)
-                            time = differenceMinutes + "m ago";
-                        else
-                            time = differenceSeconds + "s ago";
-                    }
-                }
-            }
-        }
         holder.txtStatus.setText(posts.get(position).getStatus());
-        holder.txtTime.setText(time);
+        holder.txtTime.setText(TimestampConverter.getTime(posts.get(position).getPostTime()));
         holder.txtTitle.setText(posts.get(position).getBookName());
         holder.txtContent.setText(posts.get(position).getContent());
         holder.btnUpvote.setText(String.valueOf(posts.get(position).getUpvote()));
@@ -145,24 +115,4 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
     }
 
-    private void differenceBetweenDate(Timestamp postTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
-        String startDate = sdf.format(postTime.toDate());
-        String endDate = sdf.format(new Date());
-
-        try {
-            Date d1 = sdf.parse(startDate);
-            Date d2 = sdf.parse(endDate);
-
-            long differenceTime = d2.getTime() - d1.getTime();
-            differenceSeconds = Math.abs(TimeUnit.MILLISECONDS.toSeconds(differenceTime) % 60);
-            differenceMinutes = Math.abs(TimeUnit.MILLISECONDS.toMinutes(differenceTime) % 60);
-            differenceHours = Math.abs(TimeUnit.MILLISECONDS.toHours(differenceTime) % 24);
-            differenceDays = Math.abs(TimeUnit.MILLISECONDS.toDays(differenceTime) % 365);
-            differenceYears = TimeUnit.MILLISECONDS.toDays(differenceTime) / 365L;
-        }
-        catch (Exception e) {
-            Log.v("Error when get the difference date", e.getMessage());
-        }
-    }
 }

@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="user"
             android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
         <TextView
             android:id="@+id/commentTime"
             android:layout_width="match_parent"
