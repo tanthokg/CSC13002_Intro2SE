@@ -201,20 +201,36 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/addCommentEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/interactions"
-        android:background="@drawable/custom_edittext"
-        android:padding="15dp"
-        android:layout_margin="5dp"/>
+        <LinearLayout
+            android:id="@+id/addCommentSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/interactions">
+            <EditText
+                android:id="@+id/addCommentEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittext"
+                android:padding="15dp"
+                android:layout_margin="5dp"
+                android:layout_weight="4"/>
+            <Button
+                android:id="@+id/sendBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Send"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"/>
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRecView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/addCommentEditText" />
+            android:layout_below="@id/addCommentSection"/>
 
     </RelativeLayout>
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -55,6 +56,7 @@ public class CommentFragment extends Fragment {
     private MaterialButton btnUpvote, btnDownvote, btnComment, btnSave;
 
     private EditText addCommentEditText;
+    private Button sendBtn;
     private RecyclerView commentRecView;
     private CommentAdapter adapter;
 
@@ -90,6 +92,7 @@ public class CommentFragment extends Fragment {
         btnComment = view.findViewById(R.id.btnComment);
         btnSave = view.findViewById(R.id.btnSave);
         addCommentEditText = view.findViewById(R.id.addCommentEditText);
+        sendBtn = view.findViewById(R.id.sendBtn);
         commentRecView = view.findViewById(R.id.commentRecView);
 
         txtUsername.setText(post.getAuthor());
@@ -102,15 +105,21 @@ public class CommentFragment extends Fragment {
         btnComment.setText(String.valueOf(post.getCommentCount()));
 
         adapter = new CommentAdapter(context, comments);
-        fetchComments(post);
+        fetchComments();
         commentRecView.setAdapter(adapter);
-        commentRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        commentRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true));
 
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addComment();
+            }
+        });
 
         return view;
     }
 
-    private void fetchComments(Post post) {
+    private void fetchComments() {
         CollectionReference ref = db.collection("Post");
         Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
 
@@ -121,14 +130,14 @@ public class CommentFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.d(TAG, document.getId() + " => " + document.getData());
                         db.collection("Post").document(document.getId()).collection("Comment")
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        .orderBy("postTime").addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                 for (DocumentChange doc : value.getDocumentChanges()) {
                                     if (doc.getType() == DocumentChange.Type.ADDED) {
                                         Comment comment = doc.getDocument().toObject(Comment.class);
                                         comments.add(comment);
-                                        adapter.notifyDataSetChanged();
+                                        adapter.notifyItemInserted(comments.size());
                                     }
                                 }
                             }
@@ -140,5 +149,32 @@ public class CommentFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void addComment() {
+        String content = addCommentEditText.getText().toString();
+        if (content.length() == 0)
+            return;
+        Comment comment = new Comment("anonymous", content, new Timestamp(new Date()));
+
+        CollectionReference ref = db.collection("Post");
+        Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                        db.collection("Post").document(document.getId()).collection("Comment")
+                                .add(comment);
+                    }
+                }
+                else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+        addCommentEditText.setText("");
     }
 }

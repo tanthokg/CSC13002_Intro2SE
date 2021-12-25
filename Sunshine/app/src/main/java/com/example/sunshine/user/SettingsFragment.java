@@ -44,7 +44,7 @@ public class SettingsFragment extends Fragment {
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), create_post.class));
+                startActivity(new Intent(getContext(), CreatePostActivity.class));
             }
         });
 

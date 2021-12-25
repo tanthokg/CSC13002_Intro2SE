@@ -21,19 +21,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
-public class create_post extends AppCompatActivity {
+public class CreatePostActivity extends AppCompatActivity {
     private static final String[] status = new String[] {"Completed", "On Going", "Drop"};
     ArrayAdapter<String> adapter;
 
     Post post;
     FirebaseFirestore database;
 
-    EditText titlebox;
-    EditText authorbox;
+    EditText titleBox, authorBox, descriptionBox;
     Spinner status_options;
-    EditText descriptionbox;
-    Button create_post;
-    Button cancel_post;
+    Button createBtn, cancelBtn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,34 +40,34 @@ public class create_post extends AppCompatActivity {
 
         database = FirebaseFirestore.getInstance();
 
-        titlebox = (EditText) findViewById(R.id.titlebox);
-        authorbox = (EditText) findViewById(R.id.authorbox);
+        titleBox = (EditText) findViewById(R.id.titlebox);
+        authorBox = (EditText) findViewById(R.id.authorbox);
         status_options = (Spinner) findViewById(R.id.status_options);
-        descriptionbox = (EditText) findViewById(R.id.descriptionbox);
-        create_post = (Button) findViewById(R.id.create_post);
-        cancel_post = (Button) findViewById(R.id.cancel_post);
+        descriptionBox = (EditText) findViewById(R.id.descriptionbox);
+        createBtn = (Button) findViewById(R.id.create_post);
+        cancelBtn = (Button) findViewById(R.id.cancel_post);
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, status);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         status_options.setAdapter(adapter);
 
-        cancel_post.setOnClickListener(new View.OnClickListener() {
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
 
-        create_post.setOnClickListener(new View.OnClickListener() {
+        createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Timestamp timestamp = new Timestamp(new Date());
                 post = new Post();
-                post.setAuthor(authorbox.getText().toString());
-                post.setBookName(titlebox.getText().toString());
+                post.setAuthor(authorBox.getText().toString());
+                post.setBookName(titleBox.getText().toString());
                 post.setStatus(status_options.getSelectedItem().toString());
-                post.setContent(descriptionbox.getText().toString());
+                post.setContent(descriptionBox.getText().toString());
                 post.setPostTime(timestamp);
                 post.setCommentCount(0);
                 post.setDownvote(0);
@@ -92,7 +89,7 @@ public class create_post extends AppCompatActivity {
 
     private void createPost(Post post) {
         database.collection("Post").add(post);
-        Toast.makeText(getBaseContext(), "Successfully Post.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "Post Created Successfully.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, UserMainActivity.class));
     }
 

@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sunshine.R;
@@ -23,11 +21,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class fragment_home extends Fragment {
+public class HomepageFragment extends Fragment {
 
     EditText searchBar;
     RecyclerView recommendRecView, newTrendingRecView;
@@ -38,7 +35,7 @@ public class fragment_home extends Fragment {
     private List<Book> newTrendingBookList;
     private FirebaseFirestore firebaseFirestore;
 
-    public fragment_home(Context context) {
+    public HomepageFragment(Context context) {
         this.context = context;
     }
 
@@ -66,7 +63,7 @@ public class fragment_home extends Fragment {
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), create_post.class);
+                Intent intent = new Intent(getContext(), CreatePostActivity.class);
                 startActivity(intent);
             }
         });
