@@ -21,6 +21,8 @@ public class TimestampConverter {
             Date d1 = sdf.parse(startDate);
             Date d2 = sdf.parse(endDate);
 
+            assert d1 != null;
+            assert d2 != null;
             long differenceTime = d2.getTime() - d1.getTime();
             differenceSeconds = Math.abs(TimeUnit.MILLISECONDS.toSeconds(differenceTime) % 60);
             differenceMinutes = Math.abs(TimeUnit.MILLISECONDS.toMinutes(differenceTime) % 60);
@@ -37,7 +39,7 @@ public class TimestampConverter {
         SimpleDateFormat sfd;
 
         differenceBetweenDate(postTime);
-        String time = "";
+        String time;
         if (differenceYears > 0) {
             sfd = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
             time = sfd.format(postTime.toDate());

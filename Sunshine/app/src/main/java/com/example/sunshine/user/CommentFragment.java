@@ -104,6 +104,8 @@ public class CommentFragment extends Fragment {
         btnDownvote.setText(String.valueOf(post.getDownvote()));
         btnComment.setText(String.valueOf(post.getCommentCount()));
 
+
+
         adapter = new CommentAdapter(context, comments);
         fetchComments();
         commentRecView.setAdapter(adapter);

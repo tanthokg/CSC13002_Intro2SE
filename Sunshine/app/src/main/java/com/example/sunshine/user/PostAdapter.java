@@ -41,7 +41,6 @@ import java.util.concurrent.TimeUnit;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private Context context;
     List<Post> posts;
-    long differenceSeconds, differenceMinutes, differenceHours, differenceDays, differenceYears;
     FirebaseFirestore database;
     FirebaseAuth auth;
     String currentUserId;
@@ -49,11 +48,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
-        this.differenceSeconds = 0;
-        this.differenceMinutes = 0;
-        this.differenceHours = 0;
-        this.differenceDays = 0;
-        this.differenceYears = 0;
         this.database = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
         this.currentUserId = auth.getCurrentUser().getUid();
