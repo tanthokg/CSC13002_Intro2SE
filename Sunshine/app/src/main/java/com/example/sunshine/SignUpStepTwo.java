@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import com.example.sunshine.database.Authentication;
 import com.example.sunshine.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -179,9 +181,30 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             authUser.setPassword(Authentication.hashPass(authUser.getPassword()));
+                            String userId = firebaseAuth.getCurrentUser().getUid();
                             database.collection("Authentication")
-                                    .add(authUser)
-                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    .document(userId)
+                                    .set(authUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(@NonNull Void unused) {
+                                    Toast.makeText(context, "Successfully add data.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                            User user = new User(authUser.getUsername());
+                            database.collection("User")
+                                    .document(userId)
+                                    .set(user);
+                            Toast.makeText(context, "Successfully sign up.", Toast.LENGTH_SHORT).show();
+                            //firebaseAuth.signOut();
+                            signIn();
+                                   /* .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentReference> task) {
                                             if (task.isSuccessful()) {
@@ -195,7 +218,7 @@ public class SignUpStepTwo extends Fragment implements FragmentCallbacks {
                                             else
                                                 firebaseAuth.signOut();
                                         }
-                                    });
+                                    });*/
                             //Toast.makeText(context, "Successfully sign up.", Toast.LENGTH_SHORT).show();
                         }
                         else {
