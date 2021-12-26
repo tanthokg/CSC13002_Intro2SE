@@ -3,6 +3,8 @@ package com.example.sunshine.user;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,9 +29,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -61,12 +65,17 @@ public class CommentFragment extends Fragment {
     private CommentAdapter adapter;
 
     private FirebaseFirestore db;
+    private FirebaseAuth auth;
+    private String currentUserId, postId;
 
     public CommentFragment (Context context, Post post) {
         this.context = context;
         this.post = post;
+        this.postId = post.postId;
         this.comments = new ArrayList<Comment>();
         this.db = FirebaseFirestore.getInstance();
+        this.auth = FirebaseAuth.getInstance();
+        this.currentUserId = auth.getCurrentUser().getUid();
     }
 
     @Override
@@ -78,6 +87,72 @@ public class CommentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_comment, container, false);
+
+        // Check the user was upvoted or not
+        db.collection("Post/" + postId + "/Upvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                    if (value.exists())
+                        btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                    else
+                        btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
+            }
+        });
+
+        // Get the upvote count to display on button upvote
+        db.collection("Post/" + postId + "/Upvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
+                    if (!value.isEmpty()) {
+                        int count = value.size();
+                        btnUpvote.setText(String.valueOf(count));
+                    }
+                    else
+                        btnUpvote.setText("0");
+                }
+            }
+        });
+
+        // Check the user was downvoted or not
+        db.collection("Post/" + postId + "/Downvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                    if (value.exists())
+                        btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                    else
+                        btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
+            }
+        });
+
+        // Get the downvote count to display on button downvote
+        db.collection("Post/" + postId + "/Downvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
+                    if (!value.isEmpty()) {
+                        int count = value.size();
+                        btnDownvote.setText(String.valueOf(count));
+                    }
+                    else
+                        btnDownvote.setText("0");
+                }
+            }
+        });
+
+        // Get the comment count to display on button comment
+        db.collection("Post/" + postId + "/Comment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                    if (!value.isEmpty())
+                        btnComment.setText(String.valueOf(value.size()));
+                    else
+                        btnComment.setText("0");
+            }
+        });
 
         imgAvatar = view.findViewById(R.id.imgAvatar);
         txtUsername = view.findViewById(R.id.txtUsername);
@@ -100,9 +175,9 @@ public class CommentFragment extends Fragment {
         txtTime.setText(TimestampConverter.getTime(post.getPostTime()));
         txtTitle.setText(post.getBookName());
         txtContent.setText(post.getContent());
-        btnUpvote.setText(String.valueOf(post.getUpvote()));
+        /*btnUpvote.setText(String.valueOf(post.getUpvote()));
         btnDownvote.setText(String.valueOf(post.getDownvote()));
-        btnComment.setText(String.valueOf(post.getCommentCount()));
+        btnComment.setText(String.valueOf(post.getCommentCount()));*/
 
         adapter = new CommentAdapter(context, comments);
         fetchComments();
@@ -168,6 +243,16 @@ public class CommentFragment extends Fragment {
                         Log.d(TAG, document.getId() + " => " + document.getData());
                         db.collection("Post").document(document.getId()).collection("Comment")
                                 .add(comment);
+                        db.collection("Post/" + postId + "/Comment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (error == null)
+                                    if (!value.isEmpty())
+                                        btnComment.setText(String.valueOf(value.size()));
+                                    else
+                                        btnComment.setText("0");
+                            }
+                        });
                     }
                 }
                 else {
