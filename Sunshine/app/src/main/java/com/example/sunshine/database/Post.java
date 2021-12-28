@@ -2,7 +2,7 @@ package com.example.sunshine.database;
 
 import com.google.firebase.Timestamp;
 
-public class Post {
+public class Post extends PostId {
     private String author;
     private String bookName;
     private String content;
