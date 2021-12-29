@@ -69,9 +69,6 @@ public class CreatePostActivity extends AppCompatActivity {
                 post.setStatus(status_options.getSelectedItem().toString());
                 post.setContent(descriptionBox.getText().toString());
                 post.setPostTime(timestamp);
-                post.setCommentCount(0);
-                post.setDownvote(0);
-                post.setUpvote(0);
 
                 createPost(post);
             }
