@@ -59,17 +59,17 @@ public class PostFragment extends Fragment {
         currentUserId = auth.getCurrentUser().getUid();
         if (bookName == currentUserId)
             isReadLater = true;
-        listenDataChanged();
+        //listenDataChanged();
 
         postRecView = postFragment.findViewById(R.id.postRecView);
         adapter = new PostAdapter(context, postList, currentUserId, isReadLater, this);
         postRecView.setAdapter(adapter);
         postRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        listenDataChanged();
         return postFragment;
     }
 
     public void listenDataChanged() {
-        postList.clear();
         if (!isReadLater) {
             firebaseFirestore.collection("Post").whereEqualTo("bookName", bookName)
                     .orderBy("postTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -93,6 +93,8 @@ public class PostFragment extends Fragment {
             });
         }
         else {
+            postList.clear();
+            adapter.notifyDataSetChanged();
             firebaseFirestore.collection("User/" + currentUserId + "/Read Later").orderBy("saveTime", Query.Direction.DESCENDING)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
