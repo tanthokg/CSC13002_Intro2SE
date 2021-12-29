@@ -130,8 +130,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        // TODO: show user avatar and book author
-        holder.txtUsername.setText(posts.get(position).getAuthor());
+        // TODO: show user avatar
+        holder.txtUsername.setText(posts.get(position).getPostBy());
+        holder.txtAuthor.setText(posts.get(position).getAuthor());
         holder.txtStatus.setText(posts.get(position).getStatus());
         holder.txtTime.setText(TimestampConverter.getTime(posts.get(position).getPostTime()));
         holder.txtTitle.setText(posts.get(position).getBookName());

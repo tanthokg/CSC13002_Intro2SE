@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,9 +33,11 @@ public class PostFragment extends Fragment {
     Context context;
     private List<Post> postList;
     private FirebaseFirestore firebaseFirestore;
+    private String bookName;
 
-    public PostFragment(Context context) {
+    public PostFragment(Context context, String bookName) {
         this.context = context;
+        this.bookName = bookName;
     }
 
     @Nullable
@@ -54,7 +57,8 @@ public class PostFragment extends Fragment {
     }
 
     private void listenDataChanged() {
-        firebaseFirestore.collection("Post").orderBy("postTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Post").whereEqualTo("bookName", bookName)
+                .orderBy("postTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error == null) {
@@ -69,6 +73,8 @@ public class PostFragment extends Fragment {
                                 adapter.notifyDataSetChanged();
                         }
                     }
+                    else
+                        Toast.makeText(context, "No review post for " + bookName, Toast.LENGTH_SHORT).show();
                 }
             }
         });

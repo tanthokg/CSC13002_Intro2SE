@@ -3,6 +3,7 @@ package com.example.sunshine.database;
 import com.google.firebase.Timestamp;
 
 public class Post extends PostId {
+    private String postBy;
     private String author;
     private String bookName;
     private String content;
@@ -11,12 +12,17 @@ public class Post extends PostId {
 
     public Post() {}
 
-    public Post(String author, String bookName, String content, Timestamp postTime, String status) {
+    public Post(String postBy, String author, String bookName, String content, Timestamp postTime, String status) {
+        this.postBy = postBy;
         this.author = author;
         this.bookName = bookName;
         this.content = content;
         this.postTime = postTime;
         this.status = status;
+    }
+
+    public String getPostBy() {
+        return postBy;
     }
 
     public String getAuthor() {
@@ -37,6 +43,10 @@ public class Post extends PostId {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setPostBy(String postBy) {
+        this.postBy = postBy;
     }
 
     public void setAuthor(String author) {

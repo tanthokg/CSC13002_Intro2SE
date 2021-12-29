@@ -2,7 +2,9 @@ package com.example.sunshine.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,9 +15,14 @@ import com.example.sunshine.LoginActivity;
 import com.example.sunshine.MainCallbacks;
 import com.example.sunshine.R;
 import com.example.sunshine.database.Post;
+import com.example.sunshine.database.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserMainActivity extends AppCompatActivity implements MainCallbacks {
     FragmentManager fragmentManager;
@@ -38,7 +45,7 @@ public class UserMainActivity extends AppCompatActivity implements MainCallbacks
             int id = item.getItemId();
 
             if (R.id.homepage == id)
-                fragment = new PostFragment(this);
+                fragment = new HomepageFragment(this);
             else if (R.id.categories == id)
                 fragment = new CategoriesFragment();
             else if (R.id.notifications == id)
@@ -66,6 +73,13 @@ public class UserMainActivity extends AppCompatActivity implements MainCallbacks
 
     @Override
     public void fromFragmentToMain(String sender, String request, Object value) {
+        if (sender.equals("HOME")) {
+            if (request.equals("POST")) {
+                PostFragment postFragment = new PostFragment(this, (String)value);
+                getSupportFragmentManager().beginTransaction().addToBackStack("POST")
+                        .replace(R.id.mainFragmentHolder, postFragment).commit();
+            }
+        }
         if (sender.equals("POST")) {
             if (request.equals("SHOW-COMMENT")) {
                 Post post = (Post) value;

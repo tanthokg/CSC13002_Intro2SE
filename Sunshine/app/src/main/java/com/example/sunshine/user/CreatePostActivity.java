@@ -16,7 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sunshine.R;
 import com.example.sunshine.database.Post;
+import com.example.sunshine.database.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
@@ -27,6 +32,8 @@ public class CreatePostActivity extends AppCompatActivity {
 
     Post post;
     FirebaseFirestore database;
+    FirebaseAuth auth;
+    String username;
 
     EditText titleBox, authorBox, descriptionBox;
     Spinner status_options;
@@ -39,6 +46,8 @@ public class CreatePostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         database = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        getUsername();
 
         titleBox = (EditText) findViewById(R.id.titlebox);
         authorBox = (EditText) findViewById(R.id.authorbox);
@@ -64,6 +73,7 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Timestamp timestamp = new Timestamp(new Date());
                 post = new Post();
+                post.setPostBy(username);
                 post.setAuthor(authorBox.getText().toString());
                 post.setBookName(titleBox.getText().toString());
                 post.setStatus(status_options.getSelectedItem().toString());
@@ -90,4 +100,18 @@ public class CreatePostActivity extends AppCompatActivity {
         startActivity(new Intent(this, UserMainActivity.class));
     }
 
+    private void getUsername() {
+        String userId = auth.getCurrentUser().getUid();
+        database.collection("User").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful())
+                    if (task.getResult() != null) {
+                        User user;
+                        user = task.getResult().toObject(User.class);
+                        username = user.getUsername();
+                    }
+            }
+        });
+    }
 }

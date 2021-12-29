@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sunshine.R;
 import com.example.sunshine.database.Book;
 
@@ -18,9 +19,11 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public List<Book> bookList;
+    private Context context;
 
-    public HomeAdapter(List<Book> bookList) {
+    public HomeAdapter(List<Book> bookList, Context context) {
         this.bookList = bookList;
+        this.context = context;
     }
 
     @NonNull
@@ -32,7 +35,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Glide.with(context).load(bookList.get(position).getImageUri()).into(holder.imgBookAvatar);
+        holder.txtBookName.setText(bookList.get(position).getName());
 
+        holder.imgBookAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((UserMainActivity)context).fromFragmentToMain("HOME", "POST", bookList.get(holder.getAdapterPosition()).getName());
+            }
+        });
     }
 
     @Override
