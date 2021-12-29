@@ -1,16 +1,18 @@
 package com.example.sunshine.user;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +23,6 @@ import com.example.sunshine.database.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -30,27 +31,25 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private Context context;
     List<Post> posts;
     FirebaseFirestore database;
-    FirebaseAuth auth;
     String currentUserId;
+    boolean isReadLater;
+    PostFragment postFragment;
 
-    public PostAdapter(Context context, List<Post> posts) {
+    public PostAdapter(Context context, List<Post> posts, String currentUserId, boolean isReadLater, PostFragment postFragment) {
         this.context = context;
         this.posts = posts;
         this.database = FirebaseFirestore.getInstance();
-        this.auth = FirebaseAuth.getInstance();
-        this.currentUserId = auth.getCurrentUser().getUid();
+        this.currentUserId = currentUserId;
+        this.isReadLater = isReadLater;
+        this.postFragment = postFragment;
     }
 
     @NonNull
@@ -127,6 +126,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         holder.btnComment.setText(String.valueOf(value.size()));
                     else
                         holder.btnComment.setText("0");
+            }
+        });
+
+        // Check the user to save this post before
+        database.collection("User/" + currentUserId + "/Read Later").document(postId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
+                    if (value.exists())
+                        holder.btnSave.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                    else
+                        holder.btnSave.setIconTint(ColorStateList.valueOf(Color.BLACK));
+                }
             }
         });
 
@@ -239,7 +251,39 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isReadLater) {
+                    AlertDialog.Builder unsaveDialog = new AlertDialog.Builder(context);
+                    unsaveDialog.setTitle("Do you want to unsave this post?")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    database.collection("User/" + currentUserId + "/Read Later").document(postId).delete();
+                                    postFragment.listenDataChanged();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
+                                }
+                            });
+                    unsaveDialog.create().show();
+                }
+                else {
+                    database.collection("User/" + currentUserId + "/Read Later").document(postId).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (!task.getResult().exists()) {
+                                        Map<String, Object> saveTime = new HashMap<>();
+                                        saveTime.put("saveTime", FieldValue.serverTimestamp());
+                                        database.collection("User/" + currentUserId + "/Read Later").document(postId).set(saveTime);
+                                        holder.btnSave.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                                    } else
+                                        Toast.makeText(context, "User saved this post before.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
     }

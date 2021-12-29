@@ -51,7 +51,7 @@ public class UserMainActivity extends AppCompatActivity implements MainCallbacks
             else if (R.id.notifications == id)
                 fragment = new NotificationsFragment();
             else if (R.id.settings == id)
-                fragment = new SettingsFragment();
+                fragment = new SettingsFragment(this);
 
             if (fragment != null)
                 fragmentManager.beginTransaction().replace(R.id.mainFragmentHolder, fragment).commit();
@@ -86,6 +86,13 @@ public class UserMainActivity extends AppCompatActivity implements MainCallbacks
                 CommentFragment fragment = new CommentFragment(this, post);
                 getSupportFragmentManager().beginTransaction().addToBackStack("COMMENT")
                         .replace(R.id.mainFragmentHolder, fragment).commit();
+            }
+        }
+        if (sender.equals("SETTING")) {
+            if (request.equals("READ-LATER")) {
+                PostFragment postFragment = new PostFragment(this, (String)value);
+                getSupportFragmentManager().beginTransaction().addToBackStack("POST")
+                        .replace(R.id.mainFragmentHolder, postFragment).commit();
             }
         }
     }
