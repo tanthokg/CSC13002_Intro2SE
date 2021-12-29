@@ -18,6 +18,8 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -45,21 +47,27 @@ public class PostFragment extends Fragment {
         listenDataChanged();
 
         postRecView = postFragment.findViewById(R.id.postRecView);
-        adapter = new PostAdapter(postList);
+        adapter = new PostAdapter(context, postList);
         postRecView.setAdapter(adapter);
         postRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         return postFragment;
     }
 
     private void listenDataChanged() {
-        firebaseFirestore.collection("Post").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Post").orderBy("postTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (DocumentChange doc : value.getDocumentChanges()) {
-                    if (doc.getType() == DocumentChange.Type.ADDED) {
-                        Post reviewPost = doc.getDocument().toObject(Post.class);
-                        postList.add(reviewPost);
-                        adapter.notifyDataSetChanged();
+                if (error == null) {
+                    if (!value.isEmpty()) {
+                        for (DocumentChange doc : value.getDocumentChanges()) {
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
+                                String postId = doc.getDocument().getId();
+                                Post reviewPost = doc.getDocument().toObject(Post.class).withId(postId);
+                                postList.add(reviewPost);
+                                adapter.notifyDataSetChanged();
+                            } else
+                                adapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }

@@ -16,16 +16,16 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".user.User_Main"
+            android:name=".user.UserMainActivity"
             android:exported="false" />
         <activity
             android:name=".admin.Admin_Main"
             android:exported="false" />
         <activity
-            android:name=".user.create_post"
+            android:name=".user.CreatePostActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sunshine.MainActivity;
+import com.example.sunshine.LoginActivity;
 import com.example.sunshine.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class fragment_settings extends Fragment {
+public class SettingsFragment extends Fragment {
     Button logOutAdmin;
 
     private FirebaseAuth auth;
 
-    public fragment_settings()
+    public SettingsFragment()
     { }
 
     @Nullable
@@ -31,7 +31,7 @@ public class fragment_settings extends Fragment {
     }
 
     private void logIn() {
-        Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
+        Intent intent = new Intent(getActivity().getBaseContext(), LoginActivity.class);
         getActivity().startActivity(intent);
     }
 
@@ -44,7 +44,7 @@ public class fragment_settings extends Fragment {
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), create_post.class));
+                startActivity(new Intent(getContext(), CreatePostActivity.class));
             }
         });
 

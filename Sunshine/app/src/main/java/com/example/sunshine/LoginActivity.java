@@ -18,20 +18,17 @@ import android.widget.Toast;
 
 import com.example.sunshine.admin.Admin_Main;
 import com.example.sunshine.database.Authentication;
-import com.example.sunshine.user.User_Main;
+import com.example.sunshine.user.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     TextView forgetPassword, signUp;
     EditText loginUsername, loginPassword;
     Button logInBtn;
@@ -82,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
                             });
                 }
                 else if (username.length() == 0)
-                    Toast.makeText(MainActivity.this, "Please write your username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please write your username", Toast.LENGTH_SHORT).show();
                 else if (pass.length() == 0)
-                    Toast.makeText(MainActivity.this, "Please write your password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please write your password", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -112,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         clickableSignUp = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Toast.makeText(MainActivity.this, "Sign Up", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Sign Up", Toast.LENGTH_SHORT).show();
                 signUp();
             }
         };
@@ -146,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void userLogIn()
     {
-        Intent intent = new Intent(this, User_Main.class );
+        Intent intent = new Intent(this, UserMainActivity.class );
         startActivity(intent);
         finish();
     }
@@ -173,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setView(view);
         dialog.create().show();
 
-        Toast.makeText(MainActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, "Forget password", Toast.LENGTH_SHORT).show();
     }
 
     private void checkExistedUser(String username) {
@@ -196,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                                                     }
                                                 }
                                                 else
-                                                    Toast.makeText(MainActivity.this, "Username is not existed, please check the username or sign up!", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginActivity.this, "Username is not existed, please check the username or sign up!", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -209,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeToForgotPasswordActivity(String username) {
-        Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         intent.putExtra("username", username);
         startActivity(intent);
     }

@@ -2,27 +2,21 @@ package com.example.sunshine.database;
 
 import com.google.firebase.Timestamp;
 
-public class Post {
+public class Post extends PostId {
     private String author;
     private String bookName;
     private String content;
     private String status;
     private Timestamp postTime;
-    private int upvote;
-    private int downvote;
-    private int commentCount;
 
     public Post() {}
 
-    public Post(String author, String bookName, String content, Timestamp postTime, int upvote, int downvote, String status, int commentCount) {
+    public Post(String author, String bookName, String content, Timestamp postTime, String status) {
         this.author = author;
         this.bookName = bookName;
         this.content = content;
         this.postTime = postTime;
-        this.upvote = upvote;
-        this.downvote = downvote;
         this.status = status;
-        this.commentCount = commentCount;
     }
 
     public String getAuthor() {
@@ -41,20 +35,8 @@ public class Post {
         return postTime;
     }
 
-    public int getUpvote() {
-        return upvote;
-    }
-
-    public int getDownvote() {
-        return downvote;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
     }
 
     public void setAuthor(String author) {
@@ -75,17 +57,5 @@ public class Post {
 
     public void setPostTime(Timestamp postTime) {
         this.postTime = postTime;
-    }
-
-    public void setUpvote(int upvote) {
-        this.upvote = upvote;
-    }
-
-    public void setDownvote(int downvote) {
-        this.downvote = downvote;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
     }
 }

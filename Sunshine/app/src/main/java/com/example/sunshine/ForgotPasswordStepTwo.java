@@ -71,69 +71,81 @@ public class ForgotPasswordStepTwo extends Fragment implements FragmentCallbacks
     }
 
     private void updatePassword(String newPassword) {
-        auth.signInWithEmailAndPassword(user.getUsername() + "@gmail.com", user.getPassword())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            user.setPassword(newPassword);
-                            user.setPassword(Authentication.hashPass(user.getPassword()));
-                            FirebaseUser currentUser = auth.getCurrentUser();
-                            if (currentUser != null)
-                                currentUser.updatePassword(user.getPassword())
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+        auth.signInWithEmailAndPassword(user.getUsername() + "@gmail.com", user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    user.setPassword(newPassword);
+                    user.setPassword(Authentication.hashPass(user.getPassword()));
+                    FirebaseUser currentUser = auth.getCurrentUser();
+                    if (currentUser != null)
+                        currentUser.updatePassword(user.getPassword()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(@NonNull Void unused) {
+                                /*database.collection("Authentication").whereEqualTo("username", user.getUsername())
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onSuccess(@NonNull Void unused) {
-                                                database.collection("Authentication").whereEqualTo("username", user.getUsername())
-                                                        .get()
-                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                if (task.isSuccessful()) {
-                                                                    DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-                                                                    database.collection("Authentication")
-                                                                            .document(documentSnapshot.getId())
-                                                                            .update("password", user.getPassword())
-                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                @Override
-                                                                                public void onSuccess(@NonNull Void unused) {
-                                                                                    Toast.makeText(context, "Successfully change password.", Toast.LENGTH_SHORT).show();
-                                                                                    auth.signOut();
-                                                                                    logIn();
-                                                                                }
-                                                                            })
-                                                                            .addOnFailureListener(new OnFailureListener() {
-                                                                                @Override
-                                                                                public void onFailure(@NonNull Exception e) {
-                                                                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                    auth.signOut();
-                                                                                }
-                                                                            });
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                                                    database.collection("Authentication")
+                                                            .document(documentSnapshot.getId())
+                                                            .update("password", user.getPassword())
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(@NonNull Void unused) {
+                                                                    Toast.makeText(context, "Successfully change password.", Toast.LENGTH_SHORT).show();
+                                                                    auth.signOut();
+                                                                    logIn();
                                                                 }
-                                                            }
-                                                        });
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    auth.signOut();
+                                                                }
+                                                            });
+                                                }
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                auth.signOut();
-                                            }
-                                        });
-                            else {
-                                Toast.makeText(context, "Can't reset password.", Toast.LENGTH_SHORT).show();
+                                        });*/
+                                database.collection("Authentication").document(currentUser.getUid()).update("password", user.getPassword()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(context, "Successfully change password.", Toast.LENGTH_SHORT).show();
+                                            auth.signOut();
+                                            logIn();
+                                        }
+                                        else {
+                                            Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            auth.signOut();
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 auth.signOut();
                             }
-                        }
-                        else
-                            Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    else {
+                        Toast.makeText(context, "Can't reset password.", Toast.LENGTH_SHORT).show();
+                        auth.signOut();
                     }
-                });
+                }
+                else
+                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void logIn(){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         startActivity(intent);
     }
 }

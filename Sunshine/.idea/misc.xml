@@ -11,6 +11,10 @@
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_notifications.xml" value="0.27025641025641023" />
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.27025641025641023" />
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.27025641025641023" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.21944444444444444" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.24739583333333334" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_sign_up.xml" value="0.3619791666666667" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/post_item.xml" value="0.2064814814814815" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_outline_thumb_up_24.xml" value="0.3828125" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/icon_like.xml" value="0.3828125" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
@@ -49,8 +53,14 @@
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/forgot_password_step_one.xml" value="0.22592592592592592" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/forgot_password_step_two.xml" value="0.22592592592592592" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/forgot_password_username.xml" value="0.22592592592592592" />
+        <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/fragment_post.xml" value="0.22592592592592592" />
+        <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/post_item.xml" value="0.2228310502283105" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/sign_up_step_one.xml" value="0.25416666666666665" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/sign_up_step_two.xml" value="0.25416666666666665" />
+        <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_comment.xml" value="0.264" />
+        <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_comment_item.xml" value="0.22592592592592592" />
+        <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.22592592592592592" />
+        <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/menu/user_bottom_nav_items.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Sunshine/app/src/main/res/layout/admin_fragment_home.xml" value="0.25" />

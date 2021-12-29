@@ -19,9 +19,9 @@ import com.example.sunshine.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class fragment_notifications extends Fragment {
+public class NotificationsFragment extends Fragment {
 
-    public fragment_notifications(){}
+    public NotificationsFragment(){}
 
     private RecyclerView newRev;
     private NotificationAdapter newAdapter;

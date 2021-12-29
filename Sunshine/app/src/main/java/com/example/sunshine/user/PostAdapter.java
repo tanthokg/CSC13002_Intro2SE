@@ -1,5 +1,9 @@
 package com.example.sunshine.user;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,33 +13,44 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sunshine.R;
 import com.example.sunshine.database.Post;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+    private Context context;
+    List<Post> posts;
+    FirebaseFirestore database;
+    FirebaseAuth auth;
+    String currentUserId;
 
-    List<Post> postList;
-    long differenceSeconds, differenceMinutes, differenceHours, differenceDays, differenceYears;
-
-    public PostAdapter(List<Post> postList) {
-        this.postList = postList;
-        this.differenceSeconds = 0;
-        this.differenceMinutes = 0;
-        this.differenceHours = 0;
-        this.differenceDays = 0;
-        this.differenceYears = 0;
+    public PostAdapter(Context context, List<Post> posts) {
+        this.context = context;
+        this.posts = posts;
+        this.database = FirebaseFirestore.getInstance();
+        this.auth = FirebaseAuth.getInstance();
+        this.currentUserId = auth.getCurrentUser().getUid();
     }
 
     @NonNull
@@ -46,65 +61,177 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //TODO: the avatar of the user and the author of the book
-        holder.txtUsername.setText(postList.get(position).getAuthor());
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        String postId = posts.get(position).postId;
 
-        Timestamp postDate = postList.get(position).getPostTime();
-        SimpleDateFormat sfd;
-        //long differenceSeconds = 0, differenceMinutes = 0, differenceHours = 0, differenceDays = 0, differenceYears = 0;
-        differenceBetweenDate(postDate);
-        String time = "";
-        if (differenceYears > 0) {
-            sfd = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
-            time = sfd.format(postDate.toDate());
-        }
-        else {
-            if (differenceDays > 6) {
-                sfd = new SimpleDateFormat("MMM d", Locale.getDefault());
-                time = sfd.format(postDate.toDate());
-            } else {
-                if (differenceDays > 0) {
-                    time = differenceDays + "d ago";
-                }
-                else {
-                    if (differenceHours > 0)
-                        time = differenceHours + "h ago";
-                    else {
-                        if (differenceMinutes > 0)
-                            time = differenceMinutes + "m ago";
-                        else
-                            time = differenceSeconds + "s ago";
+        // Check the user was upvoted or not
+        database.collection("Post/" + postId + "/Upvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                    if (value.exists())
+                        holder.btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                    else
+                        holder.btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
+            }
+        });
+
+        // Get the upvote count to display on button upvote
+        database.collection("Post/" + postId + "/Upvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
+                    if (!value.isEmpty()) {
+                        int count = value.size();
+                        holder.btnUpvote.setText(String.valueOf(count));
                     }
+                    else
+                        holder.btnUpvote.setText("0");
                 }
             }
-        }
-        holder.txtStatus.setText(postList.get(position).getStatus());
-        holder.txtTime.setText(/*postList.get(position).getPostTime().toDate().toString()*/ time);
-        holder.txtTitle.setText(postList.get(position).getBookName());
-        holder.txtContent.setText(postList.get(position).getContent());
-        holder.btnUpvote.setText(String.valueOf(postList.get(position).getUpvote()));
-        holder.btnDownvote.setText(String.valueOf(postList.get(position).getDownvote()));
-        holder.btnComment.setText(String.valueOf(postList.get(position).getCommentCount()));
+        });
+
+        // Check the user was downvoted or not
+        database.collection("Post/" + postId + "/Downvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                    if (value.exists())
+                        holder.btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                    else
+                        holder.btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
+            }
+        });
+
+        // Get the downvote count to display on button downvote
+        database.collection("Post/" + postId + "/Downvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
+                    if (!value.isEmpty()) {
+                        int count = value.size();
+                        holder.btnDownvote.setText(String.valueOf(count));
+                    }
+                    else
+                        holder.btnDownvote.setText("0");
+                }
+            }
+        });
+
+        // Get the comment count to display on button comment
+        database.collection("Post/" + postId + "/Comment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                    if (!value.isEmpty())
+                        holder.btnComment.setText(String.valueOf(value.size()));
+                    else
+                        holder.btnComment.setText("0");
+            }
+        });
+
+        // TODO: show user avatar and book author
+        holder.txtUsername.setText(posts.get(position).getAuthor());
+        holder.txtStatus.setText(posts.get(position).getStatus());
+        holder.txtTime.setText(TimestampConverter.getTime(posts.get(position).getPostTime()));
+        holder.txtTitle.setText(posts.get(position).getBookName());
+        holder.txtContent.setText(posts.get(position).getContent());
 
         holder.btnUpvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                database.collection("Post/" + postId + "/Upvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.getResult().exists()) {
+                            Map<String, Object> likesMap = new HashMap<>();
+                            likesMap.put("timestamp", FieldValue.serverTimestamp());
+                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).set(likesMap);
+                        }
+                        else {
+                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).delete();
+                        }
+                    }
+                });
+
+                database.collection("Post/" + postId + "/Upvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error == null)
+                            if (value.exists())
+                                holder.btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                            else
+                                holder.btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
+                    }
+                });
+
+                database.collection("Post/" + postId + "/Upvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error == null) {
+                            if (!value.isEmpty()) {
+                                int count = value.size();
+                                holder.btnUpvote.setText(String.valueOf(count));
+                            }
+                            else
+                                holder.btnUpvote.setText("0");
+                        }
+                    }
+                });
             }
         });
 
         holder.btnDownvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String postId = posts.get(position).postId;
+                database.collection("Post/" + postId + "/Downvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.getResult().exists()) {
+                            Map<String, Object> likesMap = new HashMap<>();
+                            likesMap.put("timestamp", FieldValue.serverTimestamp());
+                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).set(likesMap);
+                        }
+                        else {
+                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).delete();
+                        }
+                    }
+                });
 
+                database.collection("Post/" + postId + "/Downvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error == null)
+                            if (value.exists())
+                                holder.btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                            else
+                                holder.btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
+                    }
+                });
+
+                database.collection("Post/" + postId + "/Downvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error == null) {
+                            if (!value.isEmpty()) {
+                                int count = value.size();
+                                holder.btnDownvote.setText(String.valueOf(count));
+                            }
+                            else
+                                holder.btnDownvote.setText("0");
+                        }
+                    }
+                });
             }
         });
 
         holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((UserMainActivity)context).fromFragmentToMain("POST", "SHOW-COMMENT",
+                        posts.get(holder.getAdapterPosition()));
             }
         });
 
@@ -118,11 +245,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return postList.size();
+        return posts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imgAvatar;
         TextView txtUsername, txtTime, txtTitle, txtAuthor, txtStatus, txtContent;
         ImageButton btnReport;
@@ -142,27 +268,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             btnDownvote = (MaterialButton) itemView.findViewById(R.id.btnDownvote);
             btnComment = (MaterialButton) itemView.findViewById(R.id.btnComment);
             btnSave = (MaterialButton) itemView.findViewById(R.id.btnSave);
-        }
-    }
-
-    private void differenceBetweenDate(Timestamp postTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
-        String startDate = sdf.format(postTime.toDate());
-        String endDate = sdf.format(new Date());
-
-        try {
-            Date d1 = sdf.parse(startDate);
-            Date d2 = sdf.parse(endDate);
-
-            long differenceTime = d2.getTime() - d1.getTime();
-            differenceSeconds = Math.abs(TimeUnit.MILLISECONDS.toSeconds(differenceTime) % 60);
-            differenceMinutes = Math.abs(TimeUnit.MILLISECONDS.toMinutes(differenceTime) % 60);
-            differenceHours = Math.abs(TimeUnit.MILLISECONDS.toHours(differenceTime) % 24);
-            differenceDays = Math.abs(TimeUnit.MILLISECONDS.toDays(differenceTime) % 365);
-            differenceYears = TimeUnit.MILLISECONDS.toDays(differenceTime) / 365l;
-        }
-        catch (Exception e) {
-            Log.v("Error when get the difference date", e.getMessage());
         }
     }
 }
