@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sunshine.R;
 import com.example.sunshine.database.Comment;
 import com.example.sunshine.database.Post;
+import com.example.sunshine.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -175,11 +177,6 @@ public class CommentFragment extends Fragment {
         txtTime.setText(TimestampConverter.getTime(post.getPostTime()));
         txtTitle.setText(post.getBookName());
         txtContent.setText(post.getContent());
-        /*btnUpvote.setText(String.valueOf(post.getUpvote()));
-        btnDownvote.setText(String.valueOf(post.getDownvote()));
-        btnComment.setText(String.valueOf(post.getCommentCount()));*/
-
-
 
         adapter = new CommentAdapter(context, comments);
         fetchComments();
@@ -197,7 +194,7 @@ public class CommentFragment extends Fragment {
     }
 
     private void fetchComments() {
-        CollectionReference ref = db.collection("Post");
+        /*CollectionReference ref = db.collection("Post");
         Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -225,11 +222,34 @@ public class CommentFragment extends Fragment {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
             }
+        });*/
+
+        db.collection("Post/" + postId + "/Comment").orderBy("postTime").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null)
+                {
+                    if (!value.isEmpty())
+                    {
+                        for (DocumentChange doc : value.getDocumentChanges())
+                        {
+                            if (doc.getType() == DocumentChange.Type.ADDED)
+                            {
+                                Comment comment = doc.getDocument().toObject(Comment.class);
+                                comments.add(comment);
+                                adapter.notifyItemInserted(comments.size());
+                            }
+                        }
+                    }
+                }
+                else
+                    Log.d(TAG, "Error getting documents: ", error);
+            }
         });
     }
 
     private void addComment() {
-        String content = addCommentEditText.getText().toString();
+        /*String content = addCommentEditText.getText().toString();
         if (content.length() == 0)
             return;
         Comment comment = new Comment("anonymous", content, new Timestamp(new Date()));
@@ -262,6 +282,46 @@ public class CommentFragment extends Fragment {
                 }
             }
         });
+        addCommentEditText.setText("");*/
+
+        String content = addCommentEditText.getText().toString();
+        if (content.length() == 0)
+        {
+            Toast.makeText(context, "Please write a comment", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        db.collection("User").document(currentUserId).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            if (task.getResult() != null) {
+                                User user = (User) task.getResult().toObject(User.class);
+                                String username = user.getUsername();
+                                Comment comment = new Comment(username, content, new Timestamp(new Date()));
+                                db.collection("Post/" + postId + "/Comment").add(comment);
+                                db.collection("Post/" + postId + "/Comment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        if (error == null)
+                                            if (!value.isEmpty())
+                                                btnComment.setText(String.valueOf(value.size()));
+                                            else
+                                                btnComment.setText("0");
+                                    }
+                                });
+                            }
+                            else
+                                Toast.makeText(context, "No found user.", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
         addCommentEditText.setText("");
     }
 }

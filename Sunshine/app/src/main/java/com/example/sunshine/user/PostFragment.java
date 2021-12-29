@@ -58,14 +58,16 @@ public class PostFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error == null) {
-                    for (DocumentChange doc : value.getDocumentChanges()) {
-                        if (doc.getType() == DocumentChange.Type.ADDED) {
-                            String postId = doc.getDocument().getId();
-                            Post reviewPost = doc.getDocument().toObject(Post.class).withId(postId);
-                            postList.add(reviewPost);
-                            adapter.notifyDataSetChanged();
-                        } else
-                            adapter.notifyDataSetChanged();
+                    if (!value.isEmpty()) {
+                        for (DocumentChange doc : value.getDocumentChanges()) {
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
+                                String postId = doc.getDocument().getId();
+                                Post reviewPost = doc.getDocument().toObject(Post.class).withId(postId);
+                                postList.add(reviewPost);
+                                adapter.notifyDataSetChanged();
+                            } else
+                                adapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }

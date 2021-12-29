@@ -136,10 +136,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.txtTime.setText(TimestampConverter.getTime(posts.get(position).getPostTime()));
         holder.txtTitle.setText(posts.get(position).getBookName());
         holder.txtContent.setText(posts.get(position).getContent());
-        /*holder.btnUpvote.setText(String.valueOf(*//*posts.get(position).getUpvote())*//* String.valueOf(upvoteCount)));
-        holder.btnDownvote.setText(String.valueOf(*//*posts.get(position).getDownvote())*//* String.valueOf(downvoteCount)));
-        holder.btnComment.setText(String.valueOf(*//*posts.get(position).getCommentCount())*//*String.valueOf(commentCount)));*/
-
 
         holder.btnUpvote.setOnClickListener(new View.OnClickListener() {
             @Override
