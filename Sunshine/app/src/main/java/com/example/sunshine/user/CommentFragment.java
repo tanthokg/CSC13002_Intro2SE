@@ -37,6 +37,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -47,8 +48,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CommentFragment extends Fragment {
@@ -153,6 +156,19 @@ public class CommentFragment extends Fragment {
                         btnComment.setText(String.valueOf(value.size()));
                     else
                         btnComment.setText("0");
+            }
+        });
+
+        // Check the user to save this post before
+        db.collection("User/" + currentUserId + "/Read Later").document(postId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
+                    if (value.exists())
+                        btnSave.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                    else
+                        btnSave.setIconTint(ColorStateList.valueOf(Color.BLACK));
+                }
             }
         });
 
