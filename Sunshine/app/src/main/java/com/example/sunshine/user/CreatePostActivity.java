@@ -71,6 +71,9 @@ public class CreatePostActivity extends AppCompatActivity {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!validateTitle() | !validateAuthor() | !validateDescription() ) {
+                    return;
+                }
                 Timestamp timestamp = new Timestamp(new Date());
                 post = new Post();
                 post.setPostBy(username);
@@ -86,6 +89,40 @@ public class CreatePostActivity extends AppCompatActivity {
 
 
     }
+    private boolean validateTitle() {
+        String input = titleBox.getText().toString().trim();
+        if (input.isEmpty()) {
+            titleBox.setError("Title must not be empty");
+            return false;
+        }
+        else {
+            titleBox.setError(null);
+            return true;
+        }
+    }
+    private boolean validateAuthor() {
+        String input = authorBox.getText().toString().trim();
+        if (input.isEmpty()) {
+            authorBox.setError("Author must not be empty");
+            return false;
+        }
+        else {
+            authorBox.setError(null);
+            return true;
+        }
+    }
+    private boolean validateDescription() {
+        String input = descriptionBox.getText().toString().trim();
+        if (input.isEmpty()) {
+            descriptionBox.setError("Description must not be empty");
+            return false;
+        }
+        else {
+            descriptionBox.setError(null);
+            return true;
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
