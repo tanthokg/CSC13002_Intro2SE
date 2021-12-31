@@ -11,16 +11,26 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sunshine.R;
 import com.example.sunshine.database.Book;
+import com.example.sunshine.database.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +44,8 @@ public class HomepageFragment extends Fragment {
     private List<Book> recommendBookList;
     private List<Book> newTrendingBookList;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth auth;
+    private boolean typeUser;
 
     public HomepageFragment(Context context) {
         this.context = context;
@@ -42,22 +54,27 @@ public class HomepageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_fragment_home, container, false);
+        getTypeUser();
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    private void getTypeUser() {
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*recommendBookList = new ArrayList<>();
+        recommendBookList = new ArrayList<>();
         newTrendingBookList = new ArrayList<>();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        //listenDataChange();
+        listenDataChange();
 
         searchBar = (EditText) view.findViewById(R.id.searchBar);
         recommendRecView = (RecyclerView) view.findViewById(R.id.recommendRecView);
-        newTrendingRecView = (RecyclerView) view.findViewById(R.id.newTrendingRecView);*/
+        newTrendingRecView = (RecyclerView) view.findViewById(R.id.newTrendingRecView);
         btnCreatePost = (FloatingActionButton) view.findViewById(R.id.btnCreatePost);
 
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
@@ -68,20 +85,33 @@ public class HomepageFragment extends Fragment {
             }
         });
 
-        /*recommendAdapter = new HomeAdapter(recommendBookList);
+        recommendAdapter = new HomeAdapter(recommendBookList, context);
         recommendRecView.setAdapter(recommendAdapter);
         recommendRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        newTrendingAdapter = new HomeAdapter(newTrendingBookList);
+        newTrendingAdapter = new HomeAdapter(newTrendingBookList, context);
         newTrendingRecView.setAdapter(newTrendingAdapter);
-        newTrendingRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));*/
+        newTrendingRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     }
-    //TODO: code adapter to display review post
+
     private void listenDataChange() {
         firebaseFirestore.collection("Book").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                
+                if (error == null)
+                    if (!value.isEmpty())
+                        for (DocumentChange doc : value.getDocumentChanges()) {
+                            if (doc.getType() == DocumentChange.Type.ADDED)
+                            {
+                                String bookId = doc.getDocument().getId();
+                                Book book = doc.getDocument().toObject(Book.class).withId(bookId);
+                                recommendBookList.add(book);
+                                recommendAdapter.notifyDataSetChanged();
+
+                                newTrendingBookList.add(book);
+                                newTrendingAdapter.notifyDataSetChanged();
+                            }
+                        }
             }
         });
     }

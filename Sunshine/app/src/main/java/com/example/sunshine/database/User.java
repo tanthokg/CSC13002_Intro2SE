@@ -8,7 +8,6 @@ public class User {
     private boolean type;
     private String birthday;
     private boolean gender;
-    private List<Integer> readLater;
 
     public User() {}
 
@@ -32,10 +31,6 @@ public class User {
         this.gender = gender;
     }
 
-    public void setReadLater(List<Integer> readLater) {
-        this.readLater = readLater;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -54,9 +49,5 @@ public class User {
 
     public boolean isGender() {
         return gender;
-    }
-
-    public List<Integer> getReadLater() {
-        return readLater;
     }
 }

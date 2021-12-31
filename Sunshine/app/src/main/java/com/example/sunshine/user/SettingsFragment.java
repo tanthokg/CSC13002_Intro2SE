@@ -1,5 +1,6 @@
 package com.example.sunshine.user;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,12 +17,14 @@ import com.example.sunshine.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsFragment extends Fragment {
-    Button logOutAdmin;
+    Button btnLogOut, btnReadLater;
 
     private FirebaseAuth auth;
+    private Context context;
 
-    public SettingsFragment()
-    { }
+    public SettingsFragment(Context context) {
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -48,8 +51,16 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        logOutAdmin = (Button) view.findViewById(R.id.logOutUser);
-        logOutAdmin.setOnClickListener(new View.OnClickListener() {
+        btnReadLater = (Button) view.findViewById(R.id.read_later);
+        btnReadLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((UserMainActivity)context).fromFragmentToMain("SETTING", "READ-LATER", auth.getCurrentUser().getUid());
+            }
+        });
+
+        btnLogOut = (Button) view.findViewById(R.id.logOutUser);
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();

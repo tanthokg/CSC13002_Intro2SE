@@ -40,7 +40,7 @@ public class Admin_Main extends AppCompatActivity {
                     fragment = new fragment_report();
                     break;
                 case R.id.settings_admin:
-                    fragment = new SettingsFragment();
+                    fragment = new SettingsFragment(this);
                     break;
             }
 
