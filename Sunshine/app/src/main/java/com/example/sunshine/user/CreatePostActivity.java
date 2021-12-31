@@ -1,5 +1,6 @@
 package com.example.sunshine.user;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sunshine.R;
@@ -64,10 +66,9 @@ public class CreatePostActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                setCancelBtn();
             }
         });
-
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +122,27 @@ public class CreatePostActivity extends AppCompatActivity {
             descriptionBox.setError(null);
             return true;
         }
+    }
+
+    private void setCancelBtn()
+    {
+        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this, R.style.AlertDialog);
+        confirmDialog.setMessage("Are you sure to cancel create post?");
+        confirmDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(CreatePostActivity.this, "Create post has been cancel", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            }
+        });
+        confirmDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        confirmDialog.create();
+        confirmDialog.show();
     }
 
 
