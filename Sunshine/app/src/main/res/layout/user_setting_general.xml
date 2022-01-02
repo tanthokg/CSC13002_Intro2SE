@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/general_setting"
+            android:layout_marginBottom="5dp"
+            android:text="@string/general_settings"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/darkModeSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/dark_mode"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                android:textOff="@string/off"
+                android:textOn="@string/on"
+                />
+            <Switch
+                android:id="@+id/hideVoteSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/hide_number_of_upvote_downvote"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/turnOffNotiSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/turn_off_all_notifications"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/requestPermission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:text="@string/request_reviewer_permission"
+            android:textSize="16sp"
+            android:fontFamily="monospace"
+            app:strokeColor="@color/green"
+            android:textColor="@color/green"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>
+
