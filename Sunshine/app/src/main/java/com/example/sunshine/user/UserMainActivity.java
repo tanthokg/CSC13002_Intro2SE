@@ -52,7 +52,6 @@ public class UserMainActivity extends AppCompatActivity implements MainCallbacks
                 fragment = new NotificationsFragment();
             else if (R.id.settings == id)
                 fragment = new SettingsFragment(this);
-
             if (fragment != null)
                 fragmentManager.beginTransaction().replace(R.id.mainFragmentHolder, fragment).commit();
             return true;
