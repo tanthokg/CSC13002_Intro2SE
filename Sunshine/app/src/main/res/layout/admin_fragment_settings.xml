@@ -4,29 +4,77 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/fragment_settings_admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin Settings"
-        android:textSize="20dp"
-        android:layout_gravity="center"
-        />
-
-    <com.google.android.material.button.MaterialButton
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="@string/logout"
-        android:fontFamily="monospace"
-        android:id="@+id/logOutAdmin"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:strokeColor="@color/red"
-        android:textColor="@color/red"
-        app:icon="@drawable/ic_baseline_logout_24"
-        app:iconGravity="textStart"
-        app:iconTint="@color/red"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/options"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/options"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/general_admin"
+            android:text="@string/general"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_settings_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifications_setting_admin"
+            android:text="@string/notifications"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:backgroundTint="@color/btn_background"
+            app:strokeColor="@color/black"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_edit_notifications_24"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/logout"
+            android:textSize="18sp"
+            android:fontFamily="monospace"
+            android:id="@+id/logOutAdmin"
+            android:layout_marginTop="20dp"
+            app:strokeColor="@color/red"
+            android:textColor="@color/red"
+            app:icon="@drawable/ic_baseline_logout_24"
+            app:iconGravity="textStart"
+            app:iconTint="@color/red"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Version 1.0.0"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
 
 </FrameLayout>
