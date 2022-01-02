@@ -62,21 +62,33 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = loginPassword.getText().toString();
                 if(username.length() != 0 && pass.length() != 0)
                 {
-                    auth.signInWithEmailAndPassword(username + "@gmail.com", Authentication.hashPass(pass))
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        if (username.equals(adminUsername))
-                                            adminLogIn();
-                                        else
+                    if (!username.equals(adminUsername)) {
+                        auth.signInWithEmailAndPassword(username + "@gmail.com", Authentication.hashPass(pass))
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
                                             userLogIn();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                    else {
-                                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                });
+                    }
+                    else {
+                        auth.signInWithEmailAndPassword(username + "@gmail.com", pass)
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            adminLogIn();
+                                        }
+                                        else {
+                                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    }
                 }
                 else if (username.length() == 0)
                     Toast.makeText(LoginActivity.this, "Please write your username", Toast.LENGTH_SHORT).show();
