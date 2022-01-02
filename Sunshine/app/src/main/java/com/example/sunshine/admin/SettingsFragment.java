@@ -15,10 +15,10 @@ import com.example.sunshine.LoginActivity;
 import com.example.sunshine.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class fragment_settings extends Fragment {
+public class SettingsFragment extends Fragment {
     Button logOutUser;
     private FirebaseAuth auth;
-    public fragment_settings()
+    public SettingsFragment()
     { }
 
     @Nullable
