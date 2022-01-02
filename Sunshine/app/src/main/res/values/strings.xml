@@ -53,4 +53,11 @@
     <string name="faq">FAQ</string>
     <string name="gmail">readdata@gmail.com</string>
     <string name="pass">sunshineapp</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="off">off</string>
+    <string name="on">on</string>
+    <string name="hide_number_of_upvote_downvote">Hide number of upvote/downvote</string>
+    <string name="turn_off_all_notifications">Turn off all notifications</string>
+    <string name="request_reviewer_permission">Request reviewer permission</string>
+    <string name="general_settings">General settings</string>
 </resources>
