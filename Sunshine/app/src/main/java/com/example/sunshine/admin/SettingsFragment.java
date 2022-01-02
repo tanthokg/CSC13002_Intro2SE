@@ -16,7 +16,7 @@ import com.example.sunshine.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsFragment extends Fragment {
-    Button logOutUser;
+    Button logOutAdmin;
     private FirebaseAuth auth;
     public SettingsFragment()
     { }
@@ -38,8 +38,8 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        logOutUser = (Button) view.findViewById(R.id.logOutUser);
-        logOutUser.setOnClickListener(new View.OnClickListener() {
+        logOutAdmin = (Button) view.findViewById(R.id.logOutAdmin);
+        logOutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
