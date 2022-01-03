@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +44,7 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
     FirebaseFirestore database;
     String currentUserId;
     PermissionFragment permissionFragment;
- //   String userName;
+    String userName;
 
     public PermissionAdapter(Context context, ArrayList<Permission> permissions, String currentUserId, PermissionFragment permissionFragment) {
         this.mContext = context;
@@ -66,15 +67,34 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
        // holder.commentTime.setText(TimestampConverter.getTime(comments.get(position).getPostTime()));
       String permissionId = listPermissions.get(position).permissionId;
 
+        // Gets user document from Firestore as reference
+        DocumentReference docRef = database.collection("User").document(permissionId);
 
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "db username getString() is: " + document.getString("username"));
+                        userName = (String) document.getString("username");
+                        Log.d(TAG, "String UserName is: " + userName);
+                        holder.txtUsername.setText(userName);
+
+                    }
+                    else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
 
         // TODO: show user avatar
         //   holder.txtUsername.setText(requests.get(position).getPostBy());
-
-       // holder.txtUsername.setText(mPermissions.get(position).getUs());
-
         holder.txtTime.setText(TimestampConverter.getTime(listPermissions.get(position).getPermissionTime()));
-     
+
     }
 
     @Override

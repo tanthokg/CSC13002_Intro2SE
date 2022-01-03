@@ -41,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,8 +58,8 @@ public class PermissionFragment extends Fragment {
     private String currentUserId;
 //    private Button acceptBtn, declineBtn;
 //    private ImageView imgAvatar;
-//    private TextView txtUserName, txtTime;
-//    private String userName;
+ //   private TextView txtUserName;
+   private String userName;
 
     public PermissionFragment(Context context) {
 
@@ -83,15 +84,8 @@ public class PermissionFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         currentUserId = auth.getCurrentUser().getUid();
-        // listenDataChanged();
-
-//        imgAvatar = permissionFragment.findViewById(R.id.imgAvatar);
-//        txtUserName = permissionFragment.findViewById(R.id.txtUsername);
-//        txtTime = permissionFragment.findViewById(R.id.txtTime);
         permissionRecView = permissionFragment.findViewById(R.id.permissionRecView);
-
         adapter = new PermissionAdapter(context, perList, currentUserId, this);
-
         permissionRecView.setAdapter(adapter);
         permissionRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         readPermissionData();
@@ -109,6 +103,10 @@ public class PermissionFragment extends Fragment {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                 String perId = doc.getDocument().getId();
                                 Permission _permission = doc.getDocument().toObject(Permission.class).withId(perId);
+
+                              //  txt = (TextView)findViewById(R.id.tvFirstName);
+                            //
+                               // tvFirstName.setText(mFirstName);
                                 perList.add(_permission);
                                 adapter.notifyDataSetChanged();
                             } else

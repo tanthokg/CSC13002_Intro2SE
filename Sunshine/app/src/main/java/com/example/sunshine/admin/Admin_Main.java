@@ -35,7 +35,6 @@ public class Admin_Main extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.permission:
                   fragment = new PermissionFragment(this);
-                    //PostFragment postFragment = new PostFragment(this, (String)value);
                     break;
                 case R.id.report:
                     fragment = new fragment_report();
