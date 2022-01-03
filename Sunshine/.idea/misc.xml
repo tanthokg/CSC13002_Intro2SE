@@ -11,6 +11,31 @@
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_notifications.xml" value="0.27025641025641023" />
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.27025641025641023" />
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.28615384615384615" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.28615384615384615" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.28615384615384615" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_forgot_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_sign_up.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_permission.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_fragment_settings.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_settings_general.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/admin_settings_notifications.xml" value="0.14375" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/forgot_password_step_two.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/forgot_password_username.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/home_book_item.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/post_item.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/sign_up_step_one.xml" value="0.2574074074074074" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/sign_up_step_two.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_comment.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_create_post_review.xml" value="0.2574074074074074" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_categories.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_home.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_setting_general.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_setting_give_feedback.xml" value="0.27447916666666666" />
+        <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/menu/user_bottom_nav_items.xml" value="0.27447916666666666" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.21944444444444444" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.24739583333333334" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/activity_sign_up.xml" value="0.3619791666666667" />
@@ -106,7 +131,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

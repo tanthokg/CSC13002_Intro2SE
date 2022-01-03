@@ -29,25 +29,25 @@ public class SettingGeneralActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_setting_general);
 
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      getSupportActionBar().setTitle("Settings");
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
-        
+
         darkModeBtn = (Switch) findViewById(R.id.darkModeSwitch);
         hideVoteBtn = (Switch) findViewById(R.id.hideVoteSwitch);
         turnOffNotiBtn = (Switch) findViewById(R.id.turnOffNotiSwitch);
         requestPermissionBtn = (Button) findViewById(R.id.requestPermission);
-        
+
         requestPermissionBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-               
-                }
-              
-            
+
+            }
+
+
         });
 
     }
