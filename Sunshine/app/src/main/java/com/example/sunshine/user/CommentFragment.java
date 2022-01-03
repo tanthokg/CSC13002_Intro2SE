@@ -188,7 +188,8 @@ public class CommentFragment extends Fragment {
         sendBtn = view.findViewById(R.id.sendBtn);
         commentRecView = view.findViewById(R.id.commentRecView);
 
-        txtUsername.setText(post.getAuthor());
+        txtUsername.setText(post.getPostBy());
+        txtAuthor.setText(post.getAuthor());
         txtStatus.setText(post.getStatus());
         txtTime.setText(TimestampConverter.getTime(post.getPostTime()));
         txtTitle.setText(post.getBookName());
