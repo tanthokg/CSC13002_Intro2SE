@@ -6,8 +6,17 @@
     android:tint="?attr/colorControlNormal"
     android:autoMirrored="true"
     >
-  <path
-      android:fillColor="@android:color/white"
-      android:pathData="M2.01,21L23,12 2.01,3 2,10l15,2 -15,2z"/>
+
+  <group
+      android:rotation="300"
+      android:pivotY="12"
+      android:pivotX="12"
+      >
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M2.01,21L23,12 2.01,3 2,10l15,2 -15,2z"/>
+  </group>
+
+
 
 </vector>

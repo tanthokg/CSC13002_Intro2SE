@@ -60,4 +60,18 @@
     <string name="turn_off_all_notifications">Turn off all notifications</string>
     <string name="request_reviewer_permission">Request reviewer permission</string>
     <string name="general_settings">General settings</string>
+    <string name="first_faq">Q: How do I post a review myself ?</string>
+    <string name="first_faq_answer">A: First, you must request for reviewer permission in settings. Then, you need to contact the administrators through john@example.com and follow further instructions there to be approved as a reviewer</string>
+    <string name="second_faq">Q: Will my post be deleted if its total votes is negative?</string>
+    <string name="second_faq_answer">A: No, it won’t be deleted unless it violates our Community Rules. But keep in mind that if you have too many of negative reviews, your posts will be less likely displayed on homepage.</string>
+    <string name="third_faq">Q: How can I get my account unbanned?</string>
+    <string name="third_faq_answer">A: You need to contact the administrators through john@example.com and follow further instructions there to unban your account</string>
+    <string name="fourth_faq">Q: Can I change my username?</string>
+    <string name="fourth_faq_answer">Yes, you can</string>
+    <string name="fifth_faq">Q: Can I change my security question ?</string>
+    <string name="fifth_faq_answer">A: Yes, as long as you have your password</string>
+    <string name="sixth_faq">Q: How can I report violated contents?</string>
+    <string name="sixth_faq_answer">A: You can do that by pressing ... on the top right corner and then choose “Report”. Please notice that we only allow a user to report once every 5 minutes to avoid spamming.</string>
+    <string name="seventh_faq">Q: Is there any age restriction?</string>
+    <string name="seventh_faq_answer">A: There is not. But there are some books/stories that are inappropriate to children. We suggest what you should be at least 13 to use the app</string>
 </resources>

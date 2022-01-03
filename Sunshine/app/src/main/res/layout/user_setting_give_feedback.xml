@@ -121,12 +121,15 @@
         android:text="Send"
         android:textAllCaps="false"
         android:textColor="@color/black"
-
         android:textSize="16sp"
-        android:textStyle="bold"
 
+
+        android:textStyle="bold"
         app:icon="@drawable/ic_baseline_send_24"
-        app:iconGravity="textStart" />
+
+
+        app:iconGravity="textStart"
+        app:iconTint="@color/black" />
 
 
 
