@@ -60,4 +60,8 @@
     <string name="turn_off_all_notifications">Turn off all notifications</string>
     <string name="request_reviewer_permission">Request reviewer permission</string>
     <string name="general_settings">General settings</string>
+    <string name="asked_for_the_reviewer_permission">asked for the reviewer permission</string>
+    <string name="_3_hours_ago">3 hours ago</string>
+    <string name="accept">ACCEPT</string>
+    <string name="decline">DECLINE</string>
 </resources>

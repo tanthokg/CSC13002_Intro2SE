@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_person_24">
+        </ImageView>
+        <TextView
+            android:id="@+id/txtUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:text="Username"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/permission_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/txtUsername"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:text="@string/asked_for_the_reviewer_permission"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/permission_tv"
+            android:text="Minute"
+            android:layout_toEndOf="@+id/imgAvatar"
+            android:textSize="16sp">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/acceptBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_tv"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:text="@string/accept" >
+        </Button>
+        <Button
+            android:id="@+id/declineBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_tv"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@id/acceptBtn"
+            android:text="@string/decline" >
+        </Button>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
