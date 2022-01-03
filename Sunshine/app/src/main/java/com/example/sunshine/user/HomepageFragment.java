@@ -69,8 +69,13 @@ public class HomepageFragment extends Fragment {
                 if (task.isSuccessful()) {
                     if (task.getResult() != null) {
                         User user = task.getResult().toObject(User.class);
-                        if (user != null)
+                        if (user != null) {
                             typeUser = user.isType();
+                            if (typeUser)
+                                btnCreatePost.setVisibility(View.VISIBLE);
+                            else
+                                btnCreatePost.setVisibility(View.INVISIBLE);
+                        }
                     }
                 }
             }
@@ -91,10 +96,7 @@ public class HomepageFragment extends Fragment {
         newTrendingRecView = (RecyclerView) view.findViewById(R.id.newTrendingRecView);
         btnCreatePost = (FloatingActionButton) view.findViewById(R.id.btnCreatePost);
 
-        if (typeUser)
-            btnCreatePost.setVisibility(View.VISIBLE);
-        else
-            btnCreatePost.setVisibility(View.INVISIBLE);
+        btnCreatePost.setVisibility(View.INVISIBLE);
 
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override

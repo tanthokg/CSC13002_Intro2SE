@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sunshine.R;
+import com.example.sunshine.database.Book;
 import com.example.sunshine.database.Post;
 import com.example.sunshine.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,8 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
 
@@ -32,6 +35,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private static final String[] status = new String[] {"Completed", "On Going", "Drop"};
     ArrayAdapter<String> adapter;
 
+    // tao mot bien static de giu gia tri back up
     Post post;
     FirebaseFirestore database;
     FirebaseAuth auth;
@@ -69,6 +73,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 setCancelBtn();
             }
         });
+
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +89,8 @@ public class CreatePostActivity extends AppCompatActivity {
                 post.setContent(descriptionBox.getText().toString());
                 post.setPostTime(timestamp);
 
-                createPost(post);
+                checkExistedBook(post);
+                //createPost(post);
             }
         });
 
@@ -170,6 +176,43 @@ public class CreatePostActivity extends AppCompatActivity {
                         user = task.getResult().toObject(User.class);
                         username = user.getUsername();
                     }
+            }
+        });
+    }
+
+    private void checkExistedBook(Post post) {
+        database.collection("Book").whereEqualTo("name", post.getBookName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CreatePostActivity.this);
+                        builder.setMessage("Do you want to create the information for this book?")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // TODO: create book
+                                        Intent intent = new Intent(getApplicationContext(), CreateBookActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(CreatePostActivity.this, "Can not create this review post.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        builder.create().show();
+                    }
+                    else {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            createPost(post);
+                        }
+                    }
+                }
+                else {
+                    Toast.makeText(CreatePostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

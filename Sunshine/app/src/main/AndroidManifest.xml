@@ -28,6 +28,9 @@
             android:name=".user.SettingGeneralActivity"
             android:exported="false" />
         <activity
+            android:name=".user.CreateBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
