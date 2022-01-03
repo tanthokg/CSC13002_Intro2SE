@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,21 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sunshine.R;
-import com.example.sunshine.database.Request;
-import com.example.sunshine.user.PostAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.sunshine.database.Permission;
 
-import java.security.Permission;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,7 +22,7 @@ public class PermissionFragment extends Fragment {
     RecyclerView permissionRecView;
     PermissionAdapter adapter;
     Context context;
-    private List<Request> perList;
+    private List<Permission> perList;
     private String currentUserId;
     public PermissionFragment()
     {

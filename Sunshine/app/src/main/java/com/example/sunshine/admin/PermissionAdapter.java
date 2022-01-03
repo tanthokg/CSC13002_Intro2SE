@@ -1,51 +1,33 @@
 package com.example.sunshine.admin;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sunshine.R;
 import com.example.sunshine.TimestampConverter;
-import com.example.sunshine.database.Request;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.sunshine.database.Permission;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.security.Permission;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.ViewHolder> {
     private Context context;
-    List<Request> permissions;
+    List<Permission> permissions;
     FirebaseFirestore database;
     String currentUserId;
     boolean isReadLater;
   //  PostFragment postFragment;
 
-    public PermissionAdapter(Context context, List<Request> permissions, String currentUserId) {
+    public PermissionAdapter(Context context, List<Permission> permissions, String currentUserId) {
         this.context = context;
         this.permissions= permissions;
         this.database = FirebaseFirestore.getInstance();
@@ -62,14 +44,14 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String requestId = permissions.get(position).requestId;
+        String requestId = permissions.get(position).permissionId;
 
 
         // TODO: show user avatar
         //   holder.txtUsername.setText(requests.get(position).getPostBy());
         // holder.txtAuthor.setText(posts.get(position).getAuthor());
         //  holder.txtStatus.setText(posts.get(position).getStatus());
-        holder.txtTime.setText(TimestampConverter.getTime(permissions.get(position).getRequestTime()));
+        holder.txtTime.setText(TimestampConverter.getTime(permissions.get(position).getPermissionTime()));
         //   holder.txtTitle.setText(posts.get(position).getBookName());
         //  holder.txtContent.setText(posts.get(position).getContent());
     }

@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.Exclude;
 
-public class RequestId {
+public class PermissionId {
     @Exclude
-    public String requestId;
+    public String permissionId;
 
-    public <T extends RequestId> T withId(@NonNull final String id) {
-        this.requestId = id;
+    public <T extends PermissionId> T withId(@NonNull final String id) {
+        this.permissionId = id;
         return (T) this;
     }
 }
