@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sunshine.database.PermissionId;
 import com.example.sunshine.user.TimestampConverter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,14 +39,15 @@ import java.util.Map;
 
 public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.ViewHolder> {
     private Context mContext;
-    private ArrayList<Permission> mPermissions = new ArrayList<>();
+    private ArrayList<Permission> listPermissions;
     FirebaseFirestore database;
     String currentUserId;
     PermissionFragment permissionFragment;
+ //   String userName;
 
     public PermissionAdapter(Context context, ArrayList<Permission> permissions, String currentUserId, PermissionFragment permissionFragment) {
         this.mContext = context;
-        this.mPermissions= permissions;
+        this.listPermissions = permissions;
         this.database = FirebaseFirestore.getInstance();
         this.currentUserId = currentUserId;
         this.permissionFragment = permissionFragment;
@@ -60,24 +64,25 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
        // holder.commentTime.setText(TimestampConverter.getTime(comments.get(position).getPostTime()));
+      String permissionId = listPermissions.get(position).permissionId;
+
+
 
         // TODO: show user avatar
         //   holder.txtUsername.setText(requests.get(position).getPostBy());
+
        // holder.txtUsername.setText(mPermissions.get(position).getUs());
-        //  holder.txtStatus.setText(posts.get(position).getStatus());
-        holder.txtTime.setText(TimestampConverter.getTime(mPermissions.get(position).getPermissionTime()));
-        //   holder.txtTitle.setText(posts.get(position).getBookName());
-        //  holder.txtContent.setText(posts.get(position).getContent());
+
+        holder.txtTime.setText(TimestampConverter.getTime(listPermissions.get(position).getPermissionTime()));
+     
     }
 
     @Override
     public int getItemCount() {
-        return mPermissions.size();}
+        return listPermissions.size();}
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAvatar;
-
         TextView  txtTime,txtUsername;
-       // ImageButton btnReport;
         Button acceptBtn, declineBtn;
 
         public ViewHolder(@NonNull View itemView) {
