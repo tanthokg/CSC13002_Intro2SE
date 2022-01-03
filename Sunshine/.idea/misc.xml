@@ -95,13 +95,17 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1752786220871327" />
         <entry key="app/src/main/res/layout/admin_fragment_permission.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/admin_fragment_report.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/admin_fragment_settings.xml" value="0.24010416666666667" />
         <entry key="app/src/main/res/layout/admin_permission_item.xml" value="0.3446557971014493" />
+        <entry key="app/src/main/res/layout/admin_settings_general.xml" value="0.24010416666666667" />
+        <entry key="app/src/main/res/layout/admin_settings_notifications.xml" value="0.24010416666666667" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/home_book_item.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/notification_item.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/post_item.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/sign_up_step_one.xml" value="0.1752786220871327" />
         <entry key="app/src/main/res/layout/user_comment.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/user_comment_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout/user_create_post_review.xml" value="0.1" />
         <entry key="app/src/main/res/layout/user_fragment_categories.xml" value="0.1752786220871327" />
         <entry key="app/src/main/res/layout/user_fragment_home.xml" value="0.1" />

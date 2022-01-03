@@ -1,37 +1,52 @@
 package com.example.sunshine.admin;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sunshine.user.TimestampConverter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.example.sunshine.R;
-import com.example.sunshine.TimestampConverter;
 import com.example.sunshine.database.Permission;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.ViewHolder> {
-    private Context context;
-    List<Permission> permissions;
+    private Context mContext;
+    private ArrayList<Permission> mPermissions = new ArrayList<>();
     FirebaseFirestore database;
     String currentUserId;
-    boolean isReadLater;
-  //  PostFragment postFragment;
+    PermissionFragment permissionFragment;
 
-    public PermissionAdapter(Context context, List<Permission> permissions, String currentUserId) {
-        this.context = context;
-        this.permissions= permissions;
+    public PermissionAdapter(Context context, ArrayList<Permission> permissions, String currentUserId, PermissionFragment permissionFragment) {
+        this.mContext = context;
+        this.mPermissions= permissions;
         this.database = FirebaseFirestore.getInstance();
         this.currentUserId = currentUserId;
+        this.permissionFragment = permissionFragment;
 
     }
 
@@ -44,186 +59,35 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String requestId = permissions.get(position).permissionId;
-
+       // holder.commentTime.setText(TimestampConverter.getTime(comments.get(position).getPostTime()));
 
         // TODO: show user avatar
         //   holder.txtUsername.setText(requests.get(position).getPostBy());
-        // holder.txtAuthor.setText(posts.get(position).getAuthor());
+       // holder.txtUsername.setText(mPermissions.get(position).getUs());
         //  holder.txtStatus.setText(posts.get(position).getStatus());
-        holder.txtTime.setText(TimestampConverter.getTime(permissions.get(position).getPermissionTime()));
+        holder.txtTime.setText(TimestampConverter.getTime(mPermissions.get(position).getPermissionTime()));
         //   holder.txtTitle.setText(posts.get(position).getBookName());
         //  holder.txtContent.setText(posts.get(position).getContent());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
-    }
-
-//        holder.btnUpvote.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                database.collection("Post/" + postId + "/Upvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (!task.getResult().exists()) {
-//                            Map<String, Object> likesMap = new HashMap<>();
-//                            likesMap.put("timestamp", FieldValue.serverTimestamp());
-//                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).set(likesMap);
-//                        }
-//                        else {
-//                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).delete();
-//                        }
-//                    }
-//                });
-//
-//                database.collection("Post/" + postId + "/Upvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        if (error == null)
-//                            if (value.exists())
-//                                holder.btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
-//                            else
-//                                holder.btnUpvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
-//                    }
-//                });
-//
-//                database.collection("Post/" + postId + "/Upvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        if (error == null) {
-//                            if (!value.isEmpty()) {
-//                                int count = value.size();
-//                                holder.btnUpvote.setText(String.valueOf(count));
-//                            }
-//                            else
-//                                holder.btnUpvote.setText("0");
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//
-//        holder.btnDownvote.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String postId = posts.get(position).postId;
-//                database.collection("Post/" + postId + "/Downvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (!task.getResult().exists()) {
-//                            Map<String, Object> likesMap = new HashMap<>();
-//                            likesMap.put("timestamp", FieldValue.serverTimestamp());
-//                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).set(likesMap);
-//                        }
-//                        else {
-//                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).delete();
-//                        }
-//                    }
-//                });
-//
-//                database.collection("Post/" + postId + "/Downvotes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        if (error == null)
-//                            if (value.exists())
-//                                holder.btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLUE));
-//                            else
-//                                holder.btnDownvote.setIconTint(ColorStateList.valueOf(Color.BLACK));
-//                    }
-//                });
-//
-//                database.collection("Post/" + postId + "/Downvotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        if (error == null) {
-//                            if (!value.isEmpty()) {
-//                                int count = value.size();
-//                                holder.btnDownvote.setText(String.valueOf(count));
-//                            }
-//                            else
-//                                holder.btnDownvote.setText("0");
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//
-//        holder.btnComment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((UserMainActivity)context).fromFragmentToMain("POST", "SHOW-COMMENT",
-//                        posts.get(holder.getAdapterPosition()));
-//            }
-//        });
-//
-//        holder.btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isReadLater) {
-//                    AlertDialog.Builder unsaveDialog = new AlertDialog.Builder(context);
-//                    unsaveDialog.setTitle("Do you want to unsave this post?")
-//                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    database.collection("User/" + currentUserId + "/Read Later").document(postId).delete();
-//                                    postFragment.listenDataChanged();
-//                                }
-//                            })
-//                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//
-//                                }
-//                            });
-//                    unsaveDialog.create().show();
-//                }
-//                else {
-//                    database.collection("User/" + currentUserId + "/Read Later").document(postId).get()
-//                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                    if (!task.getResult().exists()) {
-//                                        Map<String, Object> saveTime = new HashMap<>();
-//                                        saveTime.put("saveTime", FieldValue.serverTimestamp());
-//                                        database.collection("User/" + currentUserId + "/Read Later").document(postId).set(saveTime);
-//                                        holder.btnSave.setIconTint(ColorStateList.valueOf(Color.BLUE));
-//                                    } else
-//                                        Toast.makeText(context, "User saved this post before.", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                }
-//            }
-//        });
-//    }
-
-//    @Override
-//    public int getItemCount() {
-//        return posts.size();
-//    }
-
+        return mPermissions.size();}
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAvatar;
-        TextView txtUsername, txtTime;
+
+        TextView  txtTime,txtUsername;
        // ImageButton btnReport;
-        MaterialButton btnAccept, btnDecline;
+        Button acceptBtn, declineBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+           // imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
             txtUsername = (TextView) itemView.findViewById(R.id.txtUsername);
-            txtTime = (TextView) itemView.findViewById(R.id.txtTime);
-//            txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
-//            txtAuthor = (TextView) itemView.findViewById(R.id.txtAuthor);
-//            txtStatus = (TextView) itemView.findViewById(R.id.txtStatus);
-//            txtContent = (TextView) itemView.findViewById(R.id.txtContent);
-//            btnReport = (ImageButton) itemView.findViewById(R.id.btnReport);
-//            btnUpvote = (MaterialButton) itemView.findViewById(R.id.btnUpvote);
-//            btnDownvote = (MaterialButton) itemView.findViewById(R.id.btnDownvote);
-//            btnComment = (MaterialButton) itemView.findViewById(R.id.btnComment);
-//            btnSave = (MaterialButton) itemView.findViewById(R.id.btnSave);
+            txtTime = (TextView) itemView.findViewById(R.id.time_tv);
+            acceptBtn = (Button) itemView.findViewById(R.id.acceptBtn);
+            declineBtn = (Button) itemView.findViewById(R.id.declineBtn);
         }
     }
 }
