@@ -20,6 +20,11 @@
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/post_item.xml" value="0.2064814814814815" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_home.xml" value="0.3619791666666667" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.3072916666666667" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_baseline_person_24_focused.xml" value="0.3072916666666667" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.3072916666666667" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_baseline_privacy_tip_24.xml" value="0.3072916666666667" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_baseline_privacy_tip_24_focused.xml" value="0.3072916666666667" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/ic_outline_thumb_up_24.xml" value="0.3828125" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/drawable/icon_like.xml" value="0.3828125" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
@@ -38,6 +43,8 @@
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/user_create_post_review.xml" value="0.36666666666666664" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/user_fragment_categories.xml" value="0.36666666666666664" />
         <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/user_fragment_home.xml" value="0.20520833333333333" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/user_fragment_read_later.xml" value="0.2911458333333333" />
+        <entry key="..\:/GitHub/group_16_nmcnpm_19_3_Uyen/Sunshine/app/src/main/res/layout/user_read_later_item.xml" value="0.2911458333333333" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/custom_edittext.xml" value="0.24027777777777778" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/custom_password.xml" value="0.24027777777777778" />
         <entry key="..\:/Programming/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/custom_username.xml" value="0.24027777777777778" />

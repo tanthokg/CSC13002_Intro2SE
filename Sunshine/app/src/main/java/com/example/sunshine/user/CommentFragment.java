@@ -210,36 +210,6 @@ public class CommentFragment extends Fragment {
     }
 
     private void fetchComments() {
-        /*CollectionReference ref = db.collection("Post");
-        Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                        db.collection("Post").document(document.getId()).collection("Comment")
-                        .orderBy("postTime").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                for (DocumentChange doc : value.getDocumentChanges()) {
-                                    if (doc.getType() == DocumentChange.Type.ADDED) {
-                                        Comment comment = doc.getDocument().toObject(Comment.class);
-                                        comments.add(comment);
-                                        adapter.notifyItemInserted(comments.size());
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-                else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });*/
-
         db.collection("Post/" + postId + "/Comment").orderBy("postTime").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -265,41 +235,6 @@ public class CommentFragment extends Fragment {
     }
 
     private void addComment() {
-        /*String content = addCommentEditText.getText().toString();
-        if (content.length() == 0)
-            return;
-        Comment comment = new Comment("anonymous", content, new Timestamp(new Date()));
-
-        CollectionReference ref = db.collection("Post");
-        Query query = ref.whereEqualTo("author", post.getAuthor()).whereEqualTo("bookName", post.getBookName());
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                        db.collection("Post").document(document.getId()).collection("Comment")
-                                .add(comment);
-                        db.collection("Post/" + postId + "/Comment").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                if (error == null)
-                                    if (!value.isEmpty())
-                                        btnComment.setText(String.valueOf(value.size()));
-                                    else
-                                        btnComment.setText("0");
-                            }
-                        });
-                    }
-                }
-                else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
-        addCommentEditText.setText("");*/
-
         String content = addCommentEditText.getText().toString();
         if (content.length() == 0)
         {
