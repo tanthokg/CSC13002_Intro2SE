@@ -153,9 +153,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.getResult().exists()) {
-                            Map<String, Object> likesMap = new HashMap<>();
-                            likesMap.put("timestamp", FieldValue.serverTimestamp());
-                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).set(likesMap);
+                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.getResult().exists()) {
+                                        database.collection("Post/" + postId + "/Downvotes").document(currentUserId).delete();
+                                    }
+
+                                    Map<String, Object> likesMap = new HashMap<>();
+                                    likesMap.put("timestamp", FieldValue.serverTimestamp());
+                                    database.collection("Post/" + postId + "/Upvotes").document(currentUserId).set(likesMap);
+                                }
+                            });
                         }
                         else {
                             database.collection("Post/" + postId + "/Upvotes").document(currentUserId).delete();
@@ -193,14 +202,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnDownvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String postId = posts.get(position).postId;
                 database.collection("Post/" + postId + "/Downvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.getResult().exists()) {
-                            Map<String, Object> likesMap = new HashMap<>();
-                            likesMap.put("timestamp", FieldValue.serverTimestamp());
-                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).set(likesMap);
+                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.getResult().exists()) {
+                                        database.collection("Post/" + postId + "/Upvotes").document(currentUserId).delete();
+                                    }
+
+                                    Map<String, Object> likesMap = new HashMap<>();
+                                    likesMap.put("timestamp", FieldValue.serverTimestamp());
+                                    database.collection("Post/" + postId + "/Downvotes").document(currentUserId).set(likesMap);
+                                }
+                            });
                         }
                         else {
                             database.collection("Post/" + postId + "/Downvotes").document(currentUserId).delete();
