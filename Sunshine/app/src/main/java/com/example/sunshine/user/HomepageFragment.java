@@ -49,17 +49,37 @@ public class HomepageFragment extends Fragment {
 
     public HomepageFragment(Context context) {
         this.context = context;
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
         getTypeUser();
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
     }
 
     private void getTypeUser() {
-
+        String currentUserId = auth.getCurrentUser().getUid();
+        firebaseFirestore.collection("User").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult() != null) {
+                        User user = task.getResult().toObject(User.class);
+                        if (user != null) {
+                            typeUser = user.isType();
+                            if (typeUser)
+                                btnCreatePost.setVisibility(View.VISIBLE);
+                            else
+                                btnCreatePost.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -69,13 +89,14 @@ public class HomepageFragment extends Fragment {
         recommendBookList = new ArrayList<>();
         newTrendingBookList = new ArrayList<>();
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
         listenDataChange();
 
         searchBar = (EditText) view.findViewById(R.id.searchBar);
         recommendRecView = (RecyclerView) view.findViewById(R.id.recommendRecView);
         newTrendingRecView = (RecyclerView) view.findViewById(R.id.newTrendingRecView);
         btnCreatePost = (FloatingActionButton) view.findViewById(R.id.btnCreatePost);
+
+        btnCreatePost.setVisibility(View.INVISIBLE);
 
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,6 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_person_24"/>
+
         <ImageView
             android:id="@+id/imgAvatar"
             android:layout_width="100dp"

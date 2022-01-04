@@ -1,5 +1,6 @@
 package com.example.sunshine.user;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sunshine.R;
+import com.example.sunshine.database.Book;
 import com.example.sunshine.database.Post;
 import com.example.sunshine.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +27,8 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
 
@@ -32,7 +36,8 @@ public class CreatePostActivity extends AppCompatActivity {
     private static final String[] status = new String[] {"Completed", "On Going", "Drop"};
     ArrayAdapter<String> adapter;
 
-    Post post;
+    // tao mot bien static de giu gia tri back up
+    static Post post;
     FirebaseFirestore database;
     FirebaseAuth auth;
     String username;
@@ -69,6 +74,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 setCancelBtn();
             }
         });
+
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,11 +90,11 @@ public class CreatePostActivity extends AppCompatActivity {
                 post.setContent(descriptionBox.getText().toString());
                 post.setPostTime(timestamp);
 
-                createPost(post);
+                checkExistedBook(post);
             }
         });
 
-
+        Toast.makeText(CreatePostActivity.this, "On create is called", Toast.LENGTH_SHORT).show();
     }
     private boolean validateTitle() {
         String input = titleBox.getText().toString().trim();
@@ -157,6 +163,7 @@ public class CreatePostActivity extends AppCompatActivity {
         database.collection("Post").add(post);
         Toast.makeText(getBaseContext(), "Post Created Successfully.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, UserMainActivity.class));
+        finish();
     }
 
     private void getUsername() {
@@ -172,5 +179,74 @@ public class CreatePostActivity extends AppCompatActivity {
                     }
             }
         });
+    }
+
+    private void checkExistedBook(Post post) {
+        database.collection("Book").whereEqualTo("name", post.getBookName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CreatePostActivity.this);
+                        builder.setMessage("Do you want to create the information for this book?")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // TODO: create book
+                                        Intent intent = new Intent(CreatePostActivity.this, CreateBookActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(CreatePostActivity.this, "Can not create this review post.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        builder.create().show();
+                    }
+                    else {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            createPost(post);
+                        }
+                    }
+                }
+                else {
+                    Toast.makeText(CreatePostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (post != null) {
+            titleBox.setText(post.getBookName());
+            authorBox.setText(post.getAuthor());
+            String status = post.getStatus();
+            for (int i = 0; i < status_options.getScrollBarSize(); i++) {
+                if (status_options.getItemAtPosition(i).toString().equals(status)) {
+                    status_options.setSelection(i);
+                    break;
+                }
+            }
+            descriptionBox.setText(post.getContent());
+        }
+        else {
+            Toast.makeText(CreatePostActivity.this, "Post null", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        post = null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

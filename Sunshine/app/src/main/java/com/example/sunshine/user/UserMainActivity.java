@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -89,9 +90,17 @@ public class UserMainActivity extends AppCompatActivity implements MainCallbacks
         }
         if (sender.equals("SETTING")) {
             if (request.equals("READ-LATER")) {
-                PostFragment postFragment = new PostFragment(this, (String)value);
-                getSupportFragmentManager().beginTransaction().addToBackStack("POST")
-                        .replace(R.id.mainFragmentHolder, postFragment).commit();
+                ReadLaterFragment readLaterFragment = new ReadLaterFragment(this, (String)value);
+                getSupportFragmentManager().beginTransaction().addToBackStack("READ-LATER")
+                        .replace(R.id.mainFragmentHolder, readLaterFragment).commit();
+            }
+        }
+        if (sender.equals("READ-LATER")) {
+            if (request.equals("POST")) {
+                Post post = (Post) value;
+                CommentFragment fragment = new CommentFragment(this, post);
+                getSupportFragmentManager().beginTransaction().addToBackStack("COMMENT")
+                        .replace(R.id.mainFragmentHolder, fragment).commit();
             }
         }
     }

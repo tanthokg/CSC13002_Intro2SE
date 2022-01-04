@@ -40,16 +40,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     List<Post> posts;
     FirebaseFirestore database;
     String currentUserId;
-    boolean isReadLater;
-    PostFragment postFragment;
 
-    public PostAdapter(Context context, List<Post> posts, String currentUserId, boolean isReadLater, PostFragment postFragment) {
+    public PostAdapter(Context context, List<Post> posts, String currentUserId) {
         this.context = context;
         this.posts = posts;
         this.database = FirebaseFirestore.getInstance();
         this.currentUserId = currentUserId;
-        this.isReadLater = isReadLater;
-        this.postFragment = postFragment;
     }
 
     @NonNull
@@ -141,8 +137,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             }
         });
-
-        // TODO: show user avatar
+        
         holder.txtUsername.setText(posts.get(position).getPostBy());
         holder.txtAuthor.setText(posts.get(position).getAuthor());
         holder.txtStatus.setText(posts.get(position).getStatus());
@@ -158,9 +153,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.getResult().exists()) {
-                            Map<String, Object> likesMap = new HashMap<>();
-                            likesMap.put("timestamp", FieldValue.serverTimestamp());
-                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).set(likesMap);
+                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.getResult().exists()) {
+                                        database.collection("Post/" + postId + "/Downvotes").document(currentUserId).delete();
+                                    }
+
+                                    Map<String, Object> likesMap = new HashMap<>();
+                                    likesMap.put("timestamp", FieldValue.serverTimestamp());
+                                    database.collection("Post/" + postId + "/Upvotes").document(currentUserId).set(likesMap);
+                                }
+                            });
                         }
                         else {
                             database.collection("Post/" + postId + "/Upvotes").document(currentUserId).delete();
@@ -198,14 +202,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnDownvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String postId = posts.get(position).postId;
                 database.collection("Post/" + postId + "/Downvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.getResult().exists()) {
-                            Map<String, Object> likesMap = new HashMap<>();
-                            likesMap.put("timestamp", FieldValue.serverTimestamp());
-                            database.collection("Post/" + postId + "/Downvotes").document(currentUserId).set(likesMap);
+                            database.collection("Post/" + postId + "/Upvotes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.getResult().exists()) {
+                                        database.collection("Post/" + postId + "/Upvotes").document(currentUserId).delete();
+                                    }
+
+                                    Map<String, Object> likesMap = new HashMap<>();
+                                    likesMap.put("timestamp", FieldValue.serverTimestamp());
+                                    database.collection("Post/" + postId + "/Downvotes").document(currentUserId).set(likesMap);
+                                }
+                            });
                         }
                         else {
                             database.collection("Post/" + postId + "/Downvotes").document(currentUserId).delete();
@@ -251,39 +263,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isReadLater) {
-                    AlertDialog.Builder unsaveDialog = new AlertDialog.Builder(context);
-                    unsaveDialog.setTitle("Do you want to unsave this post?")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    database.collection("User/" + currentUserId + "/Read Later").document(postId).delete();
-                                    postFragment.listenDataChanged();
-                                }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                    unsaveDialog.create().show();
-                }
-                else {
-                    database.collection("User/" + currentUserId + "/Read Later").document(postId).get()
-                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (!task.getResult().exists()) {
-                                        Map<String, Object> saveTime = new HashMap<>();
-                                        saveTime.put("saveTime", FieldValue.serverTimestamp());
-                                        database.collection("User/" + currentUserId + "/Read Later").document(postId).set(saveTime);
-                                        holder.btnSave.setIconTint(ColorStateList.valueOf(Color.BLUE));
-                                    } else
-                                        Toast.makeText(context, "User saved this post before.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
+                database.collection("User/" + currentUserId + "/Read Later").document(postId).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (!task.getResult().exists()) {
+                                    Map<String, Object> saveTime = new HashMap<>();
+                                    saveTime.put("saveTime", FieldValue.serverTimestamp());
+                                    database.collection("User/" + currentUserId + "/Read Later").document(postId).set(saveTime);
+                                    holder.btnSave.setIconTint(ColorStateList.valueOf(Color.BLUE));
+                                } else
+                                    Toast.makeText(context, "User saved this post before.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }
