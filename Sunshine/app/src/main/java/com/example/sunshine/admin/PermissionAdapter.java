@@ -111,6 +111,7 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
                                                                 public void onSuccess(Void aVoid) {
                                                                     Log.d(TAG, "Permission successfully!");
                                                                     permissionFragment.listenDataChanged(permissionId);
+                                                                    listPermissions.remove(position);
                                                                 }
                                                             })
                                                             .addOnFailureListener(new OnFailureListener() {
@@ -124,38 +125,13 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
         holder.declineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
              permissionFragment.listenDataChanged(permissionId);
+             listPermissions.remove(position);
+
             }
         });
     }
-//            @Override
-//            public void onClick(View v) {
-//
-////                    AlertDialog.Builder unsaveDialog = new AlertDialog.Builder(context);
-////                    unsaveDialog.setTitle("Do you want to unsave this post?")
-////                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-////                                @Override
-////                                public void onClick(DialogInterface dialog, int which) {
-//
-//                                    database.collection("User/" + currentUserId + "/Type").document(permissionId).delete();
-//                                    permissionFragment.listenDataChanged();
-//                                }
-//                            });
-////                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-////                                @Override
-////                                public void onClick(DialogInterface dialog, int which) {
-////
-////                                }
-////                            });
-////                    unsaveDialog.create().show();
-////                }
-////
-////
-////
-////        });
-//
-
-
 
     @Override
     public int getItemCount() {

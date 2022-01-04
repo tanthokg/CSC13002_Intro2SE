@@ -56,6 +56,7 @@ public class PermissionFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth auth;
     private String currentUserId;
+
     public PermissionFragment(Context context) {
         this.context = context;
     }
@@ -79,7 +80,6 @@ public class PermissionFragment extends Fragment {
         permissionRecView.setAdapter(adapter);
         permissionRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         readPermissionData();
-        //  listenDataChanged();
         return permissionFragment;
     }
 
@@ -112,8 +112,11 @@ public class PermissionFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        //Permission _permission = doc.getDocument().toObject(Permission.class).withId(perId);
+                       // perList.remove();
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
                         adapter.notifyDataSetChanged();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
