@@ -8,7 +8,10 @@
         android:id="@+id/imgAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_baseline_person_24" />
 
     <TextView
@@ -20,7 +23,7 @@
         android:layout_toEndOf="@id/imgAvatar"
         android:text="Username"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtTime"
@@ -30,7 +33,7 @@
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@id/imgAvatar"
         android:text="Minute"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <ImageButton
         android:id="@+id/btnReport"
