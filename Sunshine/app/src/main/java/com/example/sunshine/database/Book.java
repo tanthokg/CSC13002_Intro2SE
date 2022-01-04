@@ -11,12 +11,23 @@ public class Book extends BookId{
 
     public Book() {}
 
+    public Book(String name, String author, List<String> categories, int publishedYear) {
+        this.name = name;
+        this.author = author;
+        this.categories = categories;
+        this.publishedYear = publishedYear;
+    }
+
     public Book(String name, String author, String imageUri, List<String> categories, int publishedYear) {
         this.name = name;
         this.author = author;
         this.imageUri = imageUri;
         this.categories = categories;
         this.publishedYear = publishedYear;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
     public String getName() {

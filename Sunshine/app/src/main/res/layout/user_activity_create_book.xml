@@ -9,7 +9,7 @@
         android:layout_height="300dp"
         android:id="@+id/imgBook"
         android:background="@drawable/ic_baseline_add_24"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:layout_marginTop="10dp"/>
 
     <ProgressBar

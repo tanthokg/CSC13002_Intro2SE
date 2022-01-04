@@ -1,5 +1,6 @@
 package com.example.sunshine.user;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class CreatePostActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
     // tao mot bien static de giu gia tri back up
-    Post post;
+    static Post post;
     FirebaseFirestore database;
     FirebaseAuth auth;
     String username;
@@ -90,11 +91,10 @@ public class CreatePostActivity extends AppCompatActivity {
                 post.setPostTime(timestamp);
 
                 checkExistedBook(post);
-                //createPost(post);
             }
         });
 
-
+        Toast.makeText(CreatePostActivity.this, "On create is called", Toast.LENGTH_SHORT).show();
     }
     private boolean validateTitle() {
         String input = titleBox.getText().toString().trim();
@@ -163,6 +163,7 @@ public class CreatePostActivity extends AppCompatActivity {
         database.collection("Post").add(post);
         Toast.makeText(getBaseContext(), "Post Created Successfully.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, UserMainActivity.class));
+        finish();
     }
 
     private void getUsername() {
@@ -192,7 +193,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         // TODO: create book
-                                        Intent intent = new Intent(getApplicationContext(), CreateBookActivity.class);
+                                        Intent intent = new Intent(CreatePostActivity.this, CreateBookActivity.class);
                                         startActivity(intent);
                                     }
                                 })
@@ -215,5 +216,37 @@ public class CreatePostActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (post != null) {
+            titleBox.setText(post.getBookName());
+            authorBox.setText(post.getAuthor());
+            String status = post.getStatus();
+            for (int i = 0; i < status_options.getScrollBarSize(); i++) {
+                if (status_options.getItemAtPosition(i).toString().equals(status)) {
+                    status_options.setSelection(i);
+                    break;
+                }
+            }
+            descriptionBox.setText(post.getContent());
+        }
+        else {
+            Toast.makeText(CreatePostActivity.this, "Post null", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        post = null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
