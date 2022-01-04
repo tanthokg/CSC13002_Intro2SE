@@ -56,18 +56,8 @@ public class PermissionFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth auth;
     private String currentUserId;
-//    private Button acceptBtn, declineBtn;
-//    private ImageView imgAvatar;
- //   private TextView txtUserName;
-   private String userName;
-
     public PermissionFragment(Context context) {
-
         this.context = context;
-        // this.perList = new ArrayList<Permission>();
-        //  this.firebaseFirestore = FirebaseFirestore.getInstance();
-        //  this.auth = FirebaseAuth.getInstance();
-        //   this.currentUserId = auth.getCurrentUser().getUid();
     }
 
     @Override
@@ -89,6 +79,7 @@ public class PermissionFragment extends Fragment {
         permissionRecView.setAdapter(adapter);
         permissionRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         readPermissionData();
+        //  listenDataChanged();
         return permissionFragment;
     }
 
@@ -103,20 +94,33 @@ public class PermissionFragment extends Fragment {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                 String perId = doc.getDocument().getId();
                                 Permission _permission = doc.getDocument().toObject(Permission.class).withId(perId);
-
-                              //  txt = (TextView)findViewById(R.id.tvFirstName);
-                            //
-                               // tvFirstName.setText(mFirstName);
                                 perList.add(_permission);
                                 adapter.notifyDataSetChanged();
                             } else
                                 adapter.notifyDataSetChanged();
                         }
-                    }
-                    else
-                      Toast.makeText(context, "No permission" , Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(context, "No permission", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public void listenDataChanged(String ID) {
+        adapter.notifyDataSetChanged();
+        firebaseFirestore.collection("Permission").document(ID).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
     }
 }

@@ -3,7 +3,9 @@ package com.example.sunshine.admin;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.Log;
@@ -22,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sunshine.database.PermissionId;
 import com.example.sunshine.user.TimestampConverter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
@@ -29,12 +33,14 @@ import com.example.sunshine.R;
 import com.example.sunshine.database.Permission;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,8 +70,8 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-       // holder.commentTime.setText(TimestampConverter.getTime(comments.get(position).getPostTime()));
-      String permissionId = listPermissions.get(position).permissionId;
+        // holder.commentTime.setText(TimestampConverter.getTime(comments.get(position).getPostTime()));
+        String permissionId = listPermissions.get(position).permissionId;
 
         // Gets user document from Firestore as reference
         DocumentReference docRef = database.collection("User").document(permissionId);
@@ -81,8 +87,7 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
                         Log.d(TAG, "String UserName is: " + userName);
                         holder.txtUsername.setText(userName);
 
-                    }
-                    else {
+                    } else {
                         Log.d(TAG, "No such document");
                     }
                 } else {
@@ -95,7 +100,62 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
         //   holder.txtUsername.setText(requests.get(position).getPostBy());
         holder.txtTime.setText(TimestampConverter.getTime(listPermissions.get(position).getPermissionTime()));
 
+        holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    DocumentReference docRef = database.collection("User").document(permissionId);
+                                                    docRef
+                                                            .update("type", true)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "Permission successfully!");
+                                                                    permissionFragment.listenDataChanged(permissionId);
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(TAG, "Error updating document", e);
+                                                                }
+                                                            });
+                                                }
+                                            });
+        holder.declineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             permissionFragment.listenDataChanged(permissionId);
+            }
+        });
     }
+//            @Override
+//            public void onClick(View v) {
+//
+////                    AlertDialog.Builder unsaveDialog = new AlertDialog.Builder(context);
+////                    unsaveDialog.setTitle("Do you want to unsave this post?")
+////                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+////                                @Override
+////                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                    database.collection("User/" + currentUserId + "/Type").document(permissionId).delete();
+//                                    permissionFragment.listenDataChanged();
+//                                }
+//                            });
+////                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+////                                @Override
+////                                public void onClick(DialogInterface dialog, int which) {
+////
+////                                }
+////                            });
+////                    unsaveDialog.create().show();
+////                }
+////
+////
+////
+////        });
+//
+
+
 
     @Override
     public int getItemCount() {
