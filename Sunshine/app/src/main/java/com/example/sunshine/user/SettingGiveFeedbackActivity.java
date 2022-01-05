@@ -2,6 +2,7 @@ package com.example.sunshine.user;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -49,6 +50,20 @@ public class SettingGiveFeedbackActivity extends AppCompatActivity {
         radioButtonFive = (RadioButton) findViewById(R.id.five);
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
