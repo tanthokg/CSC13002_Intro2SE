@@ -62,6 +62,18 @@ public class CreateBookActivity extends Activity {
         progressBarCreateBook = (ProgressBar) findViewById(R.id.progressBarCreateBook);
         progressBarCreateBook.setVisibility(View.INVISIBLE);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String title = extras.getString("newTitle");
+            String author = extras.getString("newAuthor");
+            //The key argument here must match that used in the other activity
+            if (!title.isEmpty())
+                edtBookTitle.setText(title);
+
+            if (!author.isEmpty())
+                edtAuthor.setText(author);
+        }
+
         imgBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +91,12 @@ public class CreateBookActivity extends Activity {
         btnCreateBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!validateBookTitle() | !validateAuthor() | !validateCategories() |
+                        !validatePublishedYear()) {
+                    return;
+                }
+
                 progressBarCreateBook.setVisibility(View.VISIBLE);
                 String title = edtBookTitle.getText().toString();
                 String author = edtAuthor.getText().toString();
@@ -86,6 +104,7 @@ public class CreateBookActivity extends Activity {
                 List<String> categories = Arrays.asList(categoriesArray);
                 int publishedYear = Integer.parseInt(edtPublisedYear.getText().toString());
                 // TODO: Kiem tra cac thong tin da dien day du
+
                 Book book = new Book(title, author, categories, publishedYear);
                 if (coverBookUri != null) {
                     StorageReference coverBookRef = storageReference.child("cover_books").child(title + ".jpg");
@@ -106,6 +125,72 @@ public class CreateBookActivity extends Activity {
                 }
             }
         });
+    }
+
+    private boolean validateBookTitle()
+    {
+        String input = edtBookTitle.getText().toString().trim();
+
+        if (input.isEmpty())
+        {
+            edtBookTitle.setError("This field must not be empty");
+            return false;
+        }
+        else
+        {
+            edtBookTitle.setError(null);
+            return true;
+        }
+
+    }
+
+    private boolean validateAuthor()
+    {
+        String input = edtAuthor.getText().toString().trim();
+
+        if (input.isEmpty())
+        {
+            edtAuthor.setError("This field must not be empty");
+            return false;
+        }
+        else
+        {
+            edtAuthor.setError(null);
+            return true;
+        }
+
+    }
+
+    private boolean validatePublishedYear()
+    {
+        String input = edtPublisedYear.getText().toString().trim();
+        if (input.isEmpty())
+        {
+            edtPublisedYear.setError("This field must not be empty");
+            return false;
+        }
+        else
+        {
+            edtPublisedYear.setError(null);
+            return true;
+        }
+
+    }
+
+    private boolean validateCategories()
+    {
+        String input = edtCategories.getText().toString().trim();
+        if (input.isEmpty())
+        {
+            edtCategories.setError("This field must not be empty");
+            return false;
+        }
+        else
+        {
+            edtCategories.setError(null);
+            return true;
+        }
+
     }
 
     private void addBookToFirestore(Task<UploadTask.TaskSnapshot> task, Book book, StorageReference coverBookRef) {

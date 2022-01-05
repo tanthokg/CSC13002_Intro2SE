@@ -193,7 +193,13 @@ public class CreatePostActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         // TODO: create book
+                                        String title = titleBox.getText().toString().trim();
+                                        String author = authorBox.getText().toString().trim();
                                         Intent intent = new Intent(CreatePostActivity.this, CreateBookActivity.class);
+
+                                        intent.putExtra("newTitle",title);
+                                        intent.putExtra("newAuthor", author);
+
                                         startActivity(intent);
                                     }
                                 })
