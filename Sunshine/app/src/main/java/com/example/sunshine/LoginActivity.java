@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sunshine.admin.Admin_Main;
+import com.example.sunshine.admin.AdminMainActivity;
 import com.example.sunshine.database.Authentication;
 import com.example.sunshine.user.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void adminLogIn()
     {
-        Intent intent = new Intent(this, Admin_Main.class );
+        Intent intent = new Intent(this, AdminMainActivity.class );
         startActivity(intent);
         finish();
     }

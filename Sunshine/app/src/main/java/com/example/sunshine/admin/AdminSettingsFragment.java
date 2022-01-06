@@ -1,5 +1,6 @@
 package com.example.sunshine.admin;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sunshine.FragmentCallbacks;
 import com.example.sunshine.LoginActivity;
+import com.example.sunshine.MainCallbacks;
 import com.example.sunshine.R;
+import com.example.sunshine.user.UserMainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SettingsFragment extends Fragment {
+public class AdminSettingsFragment extends Fragment {
     Button logOutAdmin;
+    Button General;
+    Button Notifications;
+    Context context;
     private FirebaseAuth auth;
-    public SettingsFragment()
-    { }
+    public AdminSettingsFragment(Context context) {
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -38,7 +46,24 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        General = (Button) view.findViewById(R.id.general_admin);
+        Notifications = (Button) view.findViewById(R.id.notifications_admin);
         logOutAdmin = (Button) view.findViewById(R.id.logOutAdmin);
+
+        General.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AdminMainActivity)context).changFragmentSettings(1);
+            }
+        });
+
+        Notifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AdminMainActivity)context).changFragmentSettings(2);
+            }
+        });
+
         logOutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
