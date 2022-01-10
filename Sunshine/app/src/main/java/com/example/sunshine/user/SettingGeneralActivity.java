@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
+
 public class SettingGeneralActivity extends AppCompatActivity {
 
 
@@ -40,6 +41,7 @@ public class SettingGeneralActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         database = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         currentUserId = auth.getCurrentUser().getUid();
@@ -47,7 +49,6 @@ public class SettingGeneralActivity extends AppCompatActivity {
         darkModeBtn = (Switch) findViewById(R.id.darkModeSwitch);
         hideVoteBtn = (Switch) findViewById(R.id.hideVoteSwitch);
         turnOffNotiBtn = (Switch) findViewById(R.id.turnOffNotiSwitch);
-
         permissionBtn = (MaterialButton) findViewById(R.id.requestPermission);
 
         permissionBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,16 +62,6 @@ public class SettingGeneralActivity extends AppCompatActivity {
                 sendPermission(permission);
                 permissionBtn.setClickable(false);
             }
-        requestPermissionBtn = (Button) findViewById(R.id.requestPermission);
-
-        requestPermissionBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View view) {
-
-            }
-
-
-
         });
 
     }
@@ -78,13 +69,7 @@ public class SettingGeneralActivity extends AppCompatActivity {
     private void sendPermission(Permission permission) {
         //  database.collection("permission").document(currentUserId).add(permission);
 
-
         database.collection("Permission").document(currentUserId).set(permission);
         Toast.makeText(getBaseContext(), "Permission Sent Successfully.", Toast.LENGTH_SHORT).show();
     }
 }
-
-
-
-}
-
