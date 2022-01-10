@@ -32,6 +32,13 @@
             android:exported="false" />
         <activity
             android:name=".user.CreateBookActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".user.SettingGiveFeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.SettingFAQActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
