@@ -2,6 +2,7 @@ package com.example.sunshine.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +11,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sunshine.LoginActivity;
 import com.example.sunshine.R;
-import com.example.sunshine.user.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Admin_Main extends AppCompatActivity {
+public class AdminMainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     private FirebaseAuth auth;
 
@@ -31,16 +31,17 @@ public class Admin_Main extends AppCompatActivity {
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.botNavView_Admin);
 
         nav.setOnItemSelectedListener(item -> {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.permission:
                   fragment = new PermissionFragment(this);
                     break;
                 case R.id.report:
-                    fragment = new fragment_report();
+                    fragment = new ReportFragment();
                     break;
                 case R.id.settings_admin:
-                    fragment = new SettingsFragment(this);
+                    fragment = new AdminSettingsFragment(this);
                     break;
             }
 
@@ -65,5 +66,33 @@ public class Admin_Main extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void changFragmentSettings(int value){
+        if(value == 1){
+            Fragment adminSettingsGeneralFragment = new AdminSettingsGeneralFragment(this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.adminMain, adminSettingsGeneralFragment)
+                    .addToBackStack("SETTINGS").commit();
+        }
+        else {
+            Fragment adminSettingsNotificationFragment = new AdminSettingsNotificationFragment(this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.adminMain, adminSettingsNotificationFragment)
+                    .addToBackStack("SETTINGS").commit();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                return true;
+
+            default:break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

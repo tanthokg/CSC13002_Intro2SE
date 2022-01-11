@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/options"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:text="@string/options"
             android:textStyle="bold"
@@ -39,7 +39,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/notifications_setting_admin"
+            android:id="@+id/notifications_admin"
             android:text="@string/notifications"
             android:textAlignment="textStart"
             android:textAllCaps="false"

@@ -22,7 +22,7 @@
             android:name=".user.UserMainActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.Admin_Main"
+            android:name=".admin.AdminMainActivity"
             android:exported="false" />
         <activity
             android:name=".user.CreatePostActivity"
