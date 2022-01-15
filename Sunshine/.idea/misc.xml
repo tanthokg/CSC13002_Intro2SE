@@ -126,6 +126,7 @@
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_home.xml" value="0.213768115942029" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_notifications.xml" value="0.1" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.1440922190201729" />
+        <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_settings_notifications.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/menu/admin_bottom_nav_items.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/Lenovo/Documents/GitHub/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/menu/user_bottom_nav_items.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
@@ -155,7 +156,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

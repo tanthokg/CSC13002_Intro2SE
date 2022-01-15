@@ -41,6 +41,9 @@
             android:name=".user.SettingFAQActivity"
             android:exported="false" />
         <activity
+            android:name=".user.SettingsNotificationsActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
