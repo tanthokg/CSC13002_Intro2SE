@@ -2,6 +2,7 @@ package com.example.sunshine.user;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -42,6 +43,8 @@ public class SettingGeneralActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+
+
         database = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         currentUserId = auth.getCurrentUser().getUid();
@@ -72,4 +75,19 @@ public class SettingGeneralActivity extends AppCompatActivity {
         database.collection("Permission").document(currentUserId).set(permission);
         Toast.makeText(getBaseContext(), "Permission Sent Successfully.", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
