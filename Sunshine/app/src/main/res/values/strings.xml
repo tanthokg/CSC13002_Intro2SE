@@ -78,4 +78,8 @@
     <string name="sixth_faq_answer">A: You can do that by pressing ... on the top right corner and then choose “Report”. Please notice that we only allow a user to report once every 5 minutes to avoid spamming.</string>
     <string name="seventh_faq">Q: Is there any age restriction?</string>
     <string name="seventh_faq_answer">A: There is not. But there are some books/stories that are inappropriate to children. We suggest what you should be at least 13 to use the app</string>
+    <string name="username">Username</string>
+    <string name="full_name">Full name</string>
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
 </resources>

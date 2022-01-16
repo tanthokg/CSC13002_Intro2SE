@@ -17,7 +17,7 @@ import com.example.sunshine.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsFragment extends Fragment {
-    Button btnLogOut, btnReadLater, btnNotifications, btnGeneral, btnFeedback, btnFAQ;
+    Button btnLogOut, btnReadLater, btnNotifications, btnGeneral, btnFeedback, btnFAQ, btnEditProfile;
 
     private FirebaseAuth auth;
     private Context context;
@@ -98,6 +98,14 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), SettingFAQActivity.class));
+            }
+        });
+        btnEditProfile = (Button) view.findViewById(R.id.edit_profile);
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SettingEditProfileActivity.class));
             }
         });
     }
