@@ -157,8 +157,10 @@
         <entry key="app/src/main/res/layout/user_main.xml" value="0.17844202898550723" />
         <entry key="app/src/main/res/layout/user_setting_edit_profile.xml" value="0.375" />
         <entry key="app/src/main/res/layout/user_setting_faq.xml" value="0.23541666666666666" />
+        <entry key="app/src/main/res/layout/user_setting_general.xml" value="0.1743659420289855" />
         <entry key="app/src/main/res/layout/user_setting_give_feedback.xml" value="0.14947916666666666" />
         <entry key="app/src/main/res/menu/user_bottom_nav_items.xml" value="0.19814814814814816" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21822916666666667" />
       </map>
     </option>
   </component>
