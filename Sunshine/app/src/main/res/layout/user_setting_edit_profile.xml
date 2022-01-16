@@ -90,8 +90,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:padding="10dp"
             android:textSize="16sp"
-            android:onClick="onClick"
-            android:clickable="true"/>
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -122,14 +124,31 @@
             <requestFocus />
         </Spinner>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:padding="20dp"
+
+        android:gravity="center"
+       >
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmEditProfile"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
+        android:layout_marginRight="10dp"
+
         android:text="Confirm"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelEditProfile"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="Cancel"
+            android:textSize="16sp" />
+    </LinearLayout>
 </LinearLayout>
