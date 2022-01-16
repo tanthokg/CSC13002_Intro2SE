@@ -38,6 +38,7 @@
             android:id="@+id/usernameBox"
             android:background="@drawable/custom_edittext"
             android:textSize="16sp"
+            android:padding="10dp"
             android:onClick="onClick"
             android:clickable="true"/>
     </LinearLayout>
@@ -62,6 +63,7 @@
             android:id="@+id/fullnameBox"
             android:background="@drawable/custom_edittext"
             android:textSize="16sp"
+            android:padding="10dp"
             android:onClick="onClick"
             android:clickable="true"/>
     </LinearLayout>
@@ -86,6 +88,7 @@
             android:id="@+id/birthdayBox"
             android:background="@drawable/custom_edittext"
             android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:padding="10dp"
             android:textSize="16sp"
             android:onClick="onClick"
@@ -107,16 +110,26 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_gravity="center_vertical"/>
-        <Spinner
+        <TextView
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="5"
-            android:spinnerMode="dropdown"
-            android:dropDownWidth="match_parent"
-            android:id="@+id/gender_option"
+            android:id="@+id/genderBox"
             android:background="@drawable/custom_edittext"
-            >
-            <requestFocus />
-        </Spinner>
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:onClick="onClick"
+            android:clickable="true"/>
+<!--        <Spinner-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_weight="5"-->
+<!--            android:spinnerMode="dropdown"-->
+<!--            android:dropDownWidth="match_parent"-->
+<!--            android:id="@+id/gender_option"-->
+<!--            android:background="@drawable/custom_edittext"-->
+<!--            >-->
+<!--            <requestFocus />-->
+<!--        </Spinner>-->
     </LinearLayout>
 </LinearLayout>
