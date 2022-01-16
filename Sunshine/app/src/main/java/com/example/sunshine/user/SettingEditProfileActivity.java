@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +27,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sunshine.R;
 import com.example.sunshine.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,15 +43,17 @@ import java.util.Date;
 
 public class SettingEditProfileActivity extends AppCompatActivity {
 
-    //private static final String[] gender = new String[] {"Male", "Female"};
-    //ArrayAdapter<String> adapter;
+    private static final String[] gender = new String[] {"Male", "Female"};
+    ArrayAdapter<String> adapter;
     FirebaseFirestore database;
     FirebaseAuth auth;
     ImageView imgAvt;
-    TextView usernameTv,fullNameTv,birthdayTv,genderTv;
-   // Spinner gender_options;
+    //TextView usernameTv,fullNameTv,birthdayTv,genderTv;
+    EditText usernameET,fullNameET,birthdayET;
+   Spinner gender_options;
     Context context;
     String _username, _fullName, _birthday;
+    MaterialButton confirmBtn;
 
     private boolean _gender;
 
@@ -61,17 +67,17 @@ public class SettingEditProfileActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         imgAvt = (ImageView) findViewById(R.id.imgAvatar);
-        usernameTv = (TextView)  findViewById(R.id.usernameBox);
+      //  usernameTv = (TextView)  findViewById(R.id.usernameBox);
+        usernameET = (EditText) findViewById(R.id.usernameBox);
+        fullNameET = (EditText) findViewById(R.id.fullnameBox);
+      //  genderET = (TextView)findViewById(R.id.genderBox);
+        confirmBtn =(MaterialButton) findViewById(R.id.confirmEditProfile);
 
-
-        fullNameTv = (TextView) findViewById(R.id.fullnameBox);
-        genderTv = (TextView)findViewById(R.id.genderBox);
-
-        //gender_options = (Spinner) findViewById(R.id.gender_option);
-     // adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gender);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender_options = (Spinner) findViewById(R.id.gender_option);
+     adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gender);
+//      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        gender_options.setAdapter(adapter);
-        birthdayTv = (TextView) findViewById(R.id.birthdayBox);
+        birthdayET = (EditText) findViewById(R.id.birthdayBox);
 
         database = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -104,16 +110,19 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                         _fullName = (String) document.getString("fullname");
                         _birthday = (String) document.getString("birthday");
                         _gender =  (Boolean) document.getBoolean("gender");
-                        usernameTv.setText(_username);
-                        fullNameTv.setText(_fullName);
-                        birthdayTv.setText(_birthday);
+//                        usernameTv.setText(_username);
+                        usernameET.setText(_username);
+                        fullNameET.setText(_fullName);
+                        birthdayET.setText(_birthday);
                         if (_gender)
                         {
-                            genderTv.setText("Male");
+                            gender_options.setAdapter(adapter);
+                            gender_options.setSelection(0);
                         }
                         else
                         {
-                            genderTv.setText("Female");
+                            gender_options.setAdapter(adapter);
+                            gender_options.setSelection(1);
                         }
 
 
@@ -125,6 +134,49 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+      confirmBtn.setOnClickListener(new View.OnClickListener() {
+
+          @Override
+
+          public void onClick(View v) {
+              _username = usernameET.getText().toString();
+              _fullName = fullNameET.getText().toString();
+
+              DocumentReference docRef = database.collection("User").document(userId);
+              docRef
+                      .update("username", _username)
+                      .addOnSuccessListener(new OnSuccessListener<Void>() {
+                          @Override
+                          public void onSuccess(Void aVoid) {
+                              Log.d(TAG, "Permission successfully!");
+                          }
+                      })
+                      .addOnFailureListener(new OnFailureListener() {
+                          @Override
+                          public void onFailure(@NonNull Exception e) {
+                              Log.w(TAG, "Error updating document", e);
+                          }
+                      });
+
+              docRef
+                      .update("fullname", _fullName)
+                      .addOnSuccessListener(new OnSuccessListener<Void>() {
+                          @Override
+                          public void onSuccess(Void aVoid) {
+                              Log.d(TAG, "Permission successfully!");
+                          }
+                      })
+                      .addOnFailureListener(new OnFailureListener() {
+                          @Override
+                          public void onFailure(@NonNull Exception e) {
+                              Log.w(TAG, "Error updating document", e);
+                          }
+                      });
+          }
+      });
+
+
 
 
 
