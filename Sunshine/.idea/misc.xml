@@ -139,12 +139,14 @@
         <entry key="app/src/main/res/layout/admin_settings_notifications.xml" value="0.24010416666666667" />
         <entry key="app/src/main/res/layout/forgot_password_step_one.xml" value="0.15307971014492755" />
         <entry key="app/src/main/res/layout/forgot_password_step_two.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15896739130434784" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/home_book_item.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/notification_item.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/post_item.xml" value="0.3446557971014493" />
         <entry key="app/src/main/res/layout/sign_up_step_one.xml" value="0.1752786220871327" />
         <entry key="app/src/main/res/layout/sign_up_step_two.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/user_activity_create_book.xml" value="0.23541666666666666" />
         <entry key="app/src/main/res/layout/user_comment.xml" value="0.1752786220871327" />
         <entry key="app/src/main/res/layout/user_comment_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout/user_create_post_review.xml" value="0.1" />

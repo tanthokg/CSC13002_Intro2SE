@@ -316,18 +316,21 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnCreatePost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:src="@drawable/ic_baseline_add_24"
                 android:visibility="visible"
                 app:backgroundTint="?attr/colorOnPrimary"
-                app:fabSize="auto">
-            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                app:fabSize="auto"></com.google.android.material.floatingactionbutton.FloatingActionButton>
         </RelativeLayout>
     </FrameLayout>
 </LinearLayout>
