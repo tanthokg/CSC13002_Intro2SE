@@ -73,12 +73,10 @@ public class SettingEditProfileActivity extends AppCompatActivity {
     EditText usernameET, fullNameET, birthdayET;
     //TextView birthdayTv;
     Spinner gender_options;
-    Context context;
     Uri imgAvtUri;
     String _username, _fullName, _birthday, _imgAvt;
     MaterialButton confirmBtn, cancelBtn;
     StorageReference storageReference;
-    User user;
 
 
     private boolean _gender;
@@ -120,8 +118,8 @@ public class SettingEditProfileActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();
         storageReference = FirebaseStorage.getInstance().getReference();
+        // Get and show current info of user
         DocumentReference docRef = database.collection("User").document(userId);
-
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -137,14 +135,12 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                         usernameET.setText(_username);
                         fullNameET.setText(_fullName);
                         birthdayET.setText(_birthday);
-                        if (_imgAvt!=null)
+                        if (_imgAvt != null)
                         {
                             Uri myUri = Uri.parse(_imgAvt);
                             imgAvtView.setImageURI(myUri);
-                            imgAvtUri =myUri;
+                            imgAvtUri = myUri;
                         }
-
-
 
                         if (_gender) {
                             gender_options.setAdapter(adapter);
@@ -164,6 +160,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+        //Pick a date of birth
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -173,6 +170,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                 updateLabel();
             }
         };
+        //show birthday
         birthdayET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +178,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
             }
         });
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Handle confirm button
         confirmBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -195,6 +194,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                     _gender = false;
                 }
 
+                //Update image of user
                 if (imgAvtUri != null) {
                     StorageReference imgAvtRef = storageReference.child("user_avatar").child(_username + ".jpg");
                     imgAvtRef.putFile(imgAvtUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -212,51 +212,54 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                 }
 
                 DocumentReference authRef = database.collection("Authentication").document(userId);
-                authRef
-                        .update("username", _username)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Change username successfully!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error updating document", e);
-                            }
-                        });
-
-
-
+                DocumentReference docRef = database.collection("User").document(userId);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-              //  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 user.updateEmail(_username+"@gmail.com").addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(SettingEditProfileActivity.this, "Email Changed" + " Current Email is " + _username + "gmail.com", Toast.LENGTH_LONG).show();
+                            //Update username of collection Authentication
+                            authRef
+                                    .update("username", _username)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "Change username successfully!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error updating document", e);
+                                        }
+                                    });
+                            // Update username of collection User
+                            docRef
+                                    .update("username", _username)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "Change username successfully!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error updating document", e);
+                                        }
+                                    });
+
+
+                        }
+                        else
+                        {
+                            usernameET.setError("Username already exists ");
+                            return;
                         }
                     }
                 });
 
-                DocumentReference docRef = database.collection("User").document(userId);
-                docRef
-                        .update("username", _username)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Change username successfully!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error updating document", e);
-                            }
-                        });
-
-
+                //Update fullname
                 docRef
                         .update("fullname", _fullName)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -271,6 +274,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                                 Log.w(TAG, "Error updating document", e);
                             }
                         });
+                //Update birthday
                 docRef
                         .update("birthday", _birthday)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -285,6 +289,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                                 Log.w(TAG, "Error updating document", e);
                             }
                         });
+                //Update gender
                 docRef
                         .update("gender", _gender)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
