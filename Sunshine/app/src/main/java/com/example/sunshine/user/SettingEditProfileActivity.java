@@ -41,8 +41,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.api.Authentication;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -66,7 +70,6 @@ public class SettingEditProfileActivity extends AppCompatActivity {
     FirebaseFirestore database;
     FirebaseAuth auth;
     ImageView imgAvtView;
-    //TextView usernameTv,fullNameTv,birthdayTv,genderTv;
     EditText usernameET, fullNameET, birthdayET;
     //TextView birthdayTv;
     Spinner gender_options;
@@ -208,13 +211,13 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                     Toast.makeText(SettingEditProfileActivity.this, "Please select picture", Toast.LENGTH_SHORT).show();
                 }
 
-                DocumentReference docRef = database.collection("User").document(userId);
-                docRef
+                DocumentReference authRef = database.collection("Authentication").document(userId);
+                authRef
                         .update("username", _username)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Permission successfully!");
+                                Log.d(TAG, "Change username successfully!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -224,12 +227,42 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                             }
                         });
 
+
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+              //  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.updateEmail(_username+"@gmail.com").addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SettingEditProfileActivity.this, "Email Changed" + " Current Email is " + _username + "gmail.com", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                DocumentReference docRef = database.collection("User").document(userId);
+                docRef
+                        .update("username", _username)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Change username successfully!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating document", e);
+                            }
+                        });
+
+
                 docRef
                         .update("fullname", _fullName)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Permission successfully!");
+                                Log.d(TAG, "Change fullname successfully!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -243,7 +276,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Permission successfully!");
+                                Log.d(TAG, "Change birthday successfully!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -257,7 +290,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Permission successfully!");
+                                Log.d(TAG, "Change gender successfully!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
