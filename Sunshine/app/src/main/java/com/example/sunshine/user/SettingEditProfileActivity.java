@@ -58,6 +58,7 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -187,7 +188,13 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                 _username = usernameET.getText().toString();
                 _fullName = fullNameET.getText().toString();
                 _birthday = birthdayET.getText().toString();
+
                 String selectedGender = gender_options.getSelectedItem().toString();
+
+                if (!validateBirthday())
+                {
+                    return;
+                }
                 if (selectedGender.equals("Male")) {
                     _gender = true;
                 } else if (selectedGender.equals("Female")) {
@@ -207,8 +214,6 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                } else {
-                    Toast.makeText(SettingEditProfileActivity.this, "Please select picture", Toast.LENGTH_SHORT).show();
                 }
 
                 DocumentReference authRef = database.collection("Authentication").document(userId);
@@ -248,8 +253,6 @@ public class SettingEditProfileActivity extends AppCompatActivity {
                                             Log.w(TAG, "Error updating document", e);
                                         }
                                     });
-
-
                         }
                         else
                         {
@@ -321,6 +324,30 @@ public class SettingEditProfileActivity extends AppCompatActivity {
     }
 
 
+    private boolean validateBirthday()
+    {
+        String input = birthdayET.getText().toString().trim();
+        if (input.isEmpty())
+        {
+            birthdayET.setError("This field must not be empty");
+            return false;
+        }
+        int val = Calendar.getInstance().getTime().compareTo(myCalendar.getTime());
+        if (val < 0) {
+            birthdayET.setError("This time is invalid");
+            Toast.makeText(SettingEditProfileActivity.this, "This time is invalid", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else
+        {
+            birthdayET.setError(null);
+            return true;
+        }
+
+    }
+
+
     private void setCancelBtn() {
         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this, R.style.AlertDialog);
         confirmDialog.setMessage("Are you sure to cancel edit profile?");
@@ -344,7 +371,7 @@ public class SettingEditProfileActivity extends AppCompatActivity {
     private void updateLabel() {
         String myFormat = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
-        birthdayET.setText(dateFormat.format(myCalendar.getTime()));
+            birthdayET.setText(dateFormat.format(myCalendar.getTime()));
     }
 
     @Override
