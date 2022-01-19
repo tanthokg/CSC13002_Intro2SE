@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/highlightTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Highlights"
+            android:textStyle="bold"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/highlightCountTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/highlightTextView"
+            android:text="5 posts"
+            android:layout_marginLeft="15dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/searchTxtView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/highlightCountTextView"
+            android:text="Search"
+            android:textStyle="bold"
+            android:textSize="20sp">
+        </TextView>
+
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:drawablePadding="8dp"
+            android:elevation="3dp"
+            android:ems="10"
+            android:layout_below="@id/searchTxtView"
+            android:textStyle="italic"
+            android:autofillHints="BookName"
+            android:focusable="false"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchBar"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </RelativeLayout>
+</ScrollView>

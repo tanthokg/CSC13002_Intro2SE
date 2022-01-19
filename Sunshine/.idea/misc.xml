@@ -11,6 +11,8 @@
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_notifications.xml" value="0.27025641025641023" />
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_fragment_settings.xml" value="0.27025641025641023" />
         <entry key="..\:/Coding/AndroidPractice/Test/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_main.xml" value="0.27025641025641023" />
+        <entry key="..\:/Coding/AndroidPractice/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/category_item.xml" value="0.2" />
+        <entry key="..\:/Coding/AndroidPractice/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/layout/user_category_list_post.xml" value="0.16312056737588654" />
         <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.28615384615384615" />
         <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.28615384615384615" />
         <entry key="..\:/Coding/HCMUS OOP/group_16_nmcnpm_19_3/Sunshine/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.28615384615384615" />
@@ -156,7 +158,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
