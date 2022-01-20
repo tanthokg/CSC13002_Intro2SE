@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp">
+
+        <ImageView
+            android:id="@+id/bookAva"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/bookimg1">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/bookName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize = "16sp"
+            android:text = "Harry Potter"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/bookAva">
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/status_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bookName"
+            android:layout_toEndOf="@id/bookAva"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+
+            <!--Button
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:text="900"
+                android:backgroundTint="@color/btn_background"
+                app:strokeColor="@color/black"
+                android:textColor="@color/black"
+                app:iconTint="@color/black"
+                app:icon="@drawable/ic_baseline_remove_red_eye_24"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_marginRight="5dp"
+                >
+            </Button> -->
+
+            <Button
+                android:id="@+id/btnUpvoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:text="190"
+                android:backgroundTint="@color/btn_background"
+                app:strokeColor="@color/black"
+                android:textColor="@color/black"
+                app:iconTint="@color/black"
+                app:icon="@drawable/ic_baseline_thumb_up_24"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_marginRight="5dp">
+            </Button>
+
+            <Button
+                android:id="@+id/btnDownvoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:text="30"
+                android:backgroundTint="@color/btn_background"
+                app:strokeColor="@color/black"
+                android:textColor="@color/black"
+                app:iconTint="@color/black"
+                app:icon="@drawable/ic_baseline_thumb_down_24"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon">
+            </Button>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bookContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status_group"
+            android:layout_toEndOf="@id/bookAva"
+            android:text="This is the best book ever">
+
+        </TextView>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
